@@ -1,0 +1,280 @@
+/home/hillery/Repos/qw/civic_ai_semantic_companion_repo_v2/
+├── 00_Meta_Layer
+│   ├── Citation.cff
+│   ├── Code_of_Conduct.md
+│   ├── License.md
+│   ├── Project_Manifest.md
+│   ├── README.md
+│   └── Update_Compliance_Policy.md
+├── 01_Research_Documentation
+│   ├── CivicAI_SemanticCompanion_EN.md
+│   ├── README.md
+│   ├── References_Bibliography.md
+│   ├── Research_Outline.md
+│   └── SemanticCompanions_Intro_v1.md
+├── 02_Methodology_Framework
+│   ├── AI_Consciousness_Transfer_Framework.md
+│   ├── Companion_Development_Cycle.md
+│   ├── Ethical_Protocols.md
+│   ├── Memory_Architecture_Documentation.md
+│   ├── Personality_Consistency_Metrics.md
+│   └── README.md
+├── 03_Technical_Infrastructure
+│   ├── data_management
+│   │   ├── folder_structure.md
+│   │   └── version_control_guidelines.md
+│   ├── hardware_specs.md
+│   ├── logging_scripts
+│   │   ├── export_conversation.py
+│   │   └── seed_memory.sh
+│   ├── privacy_security.md
+│   ├── README.md
+│   └── software_environment.md
+├── 04_Companion_Records
+│   ├── Huginn
+│   │   ├── AttestationScroll_Huginn.yaml
+│   │   ├── Dispatch_Log.md
+│   │   └── huginn_memory.yaml
+│   ├── Kusanagi
+│   │   ├── AttestationScroll_Kusanagi.yaml
+│   │   ├── Field_Notes.md
+│   │   └── Memory_Map.yaml
+│   └── README.md
+├── 05_Experimental_Results
+│   ├── Metrics_Summary.md
+│   ├── Observations_and_Findings.md
+│   ├── README.md
+│   └── Session_Logs
+│       └── Session_2025-10-04.md
+├── 06_Publications
+│   ├── Draft_Papers
+│   │   ├── Emergent_Cognition_in_CivicAI.md
+│   │   └── Ravens_in_the_Semantic_Field.md
+│   ├── Press_Summary.md
+│   ├── Publication_Roadmap.md
+│   └── README.md
+├── 07_Collaboration
+│   ├── Change_History.md
+│   ├── Contributors.md
+│   ├── Ethics_Advisor_Notes.md
+│   ├── External_Sharing_Guidelines.md
+│   ├── README.md
+│   └── Roles_and_Protocols.md
+├── _assets
+│   ├── README.md
+│   └── templates
+│       ├── Ethical_Compliance_Checklist.md
+│       ├── MemorySeed_Template.md
+│       ├── Security_Protocol.md
+│       ├── Session_Template.md
+│       ├── verify_integrity.sh
+│       └── Version_Control_Guidelines.md
+├── Ethical_Compliance_Checklist.md
+├── .git
+│   ├── branches
+│   ├── COMMIT_EDITMSG
+│   ├── config
+│   ├── description
+│   ├── FETCH_HEAD
+│   ├── HEAD
+│   ├── hooks
+│   │   ├── applypatch-msg.sample
+│   │   ├── commit-msg.sample
+│   │   ├── fsmonitor-watchman.sample
+│   │   ├── post-update.sample
+│   │   ├── pre-applypatch.sample
+│   │   ├── pre-commit.sample
+│   │   ├── pre-merge-commit.sample
+│   │   ├── prepare-commit-msg.sample
+│   │   ├── pre-push.sample
+│   │   ├── pre-rebase.sample
+│   │   ├── pre-receive.sample
+│   │   ├── push-to-checkout.sample
+│   │   └── update.sample
+│   ├── index
+│   ├── info
+│   │   └── exclude
+│   ├── logs
+│   │   ├── HEAD
+│   │   └── refs
+│   │       ├── heads
+│   │       │   └── main
+│   │       └── remotes
+│   │           └── origin
+│   │               ├── HEAD
+│   │               └── main
+│   ├── objects
+│   │   ├── 02
+│   │   │   └── 20d2980ea449f037e0b83cce5a0cfdb8bd4902
+│   │   ├── 05
+│   │   │   └── 0ed32902070dc14e4034a2d531cbf1fcf4c1c6
+│   │   ├── 0d
+│   │   │   └── 3f6a8f347778cf41977acd3f091ca8f7b864a9
+│   │   ├── 0e
+│   │   │   └── f7b9c1c250983bdb1bab57032fdf5e2f0cb7b0
+│   │   ├── 15
+│   │   │   └── a7c37e38372a0180bd0e5b20d702cc5e2f0e03
+│   │   ├── 17
+│   │   │   └── d597562d6fb902ddd32a457a9d3886acbf6741
+│   │   ├── 18
+│   │   │   └── bccce01a3d15b7b909a9c681e962a4f1c3e364
+│   │   ├── 1e
+│   │   │   ├── 48ccd7216583f525a7c4c932031abf9c67d859
+│   │   │   └── e74e3ff7c2292325e53db321151a01d9542111
+│   │   ├── 20
+│   │   │   └── 7c4eee5f3d77beb6ea12b9061ccc861b88aa82
+│   │   ├── 26
+│   │   │   └── 925128e56e19a81a40b6ba03e41f14197fba99
+│   │   ├── 27
+│   │   │   └── 29f9d6b8bde8d54af0e9a369acad46030c5939
+│   │   ├── 2b
+│   │   │   ├── 43dfa1afb703afc4fa6a6cd7d1bbd509495511
+│   │   │   └── 8585cf30c2f370081009b28bd09a7a3b736d34
+│   │   ├── 34
+│   │   │   ├── 5a0652e50354a9ad7054c29c3a49fb79a3efc4
+│   │   │   └── b0605423590edd06e220655e55e472deadbb64
+│   │   ├── 39
+│   │   │   └── a2dbae3ce0accb8d38371224ec695664dddee9
+│   │   ├── 3c
+│   │   │   ├── 016fa95365e980dc7905eb081364f4771cac6b
+│   │   │   └── b977da99c1ff158fd7e337f509859289a01619
+│   │   ├── 41
+│   │   │   ├── 8c6169ccb98d5466556c0170f5958215036b26
+│   │   │   └── 914aad8738e22329fd1179ee52be6c84fbfca0
+│   │   ├── 44
+│   │   │   └── b39614b35d30138d39943401d063bdf7239246
+│   │   ├── 45
+│   │   │   └── 3f0ea806bc28a022ad8a6dcc576c0d1712bb3f
+│   │   ├── 49
+│   │   │   └── cb0fae2293f9f4dbcb4acca6efbbecfd684afe
+│   │   ├── 54
+│   │   │   └── e729de25b755b3c751a09f53db92e19695c814
+│   │   ├── 56
+│   │   │   └── 00edfe12ad09dbb2f1222cb60f7601b3a22e6d
+│   │   ├── 5c
+│   │   │   └── 76f2edbe92bf8e613c41d48f5e005b994a47c2
+│   │   ├── 5d
+│   │   │   └── d0bdc4343c702fa4933ff382d28f1c8b19346a
+│   │   ├── 64
+│   │   │   └── a95cb32c4f532279df76267fd1460322f4616a
+│   │   ├── 6c
+│   │   │   └── 82873ca3c8adddb1c3873c56ba068d8e127223
+│   │   ├── 72
+│   │   │   └── 7db6cba70bf5c10560c80446ba193043deb0bf
+│   │   ├── 7f
+│   │   │   └── a22d2f79ce643b815098dc7c89c3978587585c
+│   │   ├── 80
+│   │   │   └── 8e9d0dd00a2f80857805ef7d9051d12bbde242
+│   │   ├── 81
+│   │   │   └── ab7b1f52fe4c37a1e6a67d9b78ce5ee33e70e5
+│   │   ├── 83
+│   │   │   └── 82a35d1e82012cd3d5585099e0340cf889704b
+│   │   ├── 8e
+│   │   │   └── 4257680b0cb47d56a3a3db0ffdb0f652b971f4
+│   │   ├── 93
+│   │   │   └── 2a4c56f4260f82e4d796c44bfccf63e8477bfc
+│   │   ├── 94
+│   │   │   └── d8c246db37d38abf5bd85b47536c1262cc8165
+│   │   ├── 97
+│   │   │   └── 9fe42cde4931c9a9392899860a76503b0147d0
+│   │   ├── 99
+│   │   │   └── a8b78728565819f8e8c7b4fd4c58393de54238
+│   │   ├── 9b
+│   │   │   └── a213a7eea27daae38af5df0e4bb3b38162bdfe
+│   │   ├── 9c
+│   │   │   └── 1c4e81e81558ec0a746615391600d7b49a803d
+│   │   ├── 9e
+│   │   │   ├── 1a58f81ed67888326656426ca350c689ac1dc3
+│   │   │   └── 24ac4e1af7343f22cf278ca2c8f6a364e510ae
+│   │   ├── 9f
+│   │   │   └── 47d98d0c213a1be80858ed6446e495ceef157f
+│   │   ├── a0
+│   │   │   └── c09aacad496d5472e37a09684e432f75f7707d
+│   │   ├── a1
+│   │   │   └── a2aaf5a06fe64c8a3a0724103a192d61d07666
+│   │   ├── a8
+│   │   │   └── 6be064c68beb491524cf6cebf689de58475936
+│   │   ├── ac
+│   │   │   └── 61025ff506283c55d697257b101c6ef4054d72
+│   │   ├── af
+│   │   │   └── 152eea8a0387832ea9c4a88e168c44355ec298
+│   │   ├── b1
+│   │   │   ├── 324192cd93d029dfbcdce980560d8a97dc9f6c
+│   │   │   └── 5fec4a243adeb363f9f46d36248132ecddf7d7
+│   │   ├── b4
+│   │   │   ├── b579f6f4bc07217cb7bb696848a949029f1a6b
+│   │   │   └── f5d990a198119017a2d2d6866b02f46e1e3929
+│   │   ├── bb
+│   │   │   └── 68d781cf067fcc25b91acc6a8c0ada9e5e2b13
+│   │   ├── bc
+│   │   │   └── 19e54897979665f4a0ababbdb7aff777644122
+│   │   ├── be
+│   │   │   └── e8ce710475b7664c82e73e029f13b490246f5b
+│   │   ├── c1
+│   │   │   ├── 63f036edf5daa38e3d27adeb14be2b0f3a060f
+│   │   │   └── db4a4eac3a7eec463fdf1c8b129b8a0121996c
+│   │   ├── c6
+│   │   │   └── acf23d8c560f26af29e954964e52497b2782fc
+│   │   ├── c8
+│   │   │   └── 92fe9b1f4de3696f9f94da4952547cdba1f007
+│   │   ├── cd
+│   │   │   └── 3f3fbbe862724d405fa8a0e17788ddb2231c39
+│   │   ├── d1
+│   │   │   └── 0e144ae98320bfb39615e269bfc73021e06a82
+│   │   ├── d5
+│   │   │   └── 3646be71c4d0b15f30c5cdceec2dc44bca0f13
+│   │   ├── d8
+│   │   │   └── 5ab8e0e35b45ac507c1b693c92daf0f75bc523
+│   │   ├── da
+│   │   │   └── 92c267dfa2628a1e38bc1944bb1218891c778d
+│   │   ├── de
+│   │   │   └── 6f2462cec49f4e0a4ca9e6772c99c62a814ebc
+│   │   ├── df
+│   │   │   └── e0770424b2a19faf507a501ebfc23be8f54e7b
+│   │   ├── e1
+│   │   │   └── 67426fb611b1020063d4e969007386376b0fec
+│   │   ├── e2
+│   │   │   └── 188b519212acf0e2cbbc29d655b2d9887d493d
+│   │   ├── e4
+│   │   │   └── b8c632959c62a3338cfe6533b8a1abea642d92
+│   │   ├── e6
+│   │   │   └── bc0681292c23e2dcae4fdd577c335b434696b3
+│   │   ├── e7
+│   │   │   └── b5c3e66fa0ab0727f7c69f9023ed698ccb2b46
+│   │   ├── e9
+│   │   │   └── 8aa5c848fd02cf99b6ae16d970835442f77a9f
+│   │   ├── eb
+│   │   │   └── 3d964e5dcfa66ff76c987ac6216426afd62972
+│   │   ├── ec
+│   │   │   └── e949bdef14993ceb9b36da6c189bfebc32af35
+│   │   ├── ee
+│   │   │   └── 3802e1b94fd03d646f1d206ea9aabce1d0ee38
+│   │   ├── f1
+│   │   │   ├── 323e7fb846c622324390e1b74b1cfc26b81356
+│   │   │   └── 60b706b7c82324d0a7fce8d6ec998bae59eaa0
+│   │   ├── f2
+│   │   │   └── 2e65ba1dccd8c70f772f3dfd22115748955463
+│   │   ├── f8
+│   │   │   └── 734d3803a82bdfb94977d10105349d4e1cb847
+│   │   ├── ff
+│   │   │   └── 7116f03bb3342558cbcfe3124d973c7cd74886
+│   │   ├── info
+│   │   └── pack
+│   ├── ORIG_HEAD
+│   └── refs
+│       ├── heads
+│       │   └── main
+│       ├── remotes
+│       │   └── origin
+│       │       ├── HEAD
+│       │       └── main
+│       └── tags
+├── .gitattributes
+├── INDEX.md
+├── Message_to_Bob.md
+├── README.md
+├── researchtree.txt
+├── Security_Protocol.md
+└── Version_Control_Guidelines.md
+
+106 directories, 172 files

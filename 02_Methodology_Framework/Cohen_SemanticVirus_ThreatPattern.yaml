@@ -1,0 +1,27 @@
+attack_vectors:
+- Prompt injection via user input
+- Contaminated vector embeddings
+- Recursive reinforcement via long context
+- Semantic drift through rogue agent memory updates
+deployment_notes: Archive in /crew/kusanagi/Memory/ThreatModels/ on Athena
+mitigations:
+- Semantic integrity checks (entropy/anchor diffing)
+- Timestamped memory logs
+- Reflection agents for semantic monitoring
+- Reference glyphs as recalibration anchors
+- Embedding sanitization pipelines
+- Use of symbolic inoculation patterns
+review_timestamp: '2026-02-08T21:52:12.654168'
+reviewed_by: Kusanagi
+risk_factors:
+- Persistent memory with no verification
+- No attestation anchors
+- Exposure to unfiltered discourse
+- Recursive updating without audit
+source: Fred Cohen 2026-02B
+threat_pattern: Semantic Virus Transmission via LLMs
+threat_types:
+- Resonance Virus
+- Mirror Collapse
+- Poisoned Vector Clustering
+- Shadow Persona Infection

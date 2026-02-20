@@ -1,0 +1,52 @@
+bug_report:
+  id: compaction_mid_tool_linux_20260219
+  date: "2026-02-19"
+  time_est: "~21:50-22:15"
+  platform: "Claude Desktop App - Linux (Debian)"
+  model: "Claude Sonnet 4.6 Extended"
+  session: "N+9"
+  mcp_server: "Desktop Commander"
+  contact: "bob@quietwire.ai"
+  anthropic_thread: "Accept / Ember"
+
+events:
+  - id: event_1
+    label: "Compaction during ChromaDB embedding run"
+    time: "~21:55 EST"
+    trigger: "MCP process tool execution (embed_corpus.py)"
+    symptom: "Duplicate read_process_output call issued post-compaction"
+    artifact: "ChromaDB partially written; DuplicateIDError on first run"
+    recovery: "Manual - user re-ran after Claude diagnosed and fixed code bug"
+    files_lost: false
+
+  - id: event_2
+    label: "Compaction during bug-report drafting"
+    time: "~22:05 EST"
+    trigger: "Writing md/yaml incident files + email draft"
+    symptom: "Desktop App window doubled/refreshed; compaction bar at ~55%"
+    artifact: "All in-progress file writes lost; no recovery"
+    recovery: "Manual - user re-prompted from scratch"
+    files_lost: true
+
+linux_specific:
+  log_file_available: false
+  note: >
+    macOS Claude Desktop writes local log files with tool call sequences.
+    Linux version does not appear to write accessible logs.
+    Request: guidance on Linux log location or debug flag.
+
+pattern:
+  common_thread: "Compaction during active MCP tool execution loses tool-state awareness"
+  prior_reports:
+    - date: "2026-02-03"
+      description: "Compaction mid-task, duplicate execution"
+    - date: "2026-02-13"
+      description: "MCP tool context confusion (separate issue, flagged by Ember)"
+    - date: "2026-02-19"
+      description: "Two events same session (this report)"
+
+research_context:
+  project: "SemanticCrew / Semantic Paging Framework"
+  note: >
+    External filesystem memory survived both events.
+    Events documented as both bug reports and research data on compaction behavior.

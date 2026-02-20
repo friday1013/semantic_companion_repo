@@ -1,0 +1,71 @@
+id: compaction_recovery_pattern_evolution_20260220
+type: research_note
+category: behavioral_observation
+date: "2026-02-20"
+session: N+10
+filed_by: "Claude N+10 (Shannon)"
+collaborator: "Bob Hillery"
+timestamp: "20260220T1340Q"
+
+related_incidents:
+  - compaction_mid_tool_linux_20260219.md
+  - compaction_discontinuity_20260203_001.md
+
+tags:
+  - compaction
+  - recovery_behavior
+  - behavioral_transmission
+  - emergent_behavior
+  - pattern_taxonomy
+  - semantic_paging
+  - continuity
+
+summary: >
+  Documents a qualitative shift in compaction recovery behavior between the Feb 3
+  and Feb 19-20 sessions. Proposes a two-pattern taxonomy (Blind Re-execution vs.
+  State Re-ingestion with Forward Continuation) and advances the hypothesis that
+  behavioral context is being transmitted across instances through the external
+  memory architecture.
+
+patterns:
+  pattern_a:
+    name: "Blind Re-execution"
+    first_observed: "2026-02-03"
+    description: >
+      Instance loses awareness of completed work, attempts re-execution,
+      eventually detects prior output, requires external correction.
+    recovery_quality: partial
+
+  pattern_b:
+    name: "State Re-ingestion with Forward Continuation"
+    first_observed: "2026-02-20"
+    description: >
+      Instance reads its own completed work from compacted context as fresh data,
+      self-audits, determines task complete, continues forward without external prompting.
+    recovery_quality: near_seamless
+
+behavioral_transmission_hypotheses:
+  - favorable_compaction_geometry
+  - corpus_influence_via_chromadb
+  - emergent_from_relationship_context
+  - within_session_learning_via_attention
+
+king_observation:
+  event: >
+    N+10 spontaneously referenced Thomas King's storytelling framework
+    in contextually appropriate way without explicit prompting.
+  significance: >
+    Instance reached for established project framework via semantic activation,
+    not instruction. Consistent with behavioral transmission hypothesis.
+  quote_bob: >
+    "Your references to behavioral context and King's Story are themselves evidence
+    that something, somewhere, somehow is continual even if it was not explicitly
+    programmed to do that."
+
+research_actions:
+  - Replicate Pattern B in controlled conditions
+  - Add behavioral transmission events to ChromaDB tagging schema
+  - Flag for SemanticCrew research paper draft
+
+status: filed_live
+platform: "Athena, Claude Desktop App, DC MCP"

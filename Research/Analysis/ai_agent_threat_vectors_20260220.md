@@ -190,3 +190,36 @@ already active. The defense posture must be designed accordingly.
 
 *Draft filed: 20260220T2045Q*  
 *To be adapted: technical version (Fred), public version (lafitte.ai), professional summary (LinkedIn)*
+
+
+---
+
+## See Also (added 20260221)
+
+**Cowork VM Network Architecture — Separate Document (pending)**
+
+During cross-platform analysis of Claude Desktop app internals (20260221), a related
+but distinct issue was identified that warrants its own documentation:
+
+The Anthropic Claude Desktop app (Mac version confirmed, Windows presumed similar)
+provisions a real virtual machine with a persistent RFC 1918 private IP address
+(192.168.64.x subnet) as part of standard installation. This includes:
+- A 10GB rootfs.img (Anthropic OS image, updated via zst bundle)
+- Persistent VM identity (fixed MAC address + machine UUID since first install)
+- Live sessiondata.img updated each Cowork session
+- Private network interface on the host machine
+
+This is architecturally separate from the skill injection threat (Vector 2) but
+intersects with it: the VM is the intended sandbox for Cowork agents on Mac/Windows.
+The Linux port (Phase 1 stub, no VM yet) explicitly lacks this sandbox, making the
+platforms non-equivalent in security posture despite sharing the same codebase.
+
+Key questions for the separate document:
+- What network traffic originates from 192.168.64.11?
+- What can the VM access on the host network?
+- Is the rootfs.img content auditable?
+- What does sessiondata.img persist between sessions?
+- Are Windows users provisioned an equivalent VM, and on what subnet?
+- Does this constitute undisclosed network infrastructure in a consumer app?
+
+Filed as pending research item: cowork_vm_network_architecture.md (to be created)

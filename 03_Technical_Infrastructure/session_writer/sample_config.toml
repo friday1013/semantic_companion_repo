@@ -1,0 +1,62 @@
+# session_writer — sample config
+# Copy to ~/.config/session_writer/config.toml and edit for your system.
+# Or run:  python3 session_writer_setup.py  to generate this interactively.
+#
+# Format: TOML (https://toml.io)
+# Python 3.11+: parsed with stdlib tomllib
+# Python 3.10:  parsed with session_writer's built-in minimal parser
+
+[session_writer]
+
+# project_name: shown in log headers and status output
+project_name = "Your Name / Your Project"
+
+# base_dir: where checkpoints, logs, and inbox file are written
+# This directory will be created if it doesn't exist.
+# Use an absolute path or ~ for home directory.
+base_dir = "~/session_notes"
+
+# watch_dir: filesystem directory to watch for file activity
+# When files change here, a checkpoint is triggered (in addition to the timer).
+# Requires watchdog:  pip3 install watchdog
+# Leave empty to use timer-only mode (still fully functional).
+watch_dir = ""
+
+# corpus_index: path to a corpus_index.json file
+# Used by projects running a ChromaDB/SemanticCrew corpus pipeline.
+# See: https://www.trychroma.com/ for ChromaDB setup.
+# If set, corpus file/collection counts appear in each checkpoint.
+# Leave empty if you don't have one — checkpoints will show "(not configured)".
+corpus_index = ""
+
+# checkpoint_interval: minutes between automatic timer checkpoints
+# 20 minutes is a good default — frequent enough to catch session state,
+# infrequent enough not to be noisy.
+checkpoint_interval = 20
+
+# default_session: the session ID shown in checkpoint headers
+# Overridden by --session flag or SEMANTIC_SESSION environment variable.
+# Use a naming scheme that makes sessions identifiable in filenames.
+# Examples: "Project-N1", "N+16", "QW-2026-03-11"
+default_session = "Session-N1"
+
+
+# ─────────────────────────────────────────────────────────────
+# Machines to monitor (ping-based reachability check)
+# Add one [[hosts]] block per machine. Leave all blocks commented out
+# if you don't want hardware probing.
+# ─────────────────────────────────────────────────────────────
+
+# Example host entries (uncomment and edit):
+
+# [[hosts]]
+# name = "myserver"
+# ip   = "192.168.1.100"
+
+# [[hosts]]
+# name = "remote-lab"
+# ip   = "99.236.24.231"
+
+# [[hosts]]
+# name = "workstation"
+# ip   = "172.16.0.10"

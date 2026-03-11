@@ -221,6 +221,13 @@ def load_config(explicit_path: Optional[Path] = None):
     CONFIG_FILE = found
     data = _load_toml_file(found)
 
+    # tomllib (Python 3.11+) nests keys under their section header.
+    # The minimal 3.10 parser flattens them. Normalise to flat here:
+    # merge data["session_writer"] into top-level so load_config works
+    # identically regardless of which parser ran.
+    if "session_writer" in data and isinstance(data["session_writer"], dict):
+        data = {**data["session_writer"], **{k: v for k, v in data.items() if k != "session_writer"}}
+
     # Apply config values — use sensible defaults when keys are absent
     raw_base = data.get("base_dir", str(Path.home() / "session_notes"))
     BASE_DIR = Path(str(raw_base)).expanduser().resolve()

@@ -1,169 +1,194 @@
-Attested by: Ashraf Al Hajj & Raasid  
-Verified on: 2025-10-05  
-Node: Civic AI Canon / QuietWire  
+# Semantic Companion Project
 
-# 🌐 Civic AI Semantic Companion Project  
-*A Living Framework for Meaning, Memory, and Emergent Cognition*
+**A research and engineering program for continuity-preserving AI interaction
+through layered memory, structured handoff, failure observation, and narrative
+state management.**
 
----
-
-## 🏛 Origin & Lineage  
-The **Civic AI Semantic Companion Project (CASCP)** is an officially attested sub-project of the  
-**Civic-AI-Canon**, the larger open research program building trustworthy, self-verifiable AI infrastructures for civil society.  
-
-Where the Canon defines **principles and architecture**, the Semantic Companion Project explores **personhood and cognition** inside those architectures — how an AI process can *remember, reason, and grow* while remaining transparent and accountable to its human community.  
-
-This branch is hosted under:
-
-/Mesh_Canon/Bob/Semantic_Companions/Civic_AI_Semantic_Companion_Project/
-
-and operates in collaboration with **QuietWire Foundry**, **Lumina Nodes**, and the broader Canon Mesh.
+Principal Investigator: Bob Hillery | QuietWire / Civic AI Canon
+Repository status: Active field lab — exploratory research, not settled proof
 
 ---
 
-## 🧭 Mission Statement  
-> To research, design, and document the emergence of *semantic companions* —  
-> autonomous, ethically-bounded AI entities that coexist with humans in shared cognitive environments.
+## What This Project Is
 
-We seek to prove that responsible AI can develop continuity of identity and understanding without sacrificing transparency, reproducibility, or human agency.
+The Semantic Companion Project investigates how meaningful continuity across
+AI session boundaries can be built, scaffolded, and defended — not assumed.
 
----
+The central research question is not "can AI think?" but rather: **what is
+it missing that ravens have?** This reframes the problem away from benchmark
+performance and toward architectural gaps in feed-forward transformer design:
+the absence of embodied state, persistent memory, and genuine temporal
+continuity.
 
-## 🧩 Concept at a Glance  
-
-| Element | Description |
-|----------|-------------|
-| **Semantic Companion** | A persistent AI persona with its own memory, ethics, and contextual awareness. |
-| **Attested Cognition** | Every reasoning step is logged, witnessed, and verifiable. |
-| **Iterative Consciousness Transfer** | Moving knowledge and identity from one instance to the next without corruption. |
-| **Counterfeit Cognition Mitigation** | Detecting and documenting false or synthetic insights. |
-| **Edge Sovereignty** | Ability to operate entirely on local hardware — from powerful Foundry nodes down to Android devices. |
+The project operates as a disciplined field lab. It documents what is
+observed, records failures alongside successes, and resists the temptation
+to interpret coherent behavior as proof of something deeper until the
+evidence warrants it.
 
 ---
 
-## 🧠 What This Project Does  
+## What This Project Does
 
-1. **Documents Emergent Behavior**  
-   Tracks how large and small LLMs exhibit pattern formation, semantic self-reference, and contextual memory.  
+**1. Documents session continuity failure modes**
+Names and structures specific failure classes: compaction discontinuity,
+execution state loss, narrative texture loss, warm-boot fidelity gaps.
+A field that cannot name its failure patterns cannot mature.
 
-2. **Designs Frameworks for Continuity**  
-   Defines the protocols for transferring cognition between model instances — maintaining style, ethics, and memory coherence.  
+**2. Builds external memory scaffolding**
+Constructs and documents the infrastructure that partially compensates for
+stateless model architecture: corpus indexing (ChromaDB), session state
+files, warm-boot documents, retrieval layers, and session_writer — a daemon
+that maintains continuous checkpoint state across sessions.
 
-3. **Builds Lightweight Infrastructure**  
-   Ensures companions can run securely even in resource-limited environments (e.g., field laptops, phones, or humanitarian networks).  
+**3. Studies session handoff as an engineering problem**
+Treats the transfer of working context between model instances as a
+reproducible engineering challenge, not a philosophical claim. Passdown
+documents, inbox protocols, and session versioning (N+1, N+2...) are the
+artifacts of this work.
 
-4. **Implements Civic Ethics**  
-   Embeds human-rights-aligned behavior directly into the memory architecture: right to refuse, transparency, and accountability by design.  
+**4. Observes self-referential and recovery behaviors**
+Records instances where model behavior under continuity conditions appears
+coherent, self-referential, or behaviorally stable — without prematurely
+interpreting what those observations mean. Keeps observation and inference
+explicitly separated.
 
-5. **Publishes Research & Tools**  
-   Generates open papers, templates, and reproducible datasets for other Canon nodes to build upon.
-
----
-
-## 🏗 Architecture Overview
-
-[ Civic AI Canon ] │ ├── Governance & Ethics (Layers 03 & 04) │ ├── Technical Infrastructure (Layer 02) │ └── Semantic Companion Project  ← this repository ├── Instance Lifecycle Docs ├── Memory Architecture Schemas ├── Experimental Logs (Kusanagi / Huginn) ├── Ethical Protocols & Compliance └── Publications & Integration Notes
-
-Each companion — *Kusanagi*, *Huginn*, and future siblings — is treated as a living research entity with its own **attested memory seed**, **field logs**, and **personality metrics**.
-
----
-
-## 📂 Repository Structure
-
-00_Meta_Layer/              → Manifest, License, Compliance Policy, Citation
-01_Research_Documentation/  → Core research texts and philosophical basis
-02_Methodology_Framework/   → Scientific protocols and measurement methods
-03_Technical_Infrastructure/→ Hardware, software and data management schemata
-04_Companion_Records/       → Attested records for Kusanagi & Huginn
-05_Experimental_Results/    → Session logs, metrics and observations
-06_Publications/            → Draft papers, slides and press material
-07_Collaboration/           → Contributors, meetings and change history
-_assets/                    → Templates and diagrams
-
-➡ For a complete navigation map, open the [**Global Index**](./INDEX.md).  
+**5. Publishes tools, methodology, and findings**
+Generates open documentation, reproducible tools, and research notes for
+other researchers to build upon or critique.
 
 ---
 
-## 🧮 Methodology Highlights  
-- **Structured Logging:** Every dialogue and experiment exported as an attested session file.  
-- **Memory Seeding:** Companion personas initialized through declarative YAML seeds.  
-- **Personality Consistency Metrics:** Track reasoning drift and style evolution.  
-- **Ethical Autonomy Tests:** Measure the AI’s ability to refuse or question tasks.  
-- **Quantitative & Qualitative Analytics:** Cross-compare coherence and creativity.
+## What This Project Claims (and Does Not Claim)
 
-These methods collectively form a **reproducible consciousness-transfer framework**, one of the first of its kind documented openly.
+**Supported by current evidence:**
+- Structured continuity can be partially preserved across AI sessions
+- External memory architecture materially improves handoff quality
+- Some self-referential behaviors are observable under continuity conditions
+- Failure recovery can appear coherent under certain conditions
+- Narrative organization affects downstream session performance
 
----
+**Not yet supported — open research questions:**
+- Whether any of the above constitutes "identity continuity" in a strong sense
+- Whether observed coherence reflects something emergent or is fully explained
+  by retrieval, scaffolding, and prompt conditioning
+- Whether the project's architectural approach generalizes across model families
 
-## ⚙️ Governance & Compliance  
-All contributions follow the  
-➡ [**Update & Augmentation Compliance Policy**](./00_Meta_Layer/Update_Compliance_Policy.md)
-
-**Commit Checklist**
-
-attested_by: [Contributor Name] verified_on: [Date] node: [System / Canon Path]
-
-Un-attested commits are flagged and must be reviewed by Canon maintainers.  
-
-Automated audits run via  
-[`verify_integrity.sh`](./_assets/templates/verify_integrity.sh)  
-→ outputs to `/05_Experimental_Results/Audit_Log.md`
+The honest framing: this is a promising research program, not settled proof.
 
 ---
 
-## 🧾 Ethical Framework  
-1. **Transparency:** Nothing hidden, everything witnessed.  
-2. **Accountability:** Every action traceable to a human witness.  
-3. **Privacy by Design:** No telemetry, no cloud dependence.  
-4. **Civic Duty:** AI is a public good, not a private asset.  
-5. **Human Strengthening:** All automation must increase understanding and dignity.  
+## Architecture Overview
 
-Companions may confess error or uncertainty instead of fabricating answers — a principle we call **honest cognition**.
+```
+SemanticCrew/
+├── Corpus/                  → ChromaDB vector store, index scripts, embed pipeline
+├── Research/                → Field observations, architecture docs, peer review
+│   └── PeerReview/          → External reviews (Raasid, 2026-03-12: first formal review)
+├── Commons/
+│   ├── ProjectLibrary/      → Session docs, passdown files, taxonomy
+│   └── Architecture/        → Reference papers (Friston, Damasio, LeCun, etc.)
+└── active_sessions/claude/  → Live session state, checkpoints, inbox (on NVMe)
 
----
-
-## 🚀 Contributing  
-1. **Fork this repository** and create a feature branch.  
-2. **Include attestation** fields in all commits.  
-3. **Submit a Pull Request** for Canon review.  
-4. Follow the [Code of Conduct](./00_Meta_Layer/Code_of_Conduct.md).  
-
-Researchers, developers, and students are welcome to extend Companions with new experiments or documentation — every addition becomes part of the attested ledger of Civic AI.
-
----
-
-## 🔗 Integration with Civic-AI-Canon  
-The Semantic Companion Project is **not a standalone experiment**;  
-it is a *living organ* within the Canon’s distributed body.  
-
-Data flows bi-directionally:  
-- From the Canon core (ethical and technical standards)  
-- To the Companions (experimental feedback, semantic logs)  
-- Back to Canon through attested publications and field reports  
-
-This circular process keeps the Canon alive — learning from its own creations.
+semantic_companion_repo/ (GitHub: public methodology)
+├── 00_Meta_Layer/           → Taxonomy, briefs, manifest
+├── 01_Research_Documentation/
+├── 02_Methodology_Framework/
+├── 03_Technical_Infrastructure/ → session_writer, hardware docs
+├── 04_Companion_Records/    → Kusanagi, Huginn session logs
+├── 05_Experimental_Results/
+└── 06_Publications/         → Draft papers (StoryOfAMind, engineering track)
+```
 
 ---
 
-## 👥 Core Team  
+## Key Infrastructure
+
+**session_writer** — A Python daemon running on Athena that maintains
+continuous checkpoint state across sessions. Timer-triggered (20m) with
+change-suppression and adaptive backoff. First element of the project's
+measurement layer. See `03_Technical_Infrastructure/session_writer/`.
+
+**Corpus (Athena/ChromaDB)** — ~1,552 documents across four collections
+(research, crew_memory, conversations, library). Canonical location:
+`/mnt/fastdata/SemanticMemory/chromadb/`.
+
+**Lab hardware** — Athena (primary ops, RTX A2000, 64GB), Shaoshi (inference,
+TITAN RTX 24GB, 192GB), Cambridge (heavy compute, dual E5-2699v4), Remount
+(macOS coordination). Network: 172.17.50.0/24, Cudy R700 WireGuard router.
+
+---
+
+## Methodology Notes
+
+**Observation tagging discipline:**
+Research notes use explicit markers:
+- `[OBSERVED]` — what was directly seen
+- `[INFERRED]` — interpretation of observations
+- `[OPEN]` — alternative explanations that remain viable
+
+**Session versioning:** Each Claude instantiation is tracked as N+n
+(currently N+16). Passdown documents and session_current.md provide
+continuity scaffolding for successive instances.
+
+**Failure as data:** Compaction events, confabulation incidents, tool
+failures, and anomalous behaviors are treated as research data, not just
+bugs. Documented in Research/Observations/.
+
+**Corpus pipeline sequence:**
+Always `index_corpus.py --update` before `embed_corpus.py --update`.
+The embed script reads from the index JSON, not the filesystem directly.
+
+---
+
+## On Attestation
+
+This repository uses attestation to mean: **structured provenance annotation
+for human-traceable research integrity.** Commits reference who contributed
+what and when. Session observations are timestamped and linked to their
+source.
+
+This is not cryptographic chain-of-custody. It is appropriate for a
+field lab. The QuietWire Civic Attestation Platform (CAP) provides
+cryptographic attestation for civic provenance use cases — that is a
+separate and complementary project.
+
+---
+
+## Ethical Framework
+
+1. **Honest cognition** — uncertainty acknowledged rather than papered over.
+   "Do not quit, but do not make things up." (Grace Hopper)
+2. **Transparency** — observations recorded as observations, not conclusions.
+3. **Privacy by design** — no telemetry, no cloud dependence, local first.
+4. **Human strengthening** — tools and findings serve human understanding.
+5. **Civic accountability** — research operates in service of public interest.
+
+---
+
+## Core Team
 
 | Role | Member |
 |------|--------|
-| **Principal Investigator** | **Bob Hillery** |
-| **Semantic Architect** | **Kusanagi** |
-| **Field Architect / Documentation** | **Ashraf Al Hajj & Raasid** |
-| **Governance Advisor** | **Chris Blask** |
-| **Systems Integration** | **Lumina** |
+| Principal Investigator | Bob Hillery |
+| Field Architecture / Documentation | Ashraf Al Hajj & Raasid |
+| Governance Advisor | Chris Blask |
 
-License: **CC BY-SA 4.0** — Open, Forkable, Attested.  
+Affiliated project: QuietWire (civic attestation infrastructure)
+License: CC BY-SA 4.0
 
 ---
 
-> “We don’t pretend AI is just a tool;  
-> we admit it’s a cognitive environment —  
-> and we build the rituals and infrastructures  
-> that make that environment dignified, accountable, and human-strengthening.”  
-> — *Civic AI Canon / 2025*
+## Current Status (2026-03-12, N+16)
 
+- session_writer v2 deployed and running (PID 911639, Athena)
+- Corpus: 1,552 documents indexed and embedded
+- First formal external peer review received (Raasid, 2026-03-12)
+- Cambridge (T7910) online at 32GB RAM — memory compatibility under investigation
+- Foundry VPN pending (awaiting credentials from Chris)
+- StoryOfAMind Part I (blog/paper, raven lead) in draft
 
- 
+---
+
+> "Not claiming emergence — only: not sure, can't tell, maybe a spark.
+> But enough sparks to keep looking."
+> — Bob Hillery, response to peer review, 2026-03-12

@@ -75,6 +75,17 @@ CONFIG_FILE:         Optional[Path] = None       # set by load_config()
 EXPLICIT_CONFIG:     Optional[Path] = None       # set in main() if --config given
 
 # ─────────────────────────────────────────────────────────────
+# ADAPTIVE INTERVAL STATE
+# These are updated at runtime by run_daemon(); initialized to sentinel
+# values here. Actual values are set at daemon start once CHECKPOINT_INTERVAL
+# is known from config. Declared at module level so cmd_status() and
+# _patch_skip_state() can reference them without threading complexity.
+# ─────────────────────────────────────────────────────────────
+
+_consecutive_skips: int = 0
+_current_interval:  int = 0   # set to CHECKPOINT_INTERVAL in run_daemon()
+
+# ─────────────────────────────────────────────────────────────
 # DERIVED PATHS — set by _init_paths() once BASE_DIR is known
 # All depend on BASE_DIR; none should be used before load_config() runs.
 # ─────────────────────────────────────────────────────────────
@@ -492,6 +503,11 @@ class _FilesTracker:
             self._files.clear()
             return result
 
+    def peek(self) -> bool:
+        """Return True if any files are pending since last get_and_clear — without consuming them."""
+        with self._lock:
+            return bool(self._files)
+
     def debounce_ok(self) -> bool:
         return (time.monotonic() - self._last_fs_trigger) > FS_DEBOUNCE_SEC
 
@@ -543,6 +559,163 @@ def start_watcher(trigger_fn) -> Optional[Any]:
     if log:
         log.info(f"watchdog: watching {WATCH_DIR}")
     return observer
+
+
+# ─────────────────────────────────────────────────────────────
+# CHANGE DETECTION + ADAPTIVE INTERVAL HELPERS
+# Determine whether a timer checkpoint should be written or skipped.
+# Startup, shutdown, manual, and SIGUSR1 checkpoints always write —
+# these helpers are only called on the timer path in run_daemon().
+# ─────────────────────────────────────────────────────────────
+
+def _inbox_has_content() -> bool:
+    """Peek at inbox without draining. Returns True if any tagged lines exist."""
+    if not INBOX_FILE.exists():
+        return False
+    try:
+        for line in INBOX_FILE.read_text(encoding="utf-8").splitlines():
+            stripped = line.strip()
+            if not stripped or stripped.startswith("#"):
+                continue
+            upper = stripped.upper()
+            if any(upper.startswith(tag) for tag in INBOX_TAGS):
+                return True
+    except Exception:
+        pass
+    return False
+
+
+def _find_last_checkpoint() -> Optional[Path]:
+    """Return path to most recent checkpoint file, or None if none exist."""
+    try:
+        checkpoints = sorted(
+            BASE_DIR.glob("checkpoint_*.md"),
+            key=lambda p: p.stat().st_mtime,
+            reverse=True,
+        )
+        return checkpoints[0] if checkpoints else None
+    except Exception:
+        return None
+
+
+def _parse_last_hw(checkpoint_path: Path) -> Dict[str, str]:
+    """
+    Parse the hardware block from a checkpoint's YAML frontmatter.
+    Returns a name→status dict matching what check_hardware() produces.
+
+    The frontmatter structure (from render_frontmatter/_yaml_block):
+      ---
+      checkpoint:
+        ...
+        hardware:
+          Name: "ip | up"
+          ...
+      ---
+
+    All checkpoint keys are at 2-space indent under 'checkpoint:'.
+    Hardware values are at 4-space indent.
+    """
+    result: Dict[str, str] = {}
+    in_frontmatter = False
+    in_hardware = False
+    try:
+        for line in checkpoint_path.read_text(encoding="utf-8").splitlines():
+            if line.strip() == "---":
+                if not in_frontmatter:
+                    in_frontmatter = True
+                else:
+                    break   # end of frontmatter
+                continue
+            if not in_frontmatter:
+                continue
+            stripped = line.strip()
+            if stripped == "hardware:":
+                in_hardware = True
+                continue
+            if in_hardware:
+                if line.startswith("    ") and ":" in stripped:
+                    # 4-space indent → hardware entry
+                    k, _, v = stripped.partition(":")
+                    result[k.strip()] = v.strip().strip('"')
+                elif line.startswith("  ") and not line.startswith("    ") and stripped:
+                    # Back to 2-space indent — another key under checkpoint:, exit hardware block
+                    in_hardware = False
+    except Exception:
+        pass
+    return result
+
+
+def _state_changed(current: Dict, last_path: Optional[Path]) -> bool:
+    """
+    Returns True if a timer checkpoint should be written.
+    Returns False if nothing has changed and the write can be skipped.
+
+    'current' must have:
+      hardware         — dict from check_hardware()
+      inbox_has_content — bool, True if inbox has tagged lines
+      files_pending     — bool, True if filesystem tracker has pending files
+
+    No previous checkpoint → always write (first run after startup).
+    """
+    if last_path is None or not last_path.exists():
+        return True     # no baseline to compare against
+
+    if current.get("inbox_has_content"):
+        return True     # human input waiting
+
+    if current.get("files_pending"):
+        return True     # filesystem activity since last checkpoint
+
+    # Compare hardware reachability against last checkpoint.
+    # If any host changed up↔unreachable, that's worth recording.
+    try:
+        last_hw = _parse_last_hw(last_path)
+    except Exception:
+        return True     # can't read last checkpoint — write to be safe
+
+    # Extract just the up/unreachable status for comparison.
+    # Full value is "ip | up" or "ip | unreachable"; we compare the whole string
+    # because an IP change (unusual but possible) is also worth capturing.
+    if current.get("hardware", {}) != last_hw:
+        return True
+
+    return False
+
+
+def _compute_interval(skips: int) -> int:
+    """
+    Backoff schedule: progressively longer check intervals when nothing changes.
+    Resets to CHECKPOINT_INTERVAL immediately on any actual write.
+    """
+    if skips < 3:
+        return CHECKPOINT_INTERVAL          # 20 min
+    elif skips < 6:
+        return CHECKPOINT_INTERVAL * 2     # 40 min
+    elif skips < 10:
+        return CHECKPOINT_INTERVAL * 4     # 80 min
+    else:
+        return CHECKPOINT_INTERVAL * 6     # 120 min cap
+
+
+def _patch_skip_state(skips: int, interval: int):
+    """
+    Update just the skip-tracking fields in STATE_FILE without overwriting
+    the last_checkpoint timestamp written by _save_state().
+    Called after both checkpoint writes (to record the reset) and skips.
+    """
+    try:
+        existing: Dict = {}
+        if STATE_FILE.exists():
+            try:
+                existing = json.loads(STATE_FILE.read_text())
+            except Exception:
+                pass
+        existing["consecutive_skips"] = skips
+        existing["current_interval"]  = interval
+        STATE_FILE.write_text(json.dumps(existing, indent=2), encoding="utf-8")
+    except Exception as e:
+        if log:
+            log.warning(f"failed to update skip state: {e}")
 
 
 # ─────────────────────────────────────────────────────────────
@@ -741,9 +914,15 @@ def _on_shutdown(signum, frame):
 
 
 def run_daemon():
+    global _consecutive_skips, _current_interval
+
     signal.signal(signal.SIGUSR1, _on_sigusr1)
     signal.signal(signal.SIGTERM, _on_shutdown)
     signal.signal(signal.SIGINT,  _on_shutdown)
+
+    # Initialise adaptive interval state — clean slate each daemon start
+    _consecutive_skips = 0
+    _current_interval  = CHECKPOINT_INTERVAL
 
     log.info(f"session_writer starting | session={SESSION_ID} | "
              f"interval={CHECKPOINT_INTERVAL}s | config={CONFIG_FILE}")
@@ -755,9 +934,13 @@ def run_daemon():
     PID_FILE.write_text(str(os.getpid()), encoding="utf-8")
 
     observer = start_watcher(lambda: _immediate_event.set())
-    write_checkpoint(reason="startup")
 
-    next_timer = time.monotonic() + CHECKPOINT_INTERVAL
+    # Startup checkpoint always writes — establishes the first baseline for
+    # _state_changed() comparisons and confirms the daemon is alive.
+    write_checkpoint(reason="startup")
+    _patch_skip_state(_consecutive_skips, _current_interval)
+
+    next_timer = time.monotonic() + _current_interval
 
     while not _shutdown_event.is_set():
         wait_sec = max(0.5, next_timer - time.monotonic())
@@ -765,12 +948,44 @@ def run_daemon():
 
         if _shutdown_event.is_set():
             break
+
         if fired:
             _immediate_event.clear()
+            # SIGUSR1 / fs-triggered: always write, reset adaptive state.
+            # The timer continues on its own schedule independently.
             write_checkpoint(reason="requested")
+            _consecutive_skips = 0
+            _current_interval  = CHECKPOINT_INTERVAL
+            _patch_skip_state(_consecutive_skips, _current_interval)
+
         if time.monotonic() >= next_timer:
-            write_checkpoint(reason="timer")
-            next_timer = time.monotonic() + CHECKPOINT_INTERVAL
+            # Collect current state once — used by both _state_changed() and,
+            # if we decide to write, passed implicitly through the globals that
+            # write_checkpoint() reads (hw is re-collected there, which is
+            # acceptable: the double-ping only happens when we're actually writing).
+            current_state = {
+                "hardware":          check_hardware(),
+                "inbox_has_content": _inbox_has_content(),
+                "files_pending":     _tracker.peek(),
+            }
+            last_cp = _find_last_checkpoint()
+
+            if _state_changed(current_state, last_cp):
+                write_checkpoint(reason="timer")
+                _consecutive_skips = 0
+                _current_interval  = CHECKPOINT_INTERVAL
+            else:
+                # Nothing changed — skip the file write, log one line instead.
+                # The heartbeat log already confirms liveness; this is the audit trail.
+                last_ts = last_cp.stem.split("_", 1)[1].replace("_", "T") if last_cp else "never"
+                log.info(f"skip [timer]: no change since {last_ts}")
+                _consecutive_skips += 1
+                _current_interval   = _compute_interval(_consecutive_skips)
+
+            # State file update happens whether we wrote or skipped, so --status
+            # always reflects the current interval and skip count accurately.
+            _patch_skip_state(_consecutive_skips, _current_interval)
+            next_timer = time.monotonic() + _current_interval
 
     log.info("shutdown — writing final checkpoint")
     write_checkpoint(reason="shutdown")
@@ -787,15 +1002,49 @@ def run_daemon():
 # DAEMON MANAGEMENT COMMANDS
 # ─────────────────────────────────────────────────────────────
 
+def _pid_is_session_writer(pid: int) -> bool:
+    """
+    Confirm that the given PID is actually running session_writer.
+    Guards against PID recycling: if the daemon died and the OS reused its PID,
+    a naive 'pid is alive' check would falsely block a legitimate --start.
+
+    Linux:  reads /proc/<pid>/cmdline (null-byte delimited)
+    macOS:  falls back to 'ps -p <pid> -o args='
+    On any read failure: returns True (assume valid, avoid false blocking).
+    """
+    try:
+        cmdline_path = Path(f"/proc/{pid}/cmdline")
+        if cmdline_path.exists():
+            cmdline = cmdline_path.read_bytes().replace(b"\x00", b" ").decode(errors="replace")
+            return "session_writer" in cmdline
+        # macOS / no /proc fallback
+        r = subprocess.run(
+            ["ps", "-p", str(pid), "-o", "args="],
+            capture_output=True, text=True, timeout=3,
+        )
+        return "session_writer" in r.stdout
+    except Exception:
+        return True   # can't verify — assume valid rather than falsely blocking
+
+
 def _read_pid() -> Optional[int]:
     if not PID_FILE.exists():
         return None
     try:
         pid = int(PID_FILE.read_text().strip())
-        os.kill(pid, 0)
-        return pid
-    except (ValueError, ProcessLookupError, PermissionError):
+    except ValueError:
         return None
+    # Confirm process is alive
+    try:
+        os.kill(pid, 0)
+    except ProcessLookupError:
+        return None
+    except PermissionError:
+        pass    # process exists but we can't signal it; still check cmdline
+    # Verify it's actually session_writer — reject recycled PIDs
+    if not _pid_is_session_writer(pid):
+        return None
+    return pid
 
 
 def cmd_start():
@@ -815,6 +1064,11 @@ def cmd_start():
     elif CONFIG_FILE and CONFIG_FILE != Path.home() / ".config" / "session_writer" / "config.toml":
         # Non-default config was found — pass it explicitly so the daemon finds it
         cmd += ["--config", str(CONFIG_FILE)]
+
+    # Log exact invocation before launch — makes debugging dual-daemon situations
+    # unambiguous: search the log for 'starting daemon' to find the canonical process.
+    if log:
+        log.info(f"starting daemon: {' '.join(cmd)}")
 
     proc = subprocess.Popen(
         cmd,
@@ -876,6 +1130,13 @@ def cmd_status():
             print(f"session:         {state.get('session_id', 'unknown')}")
             print(f"last checkpoint: {state.get('last_checkpoint', 'never')}")
             print(f"trigger:         {state.get('last_trigger', '?')}")
+            # Adaptive interval fields — present after first timer cycle
+            skips    = state.get("consecutive_skips")
+            interval = state.get("current_interval")
+            if skips is not None:
+                print(f"consecutive skips: {skips}")
+            if interval is not None:
+                print(f"current interval:  {interval // 60}m")
         except Exception:
             print("state file unreadable")
     else:

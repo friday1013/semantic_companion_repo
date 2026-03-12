@@ -194,6 +194,61 @@ All parts after the first `|` are optional.
 3. Tagged items appear in the checkpoint's structured sections
 4. The inbox file is reset (header comment restored)
 
+---
+
+## How the Daemon Works (timer, change detection, backoff)
+
+### Timer checkpoints and change suppression
+
+On each timer tick, the daemon checks whether anything has actually changed
+before writing a checkpoint file:
+
+- **Inbox has content** (any tagged lines in session_inbox.md) → write
+- **Filesystem tracker has pending files** → write
+- **Hardware state differs from last checkpoint** (any host changed up↔unreachable) → write
+- **None of the above** → skip the file write, log one line instead:
+
+```
+2026-03-12 02:40:00 [INFO] skip [timer]: no change since 20260312T021000
+```
+
+The heartbeat log confirms liveness. The skip entry is the audit trail.
+No checkpoint file is written on a skip.
+
+### Adaptive backoff schedule
+
+When consecutive skips accumulate (nothing changes during long idle periods),
+the check interval extends automatically:
+
+| Consecutive skips | Check interval |
+|-------------------|----------------|
+| 0–2               | 20 min         |
+| 3–5               | 40 min         |
+| 6–9               | 80 min         |
+| 10+               | 120 min (cap)  |
+
+As soon as anything changes and a checkpoint IS written, the interval
+resets to 20 minutes immediately — active periods get full resolution again.
+
+SIGUSR1 (`--checkpoint`) always writes regardless of skip state and resets
+the skip counter. Startup and shutdown checkpoints always write.
+
+### --status output (with backoff state)
+
+```
+session_writer: RUNNING (PID 12345)
+config:          /home/user/.config/session_writer/config.toml
+session:         MyProject-N2
+last checkpoint: 2026-03-12T02:10:00
+trigger:         timer
+consecutive skips: 4
+current interval:  40m
+```
+
+`consecutive skips` and `current interval` are only shown after the first
+timer cycle completes. They tell you at a glance whether the daemon is in
+backed-off mode.
+
 **Shell alias** (add to `~/.bashrc`):
 ```bash
 sw() { echo "$*" >> /path/to/session_notes/session_inbox.md; }
@@ -244,6 +299,9 @@ checkpoint:
 ```
 
 **Trigger values:** `startup` | `timer` | `requested` | `shutdown` | `manual`
+
+Checkpoints are only written when something has changed (inbox content, filesystem activity,
+or hardware state change). Unchanged timer ticks produce a `skip [timer]` log entry only — no file.
 
 ---
 
@@ -344,5 +402,5 @@ Even with reliable checkpoint writing, a new LLM instance reading the checkpoint
 
 ---
 
-*session_writer portable | N+16 | 2026-03-11*
+*session_writer portable | N+16 | 2026-03-12 — v2: change suppression + adaptive interval*
 *Semantic Companion Project — Bob Hillery*

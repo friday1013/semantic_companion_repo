@@ -1,0 +1,42 @@
+[Unit]
+Description=Semantic Companion session_writer daemon
+Documentation=file:///mnt/seagate/SemanticCrew/Research/Architecture/session_writer_portable/README.md
+After=network.target
+# Wants the seagate and fastdata mounts to be present before starting.
+# If they are not mounted (e.g. after a cold boot before drives spin up),
+# session_writer will log a warning and run in degraded mode rather than crash.
+
+[Service]
+Type=forking
+# ExecStart calls --start, which forks a daemon and exits cleanly.
+ExecStart=/usr/bin/python3 \
+    /mnt/seagate/SemanticCrew/Research/Architecture/session_writer_portable/session_writer.py \
+    --start \
+    --config /home/hillery/.config/session_writer/config.toml
+
+# ExecStop sends --stop (which sends SIGTERM to the daemon PID).
+# This is cleaner than systemd sending SIGTERM directly, because
+# session_writer.py validates the PID before signalling.
+ExecStop=/usr/bin/python3 \
+    /mnt/seagate/SemanticCrew/Research/Architecture/session_writer_portable/session_writer.py \
+    --stop \
+    --config /home/hillery/.config/session_writer/config.toml
+
+# Give the daemon 30 seconds to write its final checkpoint before SIGKILL.
+# The shutdown checkpoint drains inbox and appends delta to session_current.md.
+# 30s is generous — in practice it takes 2-4 seconds.
+TimeoutStopSec=30
+
+# Restart on crash (not on clean stop).
+Restart=on-failure
+RestartSec=10
+
+# PID file written by session_writer.py --start
+PIDFile=/mnt/fastdata/SemanticMemory/active_sessions/claude/session_writer.pid
+
+# Inherit user environment so PATH, HOME, etc. resolve correctly.
+# This is the default for user services but explicit is better.
+Environment=HOME=/home/hillery
+
+[Install]
+WantedBy=default.target

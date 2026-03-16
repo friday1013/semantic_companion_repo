@@ -431,6 +431,8 @@ INBOX_TAGS = {
     "[PENDING]":  "pending",
     "[FLAG]":     "research_flags",
     "[WORK]":     "active_work",
+    "[OBSERVED]": "research_flags",   # epistemic observations → research_flags bucket
+    "[OPEN]":     "research_flags",   # open research questions → same bucket
 }
 
 

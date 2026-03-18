@@ -1,0 +1,85 @@
+{
+  "framework": "NIDP",
+  "title": "Narrative Integrity Distribution Protocol v1.0",
+  "vendor": "QuietWire Civic AI",
+  "controls": [
+    {
+      "code": "NIDP-P1",
+      "title": "Narrative Definition and Core Extraction",
+      "text": "AI agents deconstruct the narrative into load-bearing truths: people, events, claims, causal links, and evidence anchors. Step 1: Linguistic breakdown — extract entities and relations, separate core drivers from supporting detail. Step 2: Canon Registry commit — push core structure into the Narrative Canon Registry, hash committed state and anchor to ledger. Step 3: Critical-impact labeling — tag collapse-risk elements (identity, motive, causality). Attestation: Dual-agent validation with replay check; variance above 2 percent triggers adjudication.",
+      "meta": {"phase": 1, "type": "integrity_phase", "attestation_required": true}
+    },
+    {
+      "code": "NIDP-P2",
+      "title": "Template Standardization — Storyform Canon",
+      "text": "Lock the narrative skeleton into standard slots to prevent distortion. Step 1: Populate Storyform schema (roles, arcs, time order, claims). Step 2: Narrative fitness tests for explainability, verifiability, and updateability. Attestation: Structure-coherence agent confirms no orphan events or contradictions; remediation proposals are logged and attested.",
+      "meta": {"phase": 2, "type": "integrity_phase", "attestation_required": true}
+    },
+    {
+      "code": "NIDP-P3",
+      "title": "Continuous Attested Review",
+      "text": "Every modification is checked against canon deltas. Step 1: Diff integrity — compare commit N vs commit N+1 and flag semantic displacement or propaganda patterns. Step 2: Narrative drift prevention — detect meaning shift, not just text change. Attestation: Certificates per change; drift above threshold triggers rollback and alert.",
+      "meta": {"phase": 3, "type": "integrity_phase", "attestation_required": true}
+    },
+    {
+      "code": "NIDP-P4",
+      "title": "Full Edit History and Audit Defense",
+      "text": "Forensic traceability for every change. Step 1: Tamper-proof log — every change signed by actor (AI, human, or agent ID) and anchored to Canon Ledger (SCITT/DBoM compatible). Step 2: Accountability map — reconstruct causality of changes and influence. Attestation: Dual-agent verification for accuracy and intent; anomalies raise governance alerts.",
+      "meta": {"phase": 4, "type": "integrity_phase", "attestation_required": true}
+    },
+    {
+      "code": "NIDP-P5",
+      "title": "Flexibility Without Core Erosion",
+      "text": "Allow evolution while protecting the core. Step 1: Bayesian alignment — accept new claims only if evidence-supported. Step 2: Canon expansion protocol — new elements require evidence-first commits. Attestation: Justification score required; weak evidence is rejected.",
+      "meta": {"phase": 5, "type": "integrity_phase", "attestation_required": true}
+    },
+    {
+      "code": "NIDP-G6",
+      "title": "Legal Compliance Enforcement",
+      "text": "Checks: GDPR, IP rights, records retention, sector regulations (banking, public sector), personal data exposure. Attestation: Lawful to publish, retain, and edit. Every narrative published through the node must pass legal compliance review before attestation is issued.",
+      "meta": {"layer": 6, "type": "governance_layer", "attestation_required": true}
+    },
+    {
+      "code": "NIDP-G7",
+      "title": "Ethical Alignment Governance",
+      "text": "Checks: Bias, dignity, harm potential, equity, local cultural context. Attestation: Narrative ethically valid. Ethical review considers the full context of the community the node serves, not only universal standards.",
+      "meta": {"layer": 7, "type": "governance_layer", "attestation_required": true}
+    },
+    {
+      "code": "NIDP-G8",
+      "title": "Narrative Sovereignty and Consent",
+      "text": "Rules: Stakeholder ownership respected; no narrative imposed without consent. Attestation: Agency preserved. The node steward holds final authority over what narratives are anchored under their node identity.",
+      "meta": {"layer": 8, "type": "governance_layer", "attestation_required": true}
+    },
+    {
+      "code": "NIDP-G9",
+      "title": "Stakeholder Participation Proof",
+      "text": "Actions: Custodians sign changes; role-based approvals enforced; consent trails preserved. Attestation: Authorized source of truth. Every significant narrative commit requires traceable stakeholder participation before ledger anchoring.",
+      "meta": {"layer": 9, "type": "governance_layer", "attestation_required": true}
+    },
+    {
+      "code": "NIDP-G10",
+      "title": "Risk and Misuse Classification",
+      "text": "Identify: Weaponization attempts, propaganda patterns, cognitive attack vectors. Attestation: Narrative not under adversarial manipulation. Threat scoring (ThreatScore) determines precision mode: Iron Canon (>=0.8), Defensive Flex (0.3-0.8), Adaptive Growth (<0.3).",
+      "meta": {"layer": 10, "type": "governance_layer", "attestation_required": true}
+    },
+    {
+      "code": "NIDP-M1",
+      "title": "Precision Mode: Iron Canon",
+      "text": "Trigger: ThreatScore >= 0.8. Behavior: Zero drift; reject unfamiliar claims. Approver: Autonomous AI. Applied when the narrative is under active threat or high-confidence manipulation is detected. All changes require maximum attestation before any modification is permitted.",
+      "meta": {"type": "precision_mode", "threat_score_min": 0.8, "approver": "autonomous_ai"}
+    },
+    {
+      "code": "NIDP-M2",
+      "title": "Precision Mode: Defensive Flex",
+      "text": "Trigger: ThreatScore 0.3 to 0.8. Behavior: Minor truthful growth allowed. Approver: AI plus authorized stakeholder. Balances narrative protection with the ability to incorporate well-evidenced new information under joint human-AI oversight.",
+      "meta": {"type": "precision_mode", "threat_score_min": 0.3, "threat_score_max": 0.8, "approver": "ai_and_stakeholder"}
+    },
+    {
+      "code": "NIDP-M3",
+      "title": "Precision Mode: Adaptive Growth",
+      "text": "Trigger: ThreatScore < 0.3. Behavior: Rapid evidence-first evolution. Approver: Stakeholder consent required. Used in low-threat conditions to allow the narrative to evolve quickly in response to new verified information, with stakeholder authorization at each significant commit.",
+      "meta": {"type": "precision_mode", "threat_score_max": 0.3, "approver": "stakeholder_consent"}
+    }
+  ]
+}

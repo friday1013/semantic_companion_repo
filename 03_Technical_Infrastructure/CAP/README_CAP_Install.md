@@ -9,6 +9,21 @@
 
 ## Phase 1 — Before You Install
 
+### Why CAP Exists — The Problem Space
+
+The diagram included in this package (`WardleOIP-66109306.jpg`)
+shows the three-part taxonomy of information disorder developed by Claire Wardle
+and Hossein Derakhshan (First Draft / Council of Europe, 2017):
+
+- **Misinformation** — false information, regardless of intent
+- **Disinformation** — deliberately created to harm or manipulate
+- **Malinformation** — true information, weaponized out of context
+
+CAP and the NIDP framework are designed to defend against all three — not through
+fact-checking content, but through provenance attestation: *who vouched for this,
+when, and in what context.* See `InformationDisorder_Attribution.md` for the full
+citation and the connection to NIDP's design.
+
 ### What You Will Need
 
 - A computer running **Ubuntu 24.04 LTS** with internet access

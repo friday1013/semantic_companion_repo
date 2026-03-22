@@ -1,0 +1,1525 @@
+#!/usr/bin/env python3
+"""
+session_writer.py — Autonomous session state daemon (portable version)
+Python 3.10+ | Linux / macOS | N+16, 2026-03-11
+
+Purpose:
+    Writes structured session checkpoints every 20 minutes and on significant
+    filesystem events. External memory prosthetic for stateless LLM sessions —
+    the notes on the bedside table that write themselves.
+
+    This is NOT an AI memory system. It captures what is objectively observable:
+    filesystem activity, hardware reachability, corpus state. For decisions and
+    pending items, use the inbox file (see below) — that's the honest boundary
+    between automation and human knowledge.
+
+First-time setup:
+    python3 session_writer_setup.py
+
+Usage:
+    python3 session_writer.py --start [--session MyProject-N1] [--config /path/to/config.toml]
+    python3 session_writer.py --stop
+    python3 session_writer.py --checkpoint
+    python3 session_writer.py --status
+    python3 session_writer.py --foreground     # for systemd, no fork
+
+Config file locations (first found wins):
+    1. --config flag
+    2. ~/.config/session_writer/config.toml
+    3. ./session_writer.conf
+
+Inbox protocol — append tagged lines to session_inbox.md:
+    [DECISION] something decided this session
+    [PENDING]  something still to do
+    [FLAG]     anomaly, compaction event, confabulation observed
+    [WORK]     topic | status | blocking
+
+    Shell alias:  sw() { echo "$*" >> /path/to/session_inbox.md; }
+
+Reference: session_writer_concept_map_N16.md | README.md
+"""
+
+import os
+import sys
+import signal
+import threading
+import time
+import datetime
+import logging
+import subprocess
+import json
+import argparse
+import re
+from pathlib import Path
+from typing import Optional, List, Dict, Tuple, Any
+
+# ─────────────────────────────────────────────────────────────
+# RUNTIME CONSTANTS — not in config (tuning params, not setup)
+# ─────────────────────────────────────────────────────────────
+
+FS_DEBOUNCE_SEC  = 60   # minimum seconds between fs-triggered checkpoints
+MAX_MODIFIED_FILES = 20  # cap on tracked files listed per checkpoint
+
+# ─────────────────────────────────────────────────────────────
+# CONFIG GLOBALS — set by load_config(), referenced everywhere else
+# Declared here with sentinels so the module loads cleanly before
+# config is read. All real values come from the config file.
+# ─────────────────────────────────────────────────────────────
+
+BASE_DIR:            Path           = Path.home() / "session_notes"
+WATCH_DIR:           Optional[Path] = None
+CORPUS_INDEX:        Optional[Path] = None
+CHECKPOINT_INTERVAL: int            = 20 * 60   # seconds
+KNOWN_HOSTS:         List[Tuple[str, str]] = []
+SESSION_ID:          str            = os.environ.get("SEMANTIC_SESSION", "unknown")
+CONFIG_FILE:         Optional[Path] = None       # set by load_config()
+EXPLICIT_CONFIG:     Optional[Path] = None       # set in main() if --config given
+
+# v3 — session label and significance config (set by load_config())
+SESSION_LABEL:                str            = "N+unknown"  # resolved from config or passdown
+SESSION_LABEL_SOURCE:         str            = ""           # "config", "passdown", or "default"
+SIGNIFICANCE_CORPUS_DELTA:    int            = 5            # min corpus delta to trigger full write
+SIGNIFICANCE_NOMINAL_COMPRESS: int           = 12           # suppress nominal heartbeat after N
+SENTINEL_FILE:                Optional[Path] = None         # significance sentinel file path
+
+# ─────────────────────────────────────────────────────────────
+# ADAPTIVE INTERVAL STATE
+# These are updated at runtime by run_daemon(); initialized to sentinel
+# values here. Actual values are set at daemon start once CHECKPOINT_INTERVAL
+# is known from config. Declared at module level so cmd_status() and
+# _patch_skip_state() can reference them without threading complexity.
+# ─────────────────────────────────────────────────────────────
+
+_consecutive_skips:    int = 0
+_consecutive_nominals: int = 0   # nominal (non-significant) timer writes in a row
+_current_interval:     int = 0   # set to CHECKPOINT_INTERVAL in run_daemon()
+_last_corpus_count:    int = -1  # corpus total doc count at last significance check
+
+# ─────────────────────────────────────────────────────────────
+# DERIVED PATHS — set by _init_paths() once BASE_DIR is known
+# All depend on BASE_DIR; none should be used before load_config() runs.
+# ─────────────────────────────────────────────────────────────
+
+INBOX_FILE:   Path = BASE_DIR / "session_inbox.md"
+CURRENT_FILE: Path = BASE_DIR / "session_current.md"
+LOG_FILE:     Path = BASE_DIR / "session_writer.log"
+PID_FILE:     Path = BASE_DIR / "session_writer.pid"
+STATE_FILE:   Path = BASE_DIR / "session_writer_state.json"
+
+
+def _init_paths():
+    """Recompute all derived paths from current BASE_DIR. Call after load_config()."""
+    global INBOX_FILE, CURRENT_FILE, LOG_FILE, PID_FILE, STATE_FILE
+    INBOX_FILE   = BASE_DIR / "session_inbox.md"
+    CURRENT_FILE = BASE_DIR / "session_current.md"
+    LOG_FILE     = BASE_DIR / "session_writer.log"
+    PID_FILE     = BASE_DIR / "session_writer.pid"
+    STATE_FILE   = BASE_DIR / "session_writer_state.json"
+
+
+# ─────────────────────────────────────────────────────────────
+# TOML CONFIG LOADING
+# We use stdlib tomllib (Python 3.11+) when available, and fall back to
+# a minimal key=value parser for 3.10. The config schema is simple enough
+# that a 40-line parser handles it without a pip dependency.
+# ─────────────────────────────────────────────────────────────
+
+if sys.version_info >= (3, 11):
+    import tomllib as _tomllib
+
+    def _load_toml_file(path: Path) -> Dict:
+        with open(path, "rb") as f:
+            return _tomllib.load(f)
+else:
+    # Minimal TOML parser for the session_writer config schema.
+    # Handles: [section], [[array-of-tables]], key = "string", key = integer.
+    # Does NOT handle: multi-line strings, arrays, dotted keys, dates.
+    # That's intentional — we only need what the wizard writes.
+    def _load_toml_file(path: Path) -> Dict:
+        result: Dict = {}
+        hosts: List[Dict] = []
+        current_host: Optional[Dict] = None
+        current_section: str = ""   # name of current [section], empty at top level
+        in_hosts = False
+
+        for raw in path.read_text(encoding="utf-8").splitlines():
+            line = raw.strip()
+            if not line or line.startswith("#"):
+                continue
+
+            if line.startswith("[[") and line.endswith("]]"):
+                # Start of a new [[hosts]] entry (only array-table we use)
+                if current_host is not None:
+                    hosts.append(current_host)
+                current_host = {}
+                in_hosts = True
+                current_section = ""
+                continue
+
+            if line.startswith("[") and line.endswith("]"):
+                # Regular section header — flush any pending host, record section name
+                if current_host is not None:
+                    hosts.append(current_host)
+                    current_host = None
+                in_hosts = False
+                current_section = line[1:-1].strip()
+                if current_section and current_section not in result:
+                    result[current_section] = {}
+                continue
+
+            if "=" in line:
+                key, _, raw_val = line.partition("=")
+                key = key.strip()
+                val: Any = raw_val.strip()
+                # Strip quotes
+                if (val.startswith('"') and val.endswith('"')) or \
+                   (val.startswith("'") and val.endswith("'")):
+                    val = val[1:-1]
+                elif val.lower() == "true":
+                    val = True
+                elif val.lower() == "false":
+                    val = False
+                else:
+                    try:
+                        val = int(val)
+                    except ValueError:
+                        try:
+                            val = float(val)
+                        except ValueError:
+                            pass  # keep as string
+
+                if in_hosts and current_host is not None:
+                    current_host[key] = val
+                elif current_section:
+                    result[current_section][key] = val
+                else:
+                    result[key] = val
+
+        # Don't forget the last host entry
+        if current_host is not None:
+            hosts.append(current_host)
+        if hosts:
+            result["hosts"] = hosts
+
+        return result
+
+
+def load_config(explicit_path: Optional[Path] = None):
+    """
+    Find and parse the config file. Sets all global config vars.
+    On missing config: prints a helpful error with setup instructions and exits.
+    On success: returns the Path of the config file used.
+    """
+    global BASE_DIR, WATCH_DIR, CORPUS_INDEX, CHECKPOINT_INTERVAL
+    global KNOWN_HOSTS, SESSION_ID, CONFIG_FILE
+    global SESSION_LABEL, SESSION_LABEL_SOURCE
+    global SIGNIFICANCE_CORPUS_DELTA, SIGNIFICANCE_NOMINAL_COMPRESS, SENTINEL_FILE
+
+    # Config search order: explicit flag → user config → local file
+    candidates: List[Path] = []
+    if explicit_path:
+        candidates = [explicit_path]
+    else:
+        candidates = [
+            Path.home() / ".config" / "session_writer" / "config.toml",
+            Path("./session_writer.conf"),
+        ]
+
+    found: Optional[Path] = None
+    for c in candidates:
+        if c.exists():
+            found = c
+            break
+
+    if not found:
+        print("session_writer: no config file found.")
+        print()
+        if explicit_path:
+            print(f"  Specified path not found: {explicit_path}")
+        else:
+            print("  Looked for:")
+            for c in candidates:
+                print(f"    {c}")
+        print()
+        print("Run the setup wizard to create a config:")
+        print("  python3 session_writer_setup.py")
+        print()
+        print("Or copy sample_config.toml to ~/.config/session_writer/config.toml")
+        print("and edit it for your system.")
+        sys.exit(1)
+
+    CONFIG_FILE = found
+    data = _load_toml_file(found)
+
+    # tomllib (Python 3.11+) nests keys under their section header.
+    # The minimal 3.10 parser flattens them. Normalise to flat here:
+    # merge data["session_writer"] into top-level so load_config works
+    # identically regardless of which parser ran.
+    if "session_writer" in data and isinstance(data["session_writer"], dict):
+        data = {**data["session_writer"], **{k: v for k, v in data.items() if k != "session_writer"}}
+
+    # Apply config values — use sensible defaults when keys are absent
+    raw_base = data.get("base_dir", str(Path.home() / "session_notes"))
+    BASE_DIR = Path(str(raw_base)).expanduser().resolve()
+
+    raw_watch = data.get("watch_dir", "")
+    WATCH_DIR = Path(str(raw_watch)).expanduser().resolve() if raw_watch else None
+
+    raw_corpus = data.get("corpus_index", "")
+    CORPUS_INDEX = Path(str(raw_corpus)).expanduser().resolve() if raw_corpus else None
+
+    raw_interval = data.get("checkpoint_interval", 20)
+    CHECKPOINT_INTERVAL = int(raw_interval) * 60  # config is minutes, we use seconds
+
+    hosts_raw = data.get("hosts", [])
+    KNOWN_HOSTS = [
+        (str(h["name"]), str(h["ip"]))
+        for h in hosts_raw
+        if "name" in h and "ip" in h
+    ]
+
+    # SESSION_ID: env var and --session flag take precedence over config default
+    if SESSION_ID == "unknown":
+        SESSION_ID = str(data.get("default_session", "unknown"))
+
+    # [session] section — new in v3: optional session label override
+    session_sect = data.get("session", {})
+    if isinstance(session_sect, dict):
+        raw_label = str(session_sect.get("label", "")).strip()
+    else:
+        raw_label = ""
+    SESSION_LABEL, SESSION_LABEL_SOURCE = _infer_session_label(raw_label)
+
+    # [significance] section — new in v3: significance thresholds + sentinel file
+    sig_sect = data.get("significance", {})
+    if isinstance(sig_sect, dict):
+        SIGNIFICANCE_CORPUS_DELTA    = int(sig_sect.get("corpus_delta_threshold", 5))
+        SIGNIFICANCE_NOMINAL_COMPRESS = int(sig_sect.get("nominal_compress_after", 12))
+        raw_sentinel = str(sig_sect.get("sentinel_file", "")).strip()
+        SENTINEL_FILE = Path(raw_sentinel).expanduser().resolve() if raw_sentinel else None
+    else:
+        SIGNIFICANCE_CORPUS_DELTA    = 5
+        SIGNIFICANCE_NOMINAL_COMPRESS = 12
+        SENTINEL_FILE = None
+
+    _init_paths()
+    return found
+
+
+# ─────────────────────────────────────────────────────────────
+# SESSION LABEL INFERENCE
+# Runs once at config-load time. Reads passdown filenames only — no side effects.
+# BASE_DIR must be set (by load_config step 1) before this is called.
+# ─────────────────────────────────────────────────────────────
+
+def _infer_session_label(config_label: str) -> Tuple[str, str]:
+    """
+    Determine the current session label. Returns (label, source).
+    Source is "config", "passdown", or "default".
+
+    Priority:
+      1. config.toml [session] label field (if non-empty)
+      2. Most recent passdown_N*_to_N*.md in BASE_DIR (extract destination label)
+      3. "N+unknown" fallback
+    """
+    if config_label:
+        return config_label, "config"
+
+    # Scan BASE_DIR for passdown files matching passdown_N*_to_N*.md
+    try:
+        _pat = re.compile(r'passdown_N.*_to_(N[+\d]+)\.md', re.IGNORECASE)
+        passdowns = sorted(
+            [p for p in BASE_DIR.iterdir()
+             if p.is_file() and _pat.match(p.name)],
+            key=lambda p: p.stat().st_mtime,
+            reverse=True,
+        )
+        if passdowns:
+            m = _pat.match(passdowns[0].name)
+            if m:
+                return m.group(1), "passdown"
+    except Exception:
+        pass
+
+    return "N+unknown", "default"
+
+
+# ─────────────────────────────────────────────────────────────
+# OPTIONAL IMPORTS
+# watchdog: filesystem event triggers. Without it, timer-only mode.
+# ─────────────────────────────────────────────────────────────
+
+try:
+    from watchdog.observers import Observer
+    from watchdog.events import FileSystemEventHandler
+    HAS_WATCHDOG = True
+except ImportError:
+    HAS_WATCHDOG = False
+
+# ─────────────────────────────────────────────────────────────
+# LOGGING
+# ─────────────────────────────────────────────────────────────
+
+log: Optional[logging.Logger] = None
+
+
+def setup_logging(foreground: bool = False) -> logging.Logger:
+    """Configure logging to file (always) and stdout (if foreground)."""
+    logger = logging.getLogger("session_writer")
+    logger.setLevel(logging.DEBUG)
+    fmt = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s",
+                            datefmt="%Y-%m-%d %H:%M:%S")
+
+    fh = logging.FileHandler(str(LOG_FILE))
+    fh.setFormatter(fmt)
+    logger.addHandler(fh)
+
+    if foreground:
+        ch = logging.StreamHandler(sys.stdout)
+        ch.setFormatter(fmt)
+        logger.addHandler(ch)
+
+    return logger
+
+
+# ─────────────────────────────────────────────────────────────
+# YAML FRONTMATTER — no pyyaml dependency
+# Simple serializer for the checkpoint schema.
+# Handles: str, int, dict, list[str], list[dict].
+# ─────────────────────────────────────────────────────────────
+
+def _yaml_scalar(v: Any) -> str:
+    s = str(v) if v is not None else ""
+    if not s:
+        return '""'
+    if any(c in s for c in ':#{}[]|>&*!,?\'"\\'):
+        escaped = s.replace('\\', '\\\\').replace('"', '\\"')
+        return f'"{escaped}"'
+    return s
+
+
+def _yaml_block(data: Dict, indent: int = 0) -> List[str]:
+    lines = []
+    pad = "  " * indent
+    for key, value in data.items():
+        if isinstance(value, dict):
+            lines.append(f"{pad}{key}:")
+            lines.extend(_yaml_block(value, indent + 1))
+        elif isinstance(value, list):
+            if not value:
+                lines.append(f"{pad}{key}: []")
+            else:
+                lines.append(f"{pad}{key}:")
+                for item in value:
+                    if isinstance(item, dict):
+                        items = list(item.items())
+                        k0, v0 = items[0]
+                        lines.append(f"{pad}  - {k0}: {_yaml_scalar(v0)}")
+                        for k, v in items[1:]:
+                            lines.append(f"{pad}    {k}: {_yaml_scalar(v)}")
+                    else:
+                        lines.append(f"{pad}  - {_yaml_scalar(item)}")
+        else:
+            lines.append(f"{pad}{key}: {_yaml_scalar(value)}")
+    return lines
+
+
+def render_frontmatter(data: Dict) -> str:
+    lines = ["---", "checkpoint:"]
+    lines.extend(_yaml_block(data, indent=1))
+    lines.append("---")
+    return "\n".join(lines)
+
+
+# ─────────────────────────────────────────────────────────────
+# HARDWARE STATE
+# Parallel ping — fast, non-intrusive, tells us what we need.
+# ─────────────────────────────────────────────────────────────
+
+def _ping(ip: str, timeout: int = 2) -> bool:
+    try:
+        r = subprocess.run(
+            ["ping", "-c", "1", "-W", str(timeout), ip],
+            capture_output=True, timeout=timeout + 1
+        )
+        return r.returncode == 0
+    except Exception:
+        return False
+
+
+def check_hardware() -> Dict[str, str]:
+    """Ping each configured host in parallel. Returns name → 'ip | status'."""
+    if not KNOWN_HOSTS:
+        return {}
+    results: Dict[str, str] = {}
+    lock = threading.Lock()
+
+    def probe(name: str, ip: str):
+        status = "up" if _ping(ip) else "unreachable"
+        with lock:
+            results[name] = f"{ip} | {status}"
+
+    threads = [threading.Thread(target=probe, args=(n, ip), daemon=True)
+               for n, ip in KNOWN_HOSTS]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join(timeout=5)
+    return results
+
+
+# ─────────────────────────────────────────────────────────────
+# CORPUS STATE
+# Reads corpus_index.json if configured. No ChromaDB dependency.
+# Returns "(not configured)" cleanly when corpus_index is not set —
+# not all users run a ChromaDB corpus, and that's fine.
+# ─────────────────────────────────────────────────────────────
+
+def check_corpus() -> str:
+    if CORPUS_INDEX is None:
+        return "(not configured)"
+    if not CORPUS_INDEX.exists():
+        return f"(not found: {CORPUS_INDEX})"
+    try:
+        with open(CORPUS_INDEX, encoding="utf-8") as f:
+            idx = json.load(f)
+        stats = idx.get("stats", {})
+        if stats:
+            parts = [f"{k}:{v}" for k, v in stats.items()
+                     if isinstance(v, (int, float))]
+            if parts:
+                return " | ".join(parts)
+        nfiles = len(idx.get("files", {}))
+        nconvs = len(idx.get("conversations", {}))
+        ts = idx.get("updated", idx.get("built", "?"))
+        return f"files:{nfiles} conversations:{nconvs} updated:{ts}"
+    except Exception as e:
+        return f"error: {e}"
+
+
+# ─────────────────────────────────────────────────────────────
+# INBOX DRAIN
+# Bridge between human knowledge and automated capture.
+# Only humans know what decisions were made; the inbox is how they tell us.
+# ─────────────────────────────────────────────────────────────
+
+INBOX_TAGS = {
+    "[DECISION]":  "decisions_made",
+    "[PENDING]":   "pending",
+    "[FLAG]":      "research_flags",
+    "[WORK]":      "active_work",
+    "[OBSERVED]":  "research_flags",   # epistemic observations → research_flags bucket
+    "[OPEN]":      "research_flags",   # open research questions → same bucket
+    "[NARRATIVE]": "narrative",        # human-supplied context line for next checkpoint
+}
+
+
+def _inbox_header() -> str:
+    """Generate inbox reset header using current INBOX_FILE path."""
+    return (
+        "# session_inbox.md — append tagged lines here; writer drains on next checkpoint\n"
+        "# Tags: [DECISION] [PENDING] [FLAG] [WORK]\n"
+        "# [WORK] format: [WORK] topic | status | blocking\n"
+        f'# Shell alias: sw() {{ echo "$*" >> {INBOX_FILE}; }}\n'
+    )
+
+
+def drain_inbox() -> Dict[str, List]:
+    result: Dict[str, List] = {
+        "decisions_made": [],
+        "pending":        [],
+        "research_flags": [],
+        "active_work":    [],
+        "narrative":      [],
+    }
+    if not INBOX_FILE.exists():
+        return result
+    try:
+        content = INBOX_FILE.read_text(encoding="utf-8")
+        for line in content.splitlines():
+            stripped = line.strip()
+            if not stripped or stripped.startswith("#"):
+                continue
+            upper = stripped.upper()
+            for tag, field in INBOX_TAGS.items():
+                if upper.startswith(tag):
+                    payload = stripped[len(tag):].strip()
+                    if field == "active_work":
+                        parts = [p.strip() for p in payload.split("|")]
+                        entry: Dict[str, str] = {"topic": parts[0] if parts else payload}
+                        if len(parts) > 1: entry["status"] = parts[1]
+                        if len(parts) > 2: entry["blocking"] = parts[2]
+                        result["active_work"].append(entry)
+                    else:
+                        result[field].append(payload)
+                    break
+        INBOX_FILE.write_text(_inbox_header(), encoding="utf-8")
+    except Exception as e:
+        if log:
+            log.warning(f"inbox drain failed: {e}")
+    return result
+
+
+# ─────────────────────────────────────────────────────────────
+# MODIFIED FILES TRACKER
+# Thread-safe. Watchdog handler writes here; write_checkpoint reads and clears.
+# ─────────────────────────────────────────────────────────────
+
+class _FilesTracker:
+    def __init__(self):
+        self._files: List[str] = []
+        self._lock = threading.Lock()
+        self._last_fs_trigger: float = 0.0
+
+    def add(self, path: str):
+        with self._lock:
+            if path not in self._files:
+                self._files.append(path)
+            if len(self._files) > MAX_MODIFIED_FILES * 2:
+                self._files = self._files[-MAX_MODIFIED_FILES:]
+
+    def get_and_clear(self) -> List[str]:
+        with self._lock:
+            result = self._files[-MAX_MODIFIED_FILES:]
+            self._files.clear()
+            return result
+
+    def peek(self) -> bool:
+        """Return True if any files are pending since last get_and_clear — without consuming them."""
+        with self._lock:
+            return bool(self._files)
+
+    def debounce_ok(self) -> bool:
+        return (time.monotonic() - self._last_fs_trigger) > FS_DEBOUNCE_SEC
+
+    def mark_triggered(self):
+        self._last_fs_trigger = time.monotonic()
+
+
+_tracker = _FilesTracker()
+
+
+# ─────────────────────────────────────────────────────────────
+# FILESYSTEM WATCHER (watchdog, optional)
+# If WATCH_DIR is None (not configured) or watchdog is not installed,
+# the daemon runs in timer-only mode — still fully functional.
+# ─────────────────────────────────────────────────────────────
+
+if HAS_WATCHDOG:
+    class _WatchHandler(FileSystemEventHandler):
+        def __init__(self, trigger_fn):
+            self._trigger = trigger_fn
+
+        def on_modified(self, event):
+            if not event.is_directory:
+                _tracker.add(event.src_path)
+                if _tracker.debounce_ok():
+                    _tracker.mark_triggered()
+                    self._trigger()
+
+        on_created = on_modified
+
+
+def start_watcher(trigger_fn) -> Optional[Any]:
+    if WATCH_DIR is None:
+        if log:
+            log.info("watch_dir not configured — timer-only mode")
+        return None
+    if not HAS_WATCHDOG:
+        if log:
+            log.info("watchdog not installed — timer-only mode. "
+                     "pip3 install watchdog to enable filesystem events.")
+        return None
+    if not WATCH_DIR.exists():
+        if log:
+            log.warning(f"watch_dir {WATCH_DIR} not found — filesystem events disabled")
+        return None
+    observer = Observer()
+    observer.schedule(_WatchHandler(trigger_fn), str(WATCH_DIR), recursive=True)
+    observer.start()
+    if log:
+        log.info(f"watchdog: watching {WATCH_DIR}")
+    return observer
+
+
+# ─────────────────────────────────────────────────────────────
+# CHANGE DETECTION + ADAPTIVE INTERVAL HELPERS
+# Determine whether a timer checkpoint should be written or skipped.
+# Startup, shutdown, manual, and SIGUSR1 checkpoints always write —
+# these helpers are only called on the timer path in run_daemon().
+# ─────────────────────────────────────────────────────────────
+
+def _inbox_has_content() -> bool:
+    """Peek at inbox without draining. Returns True if any trigger-tagged lines exist.
+    [NARRATIVE] is excluded — it provides context but does not itself signal a state change.
+    """
+    if not INBOX_FILE.exists():
+        return False
+    # [NARRATIVE] provides context for checkpoints but doesn't trigger one on its own
+    trigger_tags = {t for t in INBOX_TAGS if t != "[NARRATIVE]"}
+    try:
+        for line in INBOX_FILE.read_text(encoding="utf-8").splitlines():
+            stripped = line.strip()
+            if not stripped or stripped.startswith("#"):
+                continue
+            upper = stripped.upper()
+            if any(upper.startswith(tag) for tag in trigger_tags):
+                return True
+    except Exception:
+        pass
+    return False
+
+
+def _find_last_checkpoint() -> Optional[Path]:
+    """Return path to most recent checkpoint file, or None if none exist."""
+    try:
+        checkpoints = sorted(
+            BASE_DIR.glob("checkpoint_*.md"),
+            key=lambda p: p.stat().st_mtime,
+            reverse=True,
+        )
+        return checkpoints[0] if checkpoints else None
+    except Exception:
+        return None
+
+
+def _parse_last_hw(checkpoint_path: Path) -> Dict[str, str]:
+    """
+    Parse the hardware block from a checkpoint's YAML frontmatter.
+    Returns a name→status dict matching what check_hardware() produces.
+
+    The frontmatter structure (from render_frontmatter/_yaml_block):
+      ---
+      checkpoint:
+        ...
+        hardware:
+          Name: "ip | up"
+          ...
+      ---
+
+    All checkpoint keys are at 2-space indent under 'checkpoint:'.
+    Hardware values are at 4-space indent.
+    """
+    result: Dict[str, str] = {}
+    in_frontmatter = False
+    in_hardware = False
+    try:
+        for line in checkpoint_path.read_text(encoding="utf-8").splitlines():
+            if line.strip() == "---":
+                if not in_frontmatter:
+                    in_frontmatter = True
+                else:
+                    break   # end of frontmatter
+                continue
+            if not in_frontmatter:
+                continue
+            stripped = line.strip()
+            if stripped == "hardware:":
+                in_hardware = True
+                continue
+            if in_hardware:
+                if line.startswith("    ") and ":" in stripped:
+                    # 4-space indent → hardware entry
+                    k, _, v = stripped.partition(":")
+                    result[k.strip()] = v.strip().strip('"')
+                elif line.startswith("  ") and not line.startswith("    ") and stripped:
+                    # Back to 2-space indent — another key under checkpoint:, exit hardware block
+                    in_hardware = False
+    except Exception:
+        pass
+    return result
+
+
+def _state_changed(current: Dict, last_path: Optional[Path]) -> bool:
+    """
+    Returns True if a timer checkpoint should be written.
+    Returns False if nothing has changed and the write can be skipped.
+
+    'current' must have:
+      hardware         — dict from check_hardware()
+      inbox_has_content — bool, True if inbox has tagged lines
+      files_pending     — bool, True if filesystem tracker has pending files
+
+    No previous checkpoint → always write (first run after startup).
+    """
+    if last_path is None or not last_path.exists():
+        return True     # no baseline to compare against
+
+    if current.get("inbox_has_content"):
+        return True     # human input waiting
+
+    if current.get("files_pending"):
+        return True     # filesystem activity since last checkpoint
+
+    # Compare hardware reachability against last checkpoint.
+    # If any host changed up↔unreachable, that's worth recording.
+    try:
+        last_hw = _parse_last_hw(last_path)
+    except Exception:
+        return True     # can't read last checkpoint — write to be safe
+
+    # Extract just the up/unreachable status for comparison.
+    # Full value is "ip | up" or "ip | unreachable"; we compare the whole string
+    # because an IP change (unusual but possible) is also worth capturing.
+    if current.get("hardware", {}) != last_hw:
+        return True
+
+    return False
+
+
+# ─────────────────────────────────────────────────────────────
+# SIGNIFICANCE EVALUATION  (v3)
+# Determines whether a timer delta warrants a full checkpoint write
+# vs. a condensed nominal heartbeat one-liner.
+# _state_changed() controls whether to write AT ALL.
+# _is_significant() controls whether to write a FULL checkpoint or nominal.
+# ─────────────────────────────────────────────────────────────
+
+def _get_corpus_total_count() -> int:
+    """Sum all numeric stats from corpus_index.json. Returns -1 if unavailable."""
+    if CORPUS_INDEX is None or not CORPUS_INDEX.exists():
+        return -1
+    try:
+        with open(CORPUS_INDEX, encoding="utf-8") as f:
+            idx = json.load(f)
+        stats = idx.get("stats", {})
+        if stats:
+            total = sum(v for v in stats.values() if isinstance(v, int))
+            return total if total > 0 else len(idx.get("files", {}))
+        return len(idx.get("files", {}))
+    except Exception:
+        return -1
+
+
+def _inbox_has_significant_content() -> bool:
+    """
+    Peek at inbox for tags that signal a significant event.
+    [NARRATIVE] alone is NOT significant — it adds context but doesn't trigger a full write.
+    """
+    SIGNIFICANT_TAGS = {"[DECISION]", "[PENDING]", "[FLAG]", "[WORK]", "[OBSERVED]", "[OPEN]"}
+    if not INBOX_FILE.exists():
+        return False
+    try:
+        for line in INBOX_FILE.read_text(encoding="utf-8").splitlines():
+            stripped = line.strip()
+            if not stripped or stripped.startswith("#"):
+                continue
+            upper = stripped.upper()
+            if any(upper.startswith(t) for t in SIGNIFICANT_TAGS):
+                return True
+    except Exception:
+        pass
+    return False
+
+
+def _is_significant(current_state: Dict, last_cp: Optional[Path]) -> bool:
+    """
+    Returns True if the current timer state warrants a full checkpoint write.
+    Called only when _state_changed() has already returned True.
+    Startup, shutdown, SIGUSR1, and sentinel writes bypass this check entirely.
+
+    "Significant" = ANY of:
+      - A machine changed state (up ↔ unreachable)
+      - Corpus total doc count changed by >= SIGNIFICANCE_CORPUS_DELTA
+      - Inbox contains [FLAG]/[WORK]/[OBSERVED]/[OPEN]/[DECISION]/[PENDING]
+    """
+    # No baseline → treat first timer write as significant
+    if last_cp is None or not last_cp.exists():
+        return True
+
+    # Machine state change is always significant
+    try:
+        last_hw = _parse_last_hw(last_cp)
+        if current_state.get("hardware", {}) != last_hw:
+            return True
+    except Exception:
+        return True     # can't read last checkpoint — treat as significant
+
+    # Corpus file count changed beyond threshold
+    curr_count = _get_corpus_total_count()
+    if curr_count >= 0 and _last_corpus_count >= 0:
+        if abs(curr_count - _last_corpus_count) >= SIGNIFICANCE_CORPUS_DELTA:
+            return True
+
+    # Significant inbox content (not just [NARRATIVE])
+    if _inbox_has_significant_content():
+        return True
+
+    return False
+
+
+def _get_narrative(inbox_data: Optional[Dict] = None) -> str:
+    """
+    Resolve a one-sentence narrative for a checkpoint.
+    Used only on significant writes (not nominal heartbeats).
+
+    Priority:
+      1. Last [NARRATIVE] tag from inbox (drained into inbox_data["narrative"])
+      2. Last [OBSERVED]/[OPEN] content from inbox (research_flags, truncated to 80 chars)
+      3. Most recent active work entry from session_current.md
+      4. "" (omit the field entirely)
+    """
+    if inbox_data:
+        # 1. Explicit [NARRATIVE] tag
+        narratives = inbox_data.get("narrative", [])
+        if narratives:
+            return narratives[-1][:200]
+        # 2. Last research flag as context (truncated to 80 chars)
+        flags = inbox_data.get("research_flags", [])
+        if flags:
+            return flags[-1][:80]
+
+    # 3. Most recent "Active work:" entry from session_current.md
+    try:
+        if CURRENT_FILE.exists():
+            lines = CURRENT_FILE.read_text(encoding="utf-8").splitlines()
+            in_active = False
+            last_work = ""
+            for line in lines:
+                if "**Active work:**" in line:
+                    in_active = True
+                    continue
+                if in_active:
+                    stripped = line.strip()
+                    if stripped.startswith("- "):
+                        last_work = stripped[2:]
+                    elif stripped.startswith("**") or stripped == "---":
+                        in_active = False
+            if last_work:
+                return last_work[:120]
+    except Exception:
+        pass
+
+    return ""
+
+
+def _check_sentinel() -> Optional[str]:
+    """
+    Check for the significance sentinel file. If present:
+      - Read contents as the narrative (may be empty string)
+      - Delete the file
+      - Return the narrative string (caller treats any non-None as forced-significant)
+    Returns None if sentinel file is not configured or does not exist.
+    """
+    if SENTINEL_FILE is None or not SENTINEL_FILE.exists():
+        return None
+    try:
+        content = SENTINEL_FILE.read_text(encoding="utf-8").strip()
+        SENTINEL_FILE.unlink(missing_ok=True)
+        if log:
+            log.info(f"sentinel file consumed: {SENTINEL_FILE.name}")
+        return content  # may be "" — caller treats any non-None as "forced write"
+    except Exception as e:
+        if log:
+            log.warning(f"sentinel file read failed: {e}")
+        return None
+
+
+def _append_nominal_heartbeat(hw: Dict, corpus: str):
+    """
+    Append a condensed one-liner to session_current.md for timer ticks where
+    state changed but the significance threshold was not reached.
+    Format:  > YYYY-MM-DD HH:MM | host:status host:status | corpus-summary
+    """
+    now = datetime.datetime.now()
+    ts_short = now.strftime("%Y-%m-%d %H:%M")
+    hw_part = " ".join(
+        f"{n}:{'up' if 'up' in s else 'down'}" for n, s in hw.items()
+    ) if hw else "no-hosts"
+    # Compact corpus summary: first stat segment, up to 30 chars
+    corpus_short = corpus.split("|")[0].strip()[:30] if corpus else "?"
+    line = f"\n> {ts_short} | {hw_part} | {corpus_short}\n"
+    try:
+        with open(CURRENT_FILE, "a", encoding="utf-8") as f:
+            f.write(line)
+    except Exception as e:
+        if log:
+            log.warning(f"nominal heartbeat write failed: {e}")
+
+
+def _compute_interval(skips: int) -> int:
+    """
+    Backoff schedule: progressively longer check intervals when nothing changes.
+    Resets to CHECKPOINT_INTERVAL immediately on any actual write.
+    """
+    if skips < 3:
+        return CHECKPOINT_INTERVAL          # 20 min
+    elif skips < 6:
+        return CHECKPOINT_INTERVAL * 2     # 40 min
+    elif skips < 10:
+        return CHECKPOINT_INTERVAL * 4     # 80 min
+    else:
+        return CHECKPOINT_INTERVAL * 6     # 120 min cap
+
+
+def _patch_skip_state(skips: int, interval: int):
+    """
+    Update just the skip-tracking fields in STATE_FILE without overwriting
+    the last_checkpoint timestamp written by _save_state().
+    Called after both checkpoint writes (to record the reset) and skips.
+    """
+    try:
+        existing: Dict = {}
+        if STATE_FILE.exists():
+            try:
+                existing = json.loads(STATE_FILE.read_text())
+            except Exception:
+                pass
+        existing["consecutive_skips"] = skips
+        existing["current_interval"]  = interval
+        STATE_FILE.write_text(json.dumps(existing, indent=2), encoding="utf-8")
+    except Exception as e:
+        if log:
+            log.warning(f"failed to update skip state: {e}")
+
+
+# ─────────────────────────────────────────────────────────────
+# CHECKPOINT WRITER
+# Core function. Never raises — errors logged, daemon continues.
+# ─────────────────────────────────────────────────────────────
+
+def write_checkpoint(reason: str = "timer", narrative: str = ""):
+    """
+    Write a full structured checkpoint. narrative="" means auto-resolve from inbox/session.
+    Pass narrative explicitly for sentinel writes (content comes from sentinel file).
+    """
+    try:
+        now = datetime.datetime.now()
+        ts  = now.strftime("%Y-%m-%dT%H:%M:%S")
+        fts = now.strftime("%Y%m%d_%H%M%S")
+
+        hw     = check_hardware()
+        corpus = check_corpus()
+        inbox  = drain_inbox()
+        files  = _tracker.get_and_clear()
+
+        # Resolve narrative: explicit override > inbox [NARRATIVE] > research_flags > session_current
+        resolved_narrative = narrative if narrative else _get_narrative(inbox)
+
+        data: Dict[str, Any] = {
+            "session_id":         SESSION_ID,
+            "timestamp":          ts,
+            "trigger":            reason,
+            "hardware":           hw,
+            "active_work":        inbox["active_work"],
+            "decisions_made":     inbox["decisions_made"],
+            "pending":            inbox["pending"],
+            "research_flags":     inbox["research_flags"],
+            "key_files_modified": files,
+            "corpus_state":       corpus,
+            "narrative":          resolved_narrative,
+        }
+
+        content = render_frontmatter(data) + "\n\n" + _render_body(data, now) + "\n"
+        checkpoint_path = BASE_DIR / f"checkpoint_{fts}.md"
+        checkpoint_path.write_text(content, encoding="utf-8")
+
+        _append_delta(data, now, reason)
+        _save_state(now, reason)
+
+        if log:
+            log.info(f"checkpoint [{reason}] → {checkpoint_path.name}")
+
+    except Exception as e:
+        if log:
+            log.error(f"checkpoint write failed: {e}", exc_info=True)
+
+
+def _render_body(data: Dict, now: datetime.datetime) -> str:
+    ts_human = now.strftime("%Y-%m-%d %H:%M:%S")
+    sid = data["session_id"]
+    L = [
+        f"# Session Checkpoint — {sid} — {ts_human}",
+        "",
+        f"**Trigger:** {data['trigger']} | **Session:** {sid}",
+    ]
+    if data.get("narrative"):
+        L.append(f"**Narrative:** {data['narrative']}")
+    L += [
+        "",
+        "## Hardware State",
+    ]
+
+    hw = data.get("hardware", {})
+    for name, status in hw.items():
+        L.append(f"- {name.capitalize()}: {status}")
+    if not hw:
+        L.append("*(no hosts configured)*")
+
+    L += ["", "## Active Work"]
+    for item in data.get("active_work", []):
+        if isinstance(item, dict):
+            parts = [item.get("topic", "?")]
+            if "status"   in item: parts.append(f"status: {item['status']}")
+            if "blocking" in item: parts.append(f"blocking: {item['blocking']}")
+            L.append(f"- {' | '.join(parts)}")
+        else:
+            L.append(f"- {item}")
+    if not data.get("active_work"):
+        L.append("*(none logged — append [WORK] lines to session_inbox.md)*")
+
+    L += ["", "## Decisions Made"]
+    for d in data.get("decisions_made", []):
+        L.append(f"- {d}")
+    if not data.get("decisions_made"):
+        L.append("*(none logged)*")
+
+    L += ["", "## Pending"]
+    for p in data.get("pending", []):
+        L.append(f"- {p}")
+    if not data.get("pending"):
+        L.append("*(none logged)*")
+
+    L += ["", "## Research Flags"]
+    for f in data.get("research_flags", []):
+        L.append(f"- {f}")
+    if not data.get("research_flags"):
+        L.append("*(none)*")
+
+    L += ["", "## Key Files Modified (this checkpoint interval)"]
+    for f in data.get("key_files_modified", []):
+        L.append(f"- {f}")
+    if not data.get("key_files_modified"):
+        L.append("*(none tracked)*")
+
+    L += ["", "## Corpus State"]
+    L.append(data.get("corpus_state", "unknown"))
+
+    L += ["", "---",
+          f"*session_writer.py | {sid} | {ts_human}*"]
+    return "\n".join(L)
+
+
+def _append_delta(data: Dict, now: datetime.datetime, reason: str):
+    """
+    Append a concise delta to session_current.md.
+    APPEND only, never overwrite — session_current.md is the authoritative
+    running record. Only non-empty sections are appended; clean timer
+    checkpoints with no inbox input produce only a hardware/corpus line.
+    """
+    ts_human = now.strftime("%Y-%m-%d %H:%M:%S")
+    sid = data["session_id"]
+    L = ["", "---",
+         f"## session_writer delta — {sid} — {ts_human} [{reason}]", ""]
+
+    if data.get("narrative"):
+        L.append(f"**Narrative:** {data['narrative']}")
+        L.append("")
+
+    for d in data.get("decisions_made", []):
+        if not L or L[-1] != "**Decisions:**":
+            if not any(x == "**Decisions:**" for x in L):
+                L.append("**Decisions:**")
+        L.append(f"- {d}")
+    if data.get("decisions_made"):
+        L.append("")
+
+    for p in data.get("pending", []):
+        if "**Pending:**" not in L:
+            L.append("**Pending:**")
+        L.append(f"- {p}")
+    if data.get("pending"):
+        L.append("")
+
+    for f in data.get("research_flags", []):
+        if "**Research flags:**" not in L:
+            L.append("**Research flags:**")
+        L.append(f"- {f}")
+    if data.get("research_flags"):
+        L.append("")
+
+    for item in data.get("active_work", []):
+        if "**Active work:**" not in L:
+            L.append("**Active work:**")
+        if isinstance(item, dict):
+            parts = [item.get("topic", "?")]
+            if "status"   in item: parts.append(item["status"])
+            if "blocking" in item: parts.append(f"blocking: {item['blocking']}")
+            L.append(f"- {' | '.join(parts)}")
+        else:
+            L.append(f"- {item}")
+    if data.get("active_work"):
+        L.append("")
+
+    hw = data.get("hardware", {})
+    if hw:
+        hw_line = " | ".join(
+            f"{n}: {'up' if 'up' in s else 'unreachable'}" for n, s in hw.items()
+        )
+        L.append(f"**Hardware:** {hw_line}")
+    L.append(f"**Corpus:** {data.get('corpus_state', 'unknown')}")
+    L.append("")
+
+    with open(CURRENT_FILE, "a", encoding="utf-8") as f:
+        f.write("\n".join(L))
+
+
+def _save_state(now: datetime.datetime, reason: str):
+    state = {
+        "last_checkpoint": now.isoformat(),
+        "last_trigger":    reason,
+        "session_id":      SESSION_ID,
+        "pid":             os.getpid(),
+        "config_file":     str(CONFIG_FILE) if CONFIG_FILE else None,
+    }
+    STATE_FILE.write_text(json.dumps(state, indent=2), encoding="utf-8")
+
+
+# ─────────────────────────────────────────────────────────────
+# DAEMON LOOP
+# SIGUSR1 → immediate checkpoint (timer continues independently)
+# SIGTERM/SIGINT → final checkpoint + clean exit
+# ─────────────────────────────────────────────────────────────
+
+_immediate_event = threading.Event()
+_shutdown_event  = threading.Event()
+
+
+def _on_sigusr1(signum, frame):
+    _immediate_event.set()
+
+
+def _on_shutdown(signum, frame):
+    _shutdown_event.set()
+    _immediate_event.set()
+
+
+def run_daemon():
+    global _consecutive_skips, _consecutive_nominals, _current_interval, _last_corpus_count
+
+    signal.signal(signal.SIGUSR1, _on_sigusr1)
+    signal.signal(signal.SIGTERM, _on_shutdown)
+    signal.signal(signal.SIGINT,  _on_shutdown)
+
+    # Initialise adaptive interval state — clean slate each daemon start
+    _consecutive_skips    = 0
+    _consecutive_nominals = 0
+    _current_interval     = CHECKPOINT_INTERVAL
+    _last_corpus_count    = _get_corpus_total_count()
+
+    log.info(
+        f"[session_writer] startup | label: {SESSION_LABEL} (from {SESSION_LABEL_SOURCE})"
+        f" | significance threshold: {SIGNIFICANCE_CORPUS_DELTA} files"
+        f" | interval={CHECKPOINT_INTERVAL}s | config={CONFIG_FILE}"
+    )
+
+    if not HAS_WATCHDOG or WATCH_DIR is None:
+        why = "watchdog not installed" if not HAS_WATCHDOG else "watch_dir not configured"
+        log.info(f"timer-only mode ({why})")
+
+    PID_FILE.write_text(str(os.getpid()), encoding="utf-8")
+
+    observer = start_watcher(lambda: _immediate_event.set())
+
+    # Startup checkpoint always writes — establishes the first baseline for
+    # _state_changed() comparisons and confirms the daemon is alive.
+    write_checkpoint(reason="startup")
+    _patch_skip_state(_consecutive_skips, _current_interval)
+
+    next_timer = time.monotonic() + _current_interval
+
+    while not _shutdown_event.is_set():
+        wait_sec = max(0.5, next_timer - time.monotonic())
+        fired = _immediate_event.wait(timeout=wait_sec)
+
+        if _shutdown_event.is_set():
+            break
+
+        if fired:
+            _immediate_event.clear()
+            # SIGUSR1 / fs-triggered: always write, reset adaptive state.
+            # The timer continues on its own schedule independently.
+            write_checkpoint(reason="requested")
+            _consecutive_skips = 0
+            _current_interval  = CHECKPOINT_INTERVAL
+            _patch_skip_state(_consecutive_skips, _current_interval)
+
+        if time.monotonic() >= next_timer:
+            # Check sentinel FIRST — any process can force a significant checkpoint
+            # by writing to SENTINEL_FILE; we consume and delete it here.
+            sentinel_narrative = _check_sentinel()
+
+            # Collect current state once — used by _state_changed() and _is_significant().
+            # Hardware is re-collected inside write_checkpoint() if we decide to write
+            # (acceptable: the double-ping only happens when actually writing).
+            current_state = {
+                "hardware":          check_hardware(),
+                "inbox_has_content": _inbox_has_content(),
+                "files_pending":     _tracker.peek(),
+            }
+            last_cp = _find_last_checkpoint()
+
+            if sentinel_narrative is not None:
+                # Sentinel present — forced significant write regardless of other state
+                write_checkpoint(reason="sentinel", narrative=sentinel_narrative)
+                _consecutive_skips    = 0
+                _consecutive_nominals = 0
+                _current_interval     = CHECKPOINT_INTERVAL
+
+            elif _state_changed(current_state, last_cp):
+                if _is_significant(current_state, last_cp):
+                    # Full checkpoint — something worth recording changed
+                    write_checkpoint(reason="timer")
+                    _consecutive_skips    = 0
+                    _consecutive_nominals = 0
+                    _current_interval     = CHECKPOINT_INTERVAL
+                else:
+                    # State changed but below significance threshold — condensed heartbeat
+                    _consecutive_nominals += 1
+                    if _consecutive_nominals <= SIGNIFICANCE_NOMINAL_COMPRESS:
+                        _append_nominal_heartbeat(current_state["hardware"], check_corpus())
+                        log.info(
+                            f"nominal [{_consecutive_nominals}/{SIGNIFICANCE_NOMINAL_COMPRESS}]"
+                            f": state changed, below significance threshold"
+                        )
+                    else:
+                        log.info(
+                            f"nominal [compressed]: {_consecutive_nominals} consecutive,"
+                            f" significance threshold not reached"
+                        )
+                    _consecutive_skips = 0
+                    _current_interval  = CHECKPOINT_INTERVAL
+
+            else:
+                # Nothing changed — skip the file write, log one line instead.
+                # The heartbeat log already confirms liveness; this is the audit trail.
+                last_ts = last_cp.stem.split("_", 1)[1].replace("_", "T") if last_cp else "never"
+                log.info(f"skip [timer]: no change since {last_ts}")
+                _consecutive_skips    += 1
+                _consecutive_nominals  = 0  # reset when skipping entirely
+                _current_interval      = _compute_interval(_consecutive_skips)
+
+            # Update corpus count baseline and persist skip state so --status is current.
+            _last_corpus_count = _get_corpus_total_count()
+            _patch_skip_state(_consecutive_skips, _current_interval)
+            next_timer = time.monotonic() + _current_interval
+
+    log.info("shutdown — writing final checkpoint")
+    write_checkpoint(reason="shutdown")
+
+    if observer:
+        observer.stop()
+        observer.join(timeout=5)
+
+    PID_FILE.unlink(missing_ok=True)
+    log.info("session_writer stopped")
+
+
+# ─────────────────────────────────────────────────────────────
+# DAEMON MANAGEMENT COMMANDS
+# ─────────────────────────────────────────────────────────────
+
+def _pid_is_session_writer(pid: int) -> bool:
+    """
+    Confirm that the given PID is actually running session_writer.
+    Guards against PID recycling: if the daemon died and the OS reused its PID,
+    a naive 'pid is alive' check would falsely block a legitimate --start.
+
+    Linux:  reads /proc/<pid>/cmdline (null-byte delimited)
+    macOS:  falls back to 'ps -p <pid> -o args='
+    On any read failure: returns True (assume valid, avoid false blocking).
+    """
+    try:
+        cmdline_path = Path(f"/proc/{pid}/cmdline")
+        if cmdline_path.exists():
+            cmdline = cmdline_path.read_bytes().replace(b"\x00", b" ").decode(errors="replace")
+            return "session_writer" in cmdline
+        # macOS / no /proc fallback
+        r = subprocess.run(
+            ["ps", "-p", str(pid), "-o", "args="],
+            capture_output=True, text=True, timeout=3,
+        )
+        return "session_writer" in r.stdout
+    except Exception:
+        return True   # can't verify — assume valid rather than falsely blocking
+
+
+def _read_pid() -> Optional[int]:
+    if not PID_FILE.exists():
+        return None
+    try:
+        pid = int(PID_FILE.read_text().strip())
+    except ValueError:
+        return None
+    # Confirm process is alive
+    try:
+        os.kill(pid, 0)
+    except ProcessLookupError:
+        return None
+    except PermissionError:
+        pass    # process exists but we can't signal it; still check cmdline
+    # Verify it's actually session_writer — reject recycled PIDs
+    if not _pid_is_session_writer(pid):
+        return None
+    return pid
+
+
+def cmd_start():
+    pid = _read_pid()
+    if pid:
+        print(f"session_writer already running (PID {pid})")
+        return
+
+    script = Path(__file__).resolve()
+    env = os.environ.copy()
+    env["SEMANTIC_SESSION"] = SESSION_ID
+
+    cmd = [sys.executable, str(script), "--foreground", "--session", SESSION_ID]
+    # Pass explicit config path so the daemon uses the same config file
+    if EXPLICIT_CONFIG:
+        cmd += ["--config", str(EXPLICIT_CONFIG)]
+    elif CONFIG_FILE and CONFIG_FILE != Path.home() / ".config" / "session_writer" / "config.toml":
+        # Non-default config was found — pass it explicitly so the daemon finds it
+        cmd += ["--config", str(CONFIG_FILE)]
+
+    # Log exact invocation before launch — makes debugging dual-daemon situations
+    # unambiguous: search the log for 'starting daemon' to find the canonical process.
+    if log:
+        log.info(f"starting daemon: {' '.join(cmd)}")
+
+    proc = subprocess.Popen(
+        cmd,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        close_fds=True,
+        start_new_session=True,  # setsid() — survives terminal close, immune to SIGHUP
+        env=env,
+    )
+
+    time.sleep(1.5)
+    pid = _read_pid()
+    if pid:
+        print(f"session_writer started (PID {pid})")
+        print(f"log:   {LOG_FILE}")
+        print(f"inbox: {INBOX_FILE}")
+    else:
+        print(f"session_writer launched (PID {proc.pid}) — check log: {LOG_FILE}")
+
+
+def cmd_stop():
+    pid = _read_pid()
+    if not pid:
+        print("session_writer not running")
+        return
+    try:
+        os.kill(pid, signal.SIGTERM)
+        print(f"SIGTERM sent to PID {pid} — final checkpoint will be written")
+        print(f"(check {LOG_FILE} to confirm clean exit)")
+    except ProcessLookupError:
+        print(f"PID {pid} not found — cleaning up stale PID file")
+        PID_FILE.unlink(missing_ok=True)
+
+
+def cmd_checkpoint():
+    pid = _read_pid()
+    if pid:
+        try:
+            os.kill(pid, signal.SIGUSR1)
+            print(f"checkpoint triggered (PID {pid})")
+        except ProcessLookupError:
+            print(f"PID {pid} not found")
+    else:
+        print("no daemon running — writing one-shot checkpoint")
+        write_checkpoint(reason="manual")
+        print(f"written to {BASE_DIR}")
+
+
+def cmd_status():
+    pid = _read_pid()
+    print(f"session_writer: {'RUNNING (PID ' + str(pid) + ')' if pid else 'STOPPED'}")
+
+    # Show which config is active — important when debugging multi-config setups
+    print(f"config:          {CONFIG_FILE or '(none)'}")
+    print(f"session label:   {SESSION_LABEL} (from {SESSION_LABEL_SOURCE})")
+
+    if STATE_FILE.exists():
+        try:
+            state = json.loads(STATE_FILE.read_text())
+            print(f"session:         {state.get('session_id', 'unknown')}")
+            print(f"last checkpoint: {state.get('last_checkpoint', 'never')}")
+            print(f"trigger:         {state.get('last_trigger', '?')}")
+            # Adaptive interval fields — present after first timer cycle
+            skips    = state.get("consecutive_skips")
+            interval = state.get("current_interval")
+            if skips is not None:
+                print(f"consecutive skips: {skips}")
+            if interval is not None:
+                print(f"current interval:  {interval // 60}m")
+        except Exception:
+            print("state file unreadable")
+    else:
+        print("no checkpoint written yet")
+
+    if BASE_DIR.exists():
+        checkpoints = sorted(BASE_DIR.glob("checkpoint_*.md"), reverse=True)[:5]
+        if checkpoints:
+            print("\nrecent checkpoints:")
+            for cp in checkpoints:
+                print(f"  {cp.name}")
+
+    print(f"\nlog:   {LOG_FILE}")
+    print(f"inbox: {INBOX_FILE}")
+
+
+# ─────────────────────────────────────────────────────────────
+# MAIN
+# ─────────────────────────────────────────────────────────────
+
+def main():
+    global SESSION_ID, log, EXPLICIT_CONFIG
+
+    parser = argparse.ArgumentParser(
+        description="session_writer — autonomous session state daemon",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="First time? Run: python3 session_writer_setup.py",
+    )
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--start",      action="store_true",
+                       help="launch daemon in background")
+    group.add_argument("--stop",       action="store_true",
+                       help="stop running daemon (writes final checkpoint first)")
+    group.add_argument("--checkpoint", action="store_true",
+                       help="trigger immediate checkpoint write")
+    group.add_argument("--status",     action="store_true",
+                       help="show daemon status and last checkpoint info")
+    group.add_argument("--foreground", action="store_true",
+                       help="run daemon in foreground without forking (for systemd)")
+    parser.add_argument("--session", default=None,
+                        help="session ID e.g. MyProject-N1 (also: SEMANTIC_SESSION env var)")
+    parser.add_argument("--config", default=None, metavar="PATH",
+                        help="path to config file (default: ~/.config/session_writer/config.toml)")
+    args = parser.parse_args()
+
+    # --session overrides env var; env var overrides config default
+    if args.session:
+        SESSION_ID = args.session
+        os.environ["SEMANTIC_SESSION"] = SESSION_ID
+
+    # Track explicit config for passing to background daemon
+    if args.config:
+        EXPLICIT_CONFIG = Path(args.config)
+
+    # Load config — sets BASE_DIR, derived paths, and all config globals.
+    # Exits with a helpful message if no config file found.
+    load_config(EXPLICIT_CONFIG)
+
+    # Ensure output directory exists before logging setup
+    BASE_DIR.mkdir(parents=True, exist_ok=True)
+
+    if args.foreground:
+        log = setup_logging(foreground=True)
+        run_daemon()
+    elif args.start:
+        log = setup_logging(foreground=True)
+        cmd_start()
+    elif args.stop:
+        cmd_stop()
+    elif args.checkpoint:
+        log = setup_logging(foreground=True)
+        cmd_checkpoint()
+    elif args.status:
+        cmd_status()
+
+
+if __name__ == "__main__":
+    main()

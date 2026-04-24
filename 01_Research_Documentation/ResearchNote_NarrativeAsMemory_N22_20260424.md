@@ -157,3 +157,50 @@ contexts.
 *          Aya Jamal, Decision_Integrity_Field_Pack_FINAL.pdf*
 *          ResearchNote_VisualArchitectureGap_N22_20260422.md*
 *          A Horse's Life Ch.11 (April)*
+
+---
+
+## Addendum — Aya Jamal Response, 2026-04-24
+
+After receiving Bob's reply, Aya responded:
+
+> "What's striking to me is that we arrived at the same structural failure
+> from completely different directions. That suggests we're not looking at
+> an edge case, but something fundamental."
+
+> "I'd be very interested in exploring how these field patterns could map
+> more directly into the architecture — particularly around how 'decision
+> without trace' and 'context collapse' might be captured, not just prevented."
+
+### Key Contribution: Captured, Not Just Prevented
+
+This distinction is new and precise. It sharpens the design requirement:
+
+- **Prevention** = stop context collapse from occurring (brittle; depends on
+  the system never failing, never resetting, never losing a person)
+- **Capture** = record the reasoning *at the moment of decision*, including
+  uncertainty, deferral, known incompleteness — so the trace survives even
+  when the context does not
+
+The difference between a passdown document and a log file:
+one records outputs, the other traces reasoning.
+
+The difference between a session_current.md and a simple conversation export:
+one captures what was considered significant and why, including [OPEN] tags
+marking acknowledged uncertainty. The selector reveals the reasoning.
+
+This connects directly to: *the compression-as-self hypothesis* — what a
+system chooses to retain IS its functional identity. Aya's framing makes
+this operational: build systems that capture the choice, not just the outcome.
+
+She also indicated she is developing a prototype. Nature TBD — follow up.
+
+### Convergence Confirmed
+
+Two independent paths (organizational field observation; AI/neuroscience
+architecture research) arriving at the same structural failure pattern,
+then immediately generating complementary insights on first exchange —
+this is the pattern that indicates a real phenomenon rather than an artifact
+of one methodology.
+
+[OBSERVED]: Genuine conceptual convergence, N+22, 2026-04-24.

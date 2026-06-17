@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Model manifest — local LLM registry</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A filterable registry of local-model candidates, sized against real hardware budgets.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1C2B33; --parchment:#F2ECDC; --parchment-dark:#E6DCC4;
+  --brass:#9C6B22; --sea:#2F5D58; --rust:#A8432B; --line:rgba(28,43,51,0.18);
+}
+*{box-sizing:border-box;}
+body{margin:0; background:var(--parchment); color:var(--ink); font-family:'Inter',sans-serif;}
+.wrap{max-width:1180px; margin:0 auto; padding:32px 24px 64px;}
+header.manifest{
+  border-bottom:2px solid var(--ink); padding-bottom:18px; margin-bottom:18px;
+  display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px;
+}
+header.manifest h1{font-family:'Spectral',serif; font-weight:600; font-size:30px; margin:0; letter-spacing:0.01em;}
+header.manifest .tally{font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--sea);}
+.subline{font-size:14px; color:#5b5347; margin:6px 0 18px; max-width:680px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="manifest">
+  <h1>Model manifest</h1>
+  <span class="tally" id="tally"></span>
+</header>
+<p class="subline">Local-model candidates pulled from the official Ollama library and HuggingFace's GGUF listings, sized against real hardware budgets. Estimates are heuristic, not a guarantee — confirm any borderline fit with the model itself before committing.</p>
+
+<style>
+.filterbar{
+  display:flex; flex-wrap:wrap; gap:18px; align-items:flex-end;
+  background:var(--parchment-dark); border:1px solid var(--line);
+  border-radius:6px; padding:16px 18px; margin-bottom:18px;
+}
+.field{display:flex; flex-direction:column; gap:4px;}
+.field label{font-size:11px; text-transform:uppercase; letter-spacing:0.06em; font-weight:600;}
+.field input[type=number], .field input[type=text], .field select{
+  font-family:'Inter',sans-serif; font-size:13px; padding:6px 8px;
+  border:1px solid var(--line); border-radius:4px; background:#fff; color:var(--ink); min-width:120px;
+}
+.field input[type=text]{min-width:220px;}
+.chiprow{display:flex; gap:6px; flex-wrap:wrap; max-width:360px;}
+.chip{font-size:12px; padding:4px 10px; border:1px solid var(--line); border-radius:14px; cursor:pointer; user-select:none; background:#fff; color:var(--ink);}
+.chip.on{background:var(--sea); color:#fff; border-color:var(--sea);}
+.presets{display:flex; gap:6px; flex-wrap:wrap; margin-top:4px;}
+.preset{font-size:12px; padding:4px 9px; border:1px solid var(--brass); color:var(--brass); border-radius:4px; background:#fff; cursor:pointer;}
+.preset:hover{background:var(--brass); color:#fff;}
+.count{font-size:13px; color:#5b5347; margin:0 0 10px;}
+#tableHolder{overflow-x:auto;}
+table{width:100%; border-collapse:collapse; font-family:'JetBrains Mono',monospace; font-size:13px;}
+thead th{
+  text-align:left; font-family:'Inter',sans-serif; font-weight:600; font-size:11px;
+  text-transform:uppercase; letter-spacing:0.05em; border-bottom:2px solid var(--ink); padding:8px 10px; white-space:nowrap;
+}
+tbody tr{border-bottom:1px solid var(--line);}
+tbody tr:nth-child(even){background:rgba(28,43,51,0.035);}
+tbody td{padding:7px 10px; vertical-align:top;}
+td.name{font-family:'Inter',sans-serif; font-weight:500;}
+.desc{font-family:'Inter',sans-serif; font-size:12px; color:#5b5347; max-width:280px;}
+.badge{display:inline-block; font-size:10.5px; padding:1px 6px; margin:0 3px 3px 0; border-radius:3px; background:var(--parchment-dark); border:1px solid var(--line); white-space:nowrap;}
+.badge.fit{background:rgba(47,93,88,0.12); border-color:var(--sea); color:var(--sea);}
+.badge.cap{background:rgba(156,107,34,0.12); border-color:var(--brass); color:var(--brass);}
+a.src{color:var(--sea); text-decoration:none; font-family:'Inter',sans-serif; font-size:12px;}
+a.src:hover{text-decoration:underline;}
+.src-tag{font-size:10.5px; text-transform:uppercase; letter-spacing:0.04em; color:#8a8170;}
+.empty{padding:40px; text-align:center; color:#8a8170; font-family:'Inter',sans-serif;}
+footer{margin-top:28px; font-size:12px; color:#8a8170; font-family:'Inter',sans-serif; border-top:1px solid var(--line); padding-top:14px;}
+</style>
+
+<div class="filterbar">
+  <div class="field">
+    <label>Max size (GB, estimated)</label>
+    <input type="number" id="maxGB" placeholder="no limit" min="0" step="0.5">
+    <div class="presets">
+      <span class="preset" data-gb="11">12GB GPU</span>
+      <span class="preset" data-gb="22">24GB GPU</span>
+      <span class="preset" data-gb="46">48GB GPU</span>
+      <span class="preset" data-gb="100">CPU / 128GB RAM</span>
+      <span class="preset" data-gb="">clear</span>
+    </div>
+  </div>
+  <div class="field"><label>Source</label><div class="chiprow" id="sourceChips"></div></div>
+  <div class="field"><label>Type</label><div class="chiprow" id="typeChips"></div></div>
+  <div class="field">
+    <label>Search name / description</label>
+    <input type="text" id="search" placeholder="e.g. coder, qwen, embed...">
+  </div>
+  <div class="field">
+    <label>Sort by</label>
+    <select id="sortBy">
+      <option value="pulls_desc">Popularity (desc)</option>
+      <option value="gb_asc">Size, smallest first</option>
+      <option value="gb_desc">Size, largest first</option>
+      <option value="name_asc">Name (A-Z)</option>
+    </select>
+  </div>
+</div>
+
+<p class="count" id="resultCount"></p>
+<div id="tableHolder"></div>
+
+<footer>
+  Source data: 233 entries from ollama.com/library, 60 from huggingface.co (filter=gguf, sorted by
+  downloads). Size estimates assume Q4-class quantization (params &times; 0.6 &times; 1.15). "Fits" is
+  computed against five reference budgets: 11GB / 22GB / 46GB / 100GB(CPU). This is a triage tool, not
+  a benchmark — it doesn't (yet) assess accuracy, calibration, or honesty. Built 17 June 2026.
+</footer>
+</div>
+
+<script>
+const DATA = {{DATA_JSON}};
+const ALL = [].concat(DATA.ollama_library, DATA.huggingface_gguf);
+
+function fmtGB(v){ return v==null ? '—' : v.toFixed(1); }
+function fmtNum(v){
+  if (v==null) return '—';
+  if (typeof v === 'string') return v;
+  if (v >= 1e6) return (v/1e6).toFixed(1)+'M';
+  if (v >= 1e3) return (v/1e3).toFixed(1)+'K';
+  return String(v);
+}
+function parsePulls(s){
+  if (s==null) return 0;
+  if (typeof s === 'number') return s;
+  const m = String(s).match(/([\d.]+)\s*([MK]?)/i);
+  if (!m) return 0;
+  let n = parseFloat(m[1]);
+  if (/M/i.test(m[2])) n *= 1e6;
+  if (/K/i.test(m[2])) n *= 1e3;
+  return n;
+}
+function escapeHtml(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+const allTypes = new Set();
+ALL.forEach(r => (r.capabilities||[]).forEach(c => { if (c) allTypes.add(c); }));
+const typeList = Array.from(allTypes).filter(t => !/^\d/.test(t) && t.length < 18).sort();
+
+const state = { maxGB:null, sources:new Set(), types:new Set(), search:'', sortBy:'pulls_desc' };
+
+function buildChips(containerId, values, stateSet, startActive){
+  const el = document.getElementById(containerId);
+  values.forEach(v => {
+    if (startActive) stateSet.add(v);
+    const chip = document.createElement('span');
+    chip.className = 'chip' + (stateSet.has(v) ? ' on' : '');
+    chip.textContent = v === 'ollama_library' ? 'Ollama library' : v === 'huggingface_gguf' ? 'HuggingFace' : v;
+    chip.onclick = () => {
+      if (stateSet.has(v)) { stateSet.delete(v); chip.classList.remove('on'); }
+      else { stateSet.add(v); chip.classList.add('on'); }
+      render();
+    };
+    el.appendChild(chip);
+  });
+}
+buildChips('sourceChips', ['ollama_library','huggingface_gguf'], state.sources, true);
+buildChips('typeChips', typeList, state.types, false);
+
+function getRows(){
+  return ALL.filter(r => {
+    if (!state.sources.has(r.source)) return false;
+    if (state.maxGB != null) {
+      if (r.est_gb == null || r.est_gb > state.maxGB) return false;
+    }
+    if (state.types.size > 0){
+      const caps = r.capabilities || [];
+      if (!caps.some(c => state.types.has(c))) return false;
+    }
+    if (state.search){
+      const hay = ((r.name||'')+' '+(r.id||'')+' '+(r.description||'')).toLowerCase();
+      if (!hay.includes(state.search)) return false;
+    }
+    return true;
+  });
+}
+
+function sortRows(rows){
+  const arr = rows.slice();
+  if (state.sortBy === 'gb_asc') arr.sort((a,b)=>(a.est_gb??Infinity)-(b.est_gb??Infinity));
+  else if (state.sortBy === 'gb_desc') arr.sort((a,b)=>(b.est_gb??-1)-(a.est_gb??-1));
+  else if (state.sortBy === 'name_asc') arr.sort((a,b)=>(a.name||'').localeCompare(b.name||''));
+  else arr.sort((a,b)=>{
+    const pa = a.pulls!=null ? parsePulls(a.pulls) : (a.downloads||0);
+    const pb = b.pulls!=null ? parsePulls(b.pulls) : (b.downloads||0);
+    return pb-pa;
+  });
+  return arr;
+}
+
+function render(){
+  const rows = sortRows(getRows());
+  document.getElementById('resultCount').textContent = rows.length + ' of ' + ALL.length + ' candidates shown';
+  const holder = document.getElementById('tableHolder');
+  if (rows.length === 0){
+    holder.innerHTML = '<div class="empty">No candidates match these filters. Loosen the size limit or clear the type filter.</div>';
+    return;
+  }
+  let html = '<table><thead><tr><th>Name / variant</th><th>Source</th><th>Type</th><th>Est. size</th><th>Fits</th><th>Popularity</th><th>Link</th></tr></thead><tbody>';
+  for (const r of rows){
+    const caps = (r.capabilities||[]).filter(c=>c && !/^\d/.test(c) && c.length<18)
+      .map(c=>'<span class="badge cap">'+escapeHtml(c)+'</span>').join('');
+    const fitsHtml = (r.fits||[]).map(f=>'<span class="badge fit">'+escapeHtml(f)+'</span>').join('') || '<span class="badge">none</span>';
+    const pop = r.pulls!=null ? fmtNum(r.pulls)+' pulls' : (r.downloads!=null ? fmtNum(r.downloads)+' dl' : '—');
+    const sizeTxt = r.params_b!=null ? r.params_b+'B / '+fmtGB(r.est_gb)+'GB' : '—';
+    html += '<tr><td class="name">'+escapeHtml(r.variant||r.name)+
+      (r.description?'<div class="desc">'+escapeHtml(r.description)+'</div>':'')+'</td>'+
+      '<td><span class="src-tag">'+(r.source==='ollama_library'?'Ollama':'HF')+'</span></td>'+
+      '<td>'+(caps||'—')+'</td>'+
+      '<td>'+sizeTxt+'</td>'+
+      '<td>'+fitsHtml+'</td>'+
+      '<td>'+pop+'</td>'+
+      '<td><a class="src" href="'+r.url+'" target="_blank" rel="noopener">view</a></td></tr>';
+  }
+  html += '</tbody></table>';
+  holder.innerHTML = html;
+}
+
+document.getElementById('maxGB').addEventListener('input', e=>{
+  state.maxGB = e.target.value === '' ? null : parseFloat(e.target.value);
+  render();
+});
+document.querySelectorAll('.preset').forEach(p=>{
+  p.addEventListener('click', ()=>{
+    const v = p.dataset.gb;
+    state.maxGB = v === '' ? null : parseFloat(v);
+    document.getElementById('maxGB').value = v;
+    render();
+  });
+});
+document.getElementById('search').addEventListener('input', e=>{
+  state.search = e.target.value.toLowerCase();
+  render();
+});
+document.getElementById('sortBy').addEventListener('change', e=>{
+  state.sortBy = e.target.value;
+  render();
+});
+
+document.getElementById('tally').textContent = ALL.length + ' candidates surveyed';
+render();
+</script>
+</body>
+</html>

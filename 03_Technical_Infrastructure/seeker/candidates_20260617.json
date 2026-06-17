@@ -1,0 +1,5349 @@
+{
+  "fetched_at_utc": "2026-06-17T14:44:31Z",
+  "ollama_library": [
+    {
+      "source": "ollama_library",
+      "id": "llama3.1",
+      "name": "llama3.1",
+      "description": "Llama 3.1 is a new state-of-the-art model from Meta available in 8B, 70B and 405B parameter sizes.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "8b",
+        "70b",
+        "405b"
+      ],
+      "params_b_guess": 405.0,
+      "tier": "very large (>70B)",
+      "pulls": "116M",
+      "url": "https://ollama.com/library/llama3.1"
+    },
+    {
+      "source": "ollama_library",
+      "id": "deepseek-r1",
+      "name": "deepseek-r1",
+      "description": "DeepSeek-R1 is a family of open reasoning models with performance approaching that of leading models, such as O3 and Gemini 2.5 Pro.",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [
+        "1.5b",
+        "7b",
+        "8b",
+        "14b",
+        "32b",
+        "70b",
+        "671b"
+      ],
+      "params_b_guess": 671.0,
+      "tier": "very large (>70B)",
+      "pulls": "87.9M",
+      "url": "https://ollama.com/library/deepseek-r1"
+    },
+    {
+      "source": "ollama_library",
+      "id": "nomic-embed-text",
+      "name": "nomic-embed-text",
+      "description": "A high-performing open embedding model with a large token context window.",
+      "capabilities": [
+        "embedding"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "74.8M",
+      "url": "https://ollama.com/library/nomic-embed-text"
+    },
+    {
+      "source": "ollama_library",
+      "id": "llama3.2",
+      "name": "llama3.2",
+      "description": "Meta&#39;s Llama 3.2 goes small with 1B and 3B models.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "1b",
+        "3b"
+      ],
+      "params_b_guess": 3.0,
+      "tier": "small (<=8B)",
+      "pulls": "73M",
+      "url": "https://ollama.com/library/llama3.2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "gemma3",
+      "name": "gemma3",
+      "description": "The current, most capable model that runs on a single GPU.",
+      "capabilities": [
+        "vision"
+      ],
+      "size_tags": [
+        "270m",
+        "1b",
+        "4b",
+        "12b",
+        "27b"
+      ],
+      "params_b_guess": 27.0,
+      "tier": "large (25-70B)",
+      "pulls": "37.8M",
+      "url": "https://ollama.com/library/gemma3"
+    },
+    {
+      "source": "ollama_library",
+      "id": "qwen2.5",
+      "name": "qwen2.5",
+      "description": "Qwen2.5 models are pretrained on Alibaba&#39;s latest large-scale dataset, encompassing up to 18 trillion tokens. The model supports up to 128K tokens and has multilingual support.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "0.5b",
+        "1.5b",
+        "3b",
+        "7b",
+        "14b",
+        "32b",
+        "72b"
+      ],
+      "params_b_guess": 72.0,
+      "tier": "very large (>70B)",
+      "pulls": "32.8M",
+      "url": "https://ollama.com/library/qwen2.5"
+    },
+    {
+      "source": "ollama_library",
+      "id": "qwen3",
+      "name": "qwen3",
+      "description": "Qwen3 is the latest generation of large language models in Qwen series, offering a comprehensive suite of dense and mixture-of-experts (MoE) models.",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [
+        "0.6b",
+        "1.7b",
+        "4b",
+        "8b",
+        "14b",
+        "30b",
+        "32b",
+        "235b"
+      ],
+      "params_b_guess": 235.0,
+      "tier": "very large (>70B)",
+      "pulls": "31M",
+      "url": "https://ollama.com/library/qwen3"
+    },
+    {
+      "source": "ollama_library",
+      "id": "mistral",
+      "name": "mistral",
+      "description": "The 7B model released by Mistral AI, updated to version 0.3.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "30.2M",
+      "url": "https://ollama.com/library/mistral"
+    },
+    {
+      "source": "ollama_library",
+      "id": "gemma2",
+      "name": "gemma2",
+      "description": "Google Gemma 2 is a high-performing and efficient model available in three sizes: 2B, 9B, and 27B.",
+      "capabilities": [],
+      "size_tags": [
+        "2b",
+        "9b",
+        "27b"
+      ],
+      "params_b_guess": 27.0,
+      "tier": "large (25-70B)",
+      "pulls": "25.6M",
+      "url": "https://ollama.com/library/gemma2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "llama3",
+      "name": "llama3",
+      "description": "Meta Llama 3: The most capable openly available LLM to date",
+      "capabilities": [],
+      "size_tags": [
+        "8b",
+        "70b"
+      ],
+      "params_b_guess": 70.0,
+      "tier": "large (25-70B)",
+      "pulls": "24.4M",
+      "url": "https://ollama.com/library/llama3"
+    },
+    {
+      "source": "ollama_library",
+      "id": "phi3",
+      "name": "phi3",
+      "description": "Phi-3 is a family of lightweight 3B (Mini) and 14B (Medium) state-of-the-art open models by Microsoft.",
+      "capabilities": [],
+      "size_tags": [
+        "3.8b",
+        "14b"
+      ],
+      "params_b_guess": 14.0,
+      "tier": "mid (9-24B)",
+      "pulls": "17.7M",
+      "url": "https://ollama.com/library/phi3"
+    },
+    {
+      "source": "ollama_library",
+      "id": "qwen2.5-coder",
+      "name": "qwen2.5-coder",
+      "description": "The latest series of Code-Specific Qwen models, with significant improvements in code generation, code reasoning, and code fixing.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "0.5b",
+        "1.5b",
+        "3b",
+        "7b",
+        "14b",
+        "32b"
+      ],
+      "params_b_guess": 32.0,
+      "tier": "large (25-70B)",
+      "pulls": "16.9M",
+      "url": "https://ollama.com/library/qwen2.5-coder"
+    },
+    {
+      "source": "ollama_library",
+      "id": "gemma4",
+      "name": "gemma4",
+      "description": "Gemma 4 models are designed to deliver frontier-level performance at each size. They are well-suited for reasoning, agentic workflows, coding, and multimodal understanding.",
+      "capabilities": [
+        "vision",
+        "tools",
+        "thinking",
+        "audio"
+      ],
+      "size_tags": [
+        "e2b",
+        "e4b",
+        "12b",
+        "26b",
+        "31b"
+      ],
+      "params_b_guess": 31.0,
+      "tier": "large (25-70B)",
+      "pulls": "14.4M",
+      "url": "https://ollama.com/library/gemma4"
+    },
+    {
+      "source": "ollama_library",
+      "id": "llava",
+      "name": "llava",
+      "description": "\ud83c\udf0b LLaVA is a novel end-to-end trained large multimodal model that combines a vision encoder and Vicuna for general-purpose visual and language understanding. Updated to version 1.6.",
+      "capabilities": [
+        "vision"
+      ],
+      "size_tags": [
+        "7b",
+        "13b",
+        "34b"
+      ],
+      "params_b_guess": 34.0,
+      "tier": "large (25-70B)",
+      "pulls": "14.2M",
+      "url": "https://ollama.com/library/llava"
+    },
+    {
+      "source": "ollama_library",
+      "id": "qwen3.5",
+      "name": "qwen3.5",
+      "description": "Qwen 3.5 is a family of open-source multimodal models that delivers exceptional utility and performance.",
+      "capabilities": [
+        "vision",
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [
+        "0.8b",
+        "2b",
+        "4b",
+        "9b",
+        "27b",
+        "35b",
+        "122b"
+      ],
+      "params_b_guess": 122.0,
+      "tier": "very large (>70B)",
+      "pulls": "13.8M",
+      "url": "https://ollama.com/library/qwen3.5"
+    },
+    {
+      "source": "ollama_library",
+      "id": "mxbai-embed-large",
+      "name": "mxbai-embed-large",
+      "description": "State-of-the-art large embedding model from mixedbread.ai",
+      "capabilities": [
+        "embedding"
+      ],
+      "size_tags": [
+        "335m"
+      ],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "11.7M",
+      "url": "https://ollama.com/library/mxbai-embed-large"
+    },
+    {
+      "source": "ollama_library",
+      "id": "gpt-oss",
+      "name": "gpt-oss",
+      "description": "OpenAI\u2019s open-weight models designed for powerful reasoning, agentic tasks, and versatile developer use cases.",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [
+        "20b",
+        "120b"
+      ],
+      "params_b_guess": 120.0,
+      "tier": "very large (>70B)",
+      "pulls": "10.2M",
+      "url": "https://ollama.com/library/gpt-oss"
+    },
+    {
+      "source": "ollama_library",
+      "id": "phi4",
+      "name": "phi4",
+      "description": "Phi-4 is a 14B parameter, state-of-the-art open model from Microsoft.",
+      "capabilities": [],
+      "size_tags": [
+        "14b"
+      ],
+      "params_b_guess": 14.0,
+      "tier": "mid (9-24B)",
+      "pulls": "7.6M",
+      "url": "https://ollama.com/library/phi4"
+    },
+    {
+      "source": "ollama_library",
+      "id": "gemma",
+      "name": "gemma",
+      "description": "Gemma is a family of lightweight, state-of-the-art open models built by Google DeepMind. Updated to version 1.1",
+      "capabilities": [],
+      "size_tags": [
+        "2b",
+        "7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "7.2M",
+      "url": "https://ollama.com/library/gemma"
+    },
+    {
+      "source": "ollama_library",
+      "id": "llama2",
+      "name": "llama2",
+      "description": "Llama 2 is a collection of foundation language models ranging from 7B to 70B parameters.",
+      "capabilities": [],
+      "size_tags": [
+        "7b",
+        "13b",
+        "70b"
+      ],
+      "params_b_guess": 70.0,
+      "tier": "large (25-70B)",
+      "pulls": "7.1M",
+      "url": "https://ollama.com/library/llama2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "qwen",
+      "name": "qwen",
+      "description": "Qwen 1.5 is a series of large language models by Alibaba Cloud spanning from 0.5B to 110B parameters",
+      "capabilities": [],
+      "size_tags": [
+        "0.5b",
+        "1.8b",
+        "4b",
+        "7b",
+        "14b",
+        "32b",
+        "72b",
+        "110b"
+      ],
+      "params_b_guess": 110.0,
+      "tier": "very large (>70B)",
+      "pulls": "6.9M",
+      "url": "https://ollama.com/library/qwen"
+    },
+    {
+      "source": "ollama_library",
+      "id": "qwen3-coder",
+      "name": "qwen3-coder",
+      "description": "Alibaba&#39;s performant long context models for agentic and coding tasks.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "30b",
+        "480b"
+      ],
+      "params_b_guess": 480.0,
+      "tier": "very large (>70B)",
+      "pulls": "6.4M",
+      "url": "https://ollama.com/library/qwen3-coder"
+    },
+    {
+      "source": "ollama_library",
+      "id": "qwen2",
+      "name": "qwen2",
+      "description": "Qwen2 is a new series of large language models from Alibaba group",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "0.5b",
+        "1.5b",
+        "7b",
+        "72b"
+      ],
+      "params_b_guess": 72.0,
+      "tier": "very large (>70B)",
+      "pulls": "5.9M",
+      "url": "https://ollama.com/library/qwen2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "codellama",
+      "name": "codellama",
+      "description": "A large language model that can use text prompts to generate and discuss code.",
+      "capabilities": [],
+      "size_tags": [
+        "7b",
+        "13b",
+        "34b",
+        "70b"
+      ],
+      "params_b_guess": 70.0,
+      "tier": "large (25-70B)",
+      "pulls": "5.7M",
+      "url": "https://ollama.com/library/codellama"
+    },
+    {
+      "source": "ollama_library",
+      "id": "minicpm-v",
+      "name": "minicpm-v",
+      "description": "A series of multimodal LLMs (MLLMs) designed for vision-language understanding.",
+      "capabilities": [
+        "vision"
+      ],
+      "size_tags": [
+        "8b"
+      ],
+      "params_b_guess": 8.0,
+      "tier": "small (<=8B)",
+      "pulls": "5.2M",
+      "url": "https://ollama.com/library/minicpm-v"
+    },
+    {
+      "source": "ollama_library",
+      "id": "tinyllama",
+      "name": "tinyllama",
+      "description": "The TinyLlama project is an open endeavor to train a compact 1.1B Llama model on 3 trillion tokens.",
+      "capabilities": [],
+      "size_tags": [
+        "1.1b"
+      ],
+      "params_b_guess": 1.1,
+      "tier": "small (<=8B)",
+      "pulls": "5M",
+      "url": "https://ollama.com/library/tinyllama"
+    },
+    {
+      "source": "ollama_library",
+      "id": "mistral-nemo",
+      "name": "mistral-nemo",
+      "description": "A state-of-the-art 12B model with 128k context length, built by Mistral AI in collaboration with NVIDIA.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "12b"
+      ],
+      "params_b_guess": 12.0,
+      "tier": "mid (9-24B)",
+      "pulls": "5M",
+      "url": "https://ollama.com/library/mistral-nemo"
+    },
+    {
+      "source": "ollama_library",
+      "id": "bge-m3",
+      "name": "bge-m3",
+      "description": "BGE-M3 is a new model from BAAI distinguished for its versatility in Multi-Functionality, Multi-Linguality, and Multi-Granularity.",
+      "capabilities": [
+        "embedding"
+      ],
+      "size_tags": [
+        "567m"
+      ],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "4.8M",
+      "url": "https://ollama.com/library/bge-m3"
+    },
+    {
+      "source": "ollama_library",
+      "id": "llama3.2-vision",
+      "name": "llama3.2-vision",
+      "description": "Llama 3.2 Vision is a collection of instruction-tuned image reasoning generative models in 11B and 90B sizes.",
+      "capabilities": [
+        "vision"
+      ],
+      "size_tags": [
+        "11b",
+        "90b"
+      ],
+      "params_b_guess": 90.0,
+      "tier": "very large (>70B)",
+      "pulls": "4.6M",
+      "url": "https://ollama.com/library/llama3.2-vision"
+    },
+    {
+      "source": "ollama_library",
+      "id": "deepseek-coder",
+      "name": "deepseek-coder",
+      "description": "DeepSeek Coder is a capable coding model trained on two trillion code and natural language tokens.",
+      "capabilities": [],
+      "size_tags": [
+        "1.3b",
+        "6.7b",
+        "33b"
+      ],
+      "params_b_guess": 33.0,
+      "tier": "large (25-70B)",
+      "pulls": "4.3M",
+      "url": "https://ollama.com/library/deepseek-coder"
+    },
+    {
+      "source": "ollama_library",
+      "id": "qwen3-vl",
+      "name": "qwen3-vl",
+      "description": "The most powerful vision-language model in the Qwen model family to date.",
+      "capabilities": [
+        "vision",
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [
+        "2b",
+        "4b",
+        "8b",
+        "30b",
+        "32b",
+        "235b"
+      ],
+      "params_b_guess": 235.0,
+      "tier": "very large (>70B)",
+      "pulls": "4.2M",
+      "url": "https://ollama.com/library/qwen3-vl"
+    },
+    {
+      "source": "ollama_library",
+      "id": "llama3.3",
+      "name": "llama3.3",
+      "description": "New state of the art 70B model. Llama 3.3 70B offers similar performance compared to the Llama 3.1 405B model.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "70b"
+      ],
+      "params_b_guess": 70.0,
+      "tier": "large (25-70B)",
+      "pulls": "4M",
+      "url": "https://ollama.com/library/llama3.3"
+    },
+    {
+      "source": "ollama_library",
+      "id": "dolphin3",
+      "name": "dolphin3",
+      "description": "Dolphin 3.0 Llama 3.1 8B \ud83d\udc2c is the next generation of the Dolphin series of instruct-tuned models designed to be the ultimate general purpose local model, enabling coding, math, agentic, function calling, and general use cases.",
+      "capabilities": [],
+      "size_tags": [
+        "8b"
+      ],
+      "params_b_guess": 8.0,
+      "tier": "small (<=8B)",
+      "pulls": "3.8M",
+      "url": "https://ollama.com/library/dolphin3"
+    },
+    {
+      "source": "ollama_library",
+      "id": "deepseek-v3",
+      "name": "deepseek-v3",
+      "description": "A strong Mixture-of-Experts (MoE) language model with 671B total parameters with 37B activated for each token.",
+      "capabilities": [],
+      "size_tags": [
+        "671b"
+      ],
+      "params_b_guess": 671.0,
+      "tier": "very large (>70B)",
+      "pulls": "3.8M",
+      "url": "https://ollama.com/library/deepseek-v3"
+    },
+    {
+      "source": "ollama_library",
+      "id": "olmo2",
+      "name": "olmo2",
+      "description": "OLMo 2 is a new family of 7B and 13B models trained on up to 5T tokens. These models are on par with or better than equivalently sized fully open models, and competitive with open-weight models such as Llama 3.1 on English academic benchmarks.",
+      "capabilities": [],
+      "size_tags": [
+        "7b",
+        "13b"
+      ],
+      "params_b_guess": 13.0,
+      "tier": "mid (9-24B)",
+      "pulls": "3.7M",
+      "url": "https://ollama.com/library/olmo2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "glm-ocr",
+      "name": "glm-ocr",
+      "description": "GLM-OCR is a multimodal OCR model for complex document understanding, built on the GLM-V encoder\u2013decoder architecture.",
+      "capabilities": [
+        "vision",
+        "tools"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "3.6M",
+      "url": "https://ollama.com/library/glm-ocr"
+    },
+    {
+      "source": "ollama_library",
+      "id": "smollm2",
+      "name": "smollm2",
+      "description": "SmolLM2 is a family of compact language models available in three size: 135M, 360M, and 1.7B parameters.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "135m",
+        "360m",
+        "1.7b"
+      ],
+      "params_b_guess": 1.7,
+      "tier": "small (<=8B)",
+      "pulls": "3.4M",
+      "url": "https://ollama.com/library/smollm2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "all-minilm",
+      "name": "all-minilm",
+      "description": "Embedding models on very large sentence level datasets.",
+      "capabilities": [
+        "embedding"
+      ],
+      "size_tags": [
+        "22m",
+        "33m"
+      ],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "3.2M",
+      "url": "https://ollama.com/library/all-minilm"
+    },
+    {
+      "source": "ollama_library",
+      "id": "snowflake-arctic-embed",
+      "name": "snowflake-arctic-embed",
+      "description": "A suite of text embedding models by Snowflake, optimized for performance.",
+      "capabilities": [
+        "embedding"
+      ],
+      "size_tags": [
+        "22m",
+        "33m",
+        "110m",
+        "137m",
+        "335m"
+      ],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "3.1M",
+      "url": "https://ollama.com/library/snowflake-arctic-embed"
+    },
+    {
+      "source": "ollama_library",
+      "id": "mistral-small",
+      "name": "mistral-small",
+      "description": "Mistral Small 3 sets a new benchmark in the \u201csmall\u201d Large Language Models category below 70B.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "22b",
+        "24b"
+      ],
+      "params_b_guess": 24.0,
+      "tier": "mid (9-24B)",
+      "pulls": "3M",
+      "url": "https://ollama.com/library/mistral-small"
+    },
+    {
+      "source": "ollama_library",
+      "id": "codegemma",
+      "name": "codegemma",
+      "description": "CodeGemma is a collection of powerful, lightweight models that can perform a variety of coding tasks like fill-in-the-middle code completion, code generation, natural language understanding, mathematical reasoning, and instruction following.",
+      "capabilities": [],
+      "size_tags": [
+        "2b",
+        "7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "3M",
+      "url": "https://ollama.com/library/codegemma"
+    },
+    {
+      "source": "ollama_library",
+      "id": "granite3.1-moe",
+      "name": "granite3.1-moe",
+      "description": "The IBM Granite 1B and 3B models are long-context mixture of experts (MoE) Granite models from IBM designed for low latency usage.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "1b",
+        "3b"
+      ],
+      "params_b_guess": 3.0,
+      "tier": "small (<=8B)",
+      "pulls": "3M",
+      "url": "https://ollama.com/library/granite3.1-moe"
+    },
+    {
+      "source": "ollama_library",
+      "id": "orca-mini",
+      "name": "orca-mini",
+      "description": "A general-purpose model ranging from 3 billion parameters to 70 billion, suitable for entry-level hardware.",
+      "capabilities": [],
+      "size_tags": [
+        "3b",
+        "7b",
+        "13b",
+        "70b"
+      ],
+      "params_b_guess": 70.0,
+      "tier": "large (25-70B)",
+      "pulls": "2.9M",
+      "url": "https://ollama.com/library/orca-mini"
+    },
+    {
+      "source": "ollama_library",
+      "id": "starcoder2",
+      "name": "starcoder2",
+      "description": "StarCoder2 is the next generation of transparently trained open code LLMs that comes in three sizes: 3B, 7B and 15B parameters.",
+      "capabilities": [],
+      "size_tags": [
+        "3b",
+        "7b",
+        "15b"
+      ],
+      "params_b_guess": 15.0,
+      "tier": "mid (9-24B)",
+      "pulls": "2.9M",
+      "url": "https://ollama.com/library/starcoder2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "mixtral",
+      "name": "mixtral",
+      "description": "A set of Mixture of Experts (MoE) model with open weights by Mistral AI in 8x7b and 8x22b parameter sizes.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "8x7b",
+        "8x22b"
+      ],
+      "params_b_guess": 22.0,
+      "tier": "mid (9-24B)",
+      "pulls": "2.7M",
+      "url": "https://ollama.com/library/mixtral"
+    },
+    {
+      "source": "ollama_library",
+      "id": "deepseek-coder-v2",
+      "name": "deepseek-coder-v2",
+      "description": "An open-source Mixture-of-Experts code language model that achieves performance comparable to GPT4-Turbo in code-specific tasks.",
+      "capabilities": [],
+      "size_tags": [
+        "16b",
+        "236b"
+      ],
+      "params_b_guess": 236.0,
+      "tier": "very large (>70B)",
+      "pulls": "2.7M",
+      "url": "https://ollama.com/library/deepseek-coder-v2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "llama2-uncensored",
+      "name": "llama2-uncensored",
+      "description": "Uncensored Llama 2 model by George Sung and Jarrad Hope.",
+      "capabilities": [],
+      "size_tags": [
+        "7b",
+        "70b"
+      ],
+      "params_b_guess": 70.0,
+      "tier": "large (25-70B)",
+      "pulls": "2.6M",
+      "url": "https://ollama.com/library/llama2-uncensored"
+    },
+    {
+      "source": "ollama_library",
+      "id": "falcon3",
+      "name": "falcon3",
+      "description": "A family of efficient AI models under 10B parameters performant in science, math, and coding through innovative training techniques.",
+      "capabilities": [],
+      "size_tags": [
+        "1b",
+        "3b",
+        "7b",
+        "10b"
+      ],
+      "params_b_guess": 10.0,
+      "tier": "mid (9-24B)",
+      "pulls": "2.6M",
+      "url": "https://ollama.com/library/falcon3"
+    },
+    {
+      "source": "ollama_library",
+      "id": "qwen2.5vl",
+      "name": "qwen2.5vl",
+      "description": "Flagship vision-language model of Qwen and also a significant leap from the previous Qwen2-VL.",
+      "capabilities": [
+        "vision"
+      ],
+      "size_tags": [
+        "3b",
+        "7b",
+        "32b",
+        "72b"
+      ],
+      "params_b_guess": 72.0,
+      "tier": "very large (>70B)",
+      "pulls": "2.5M",
+      "url": "https://ollama.com/library/qwen2.5vl"
+    },
+    {
+      "source": "ollama_library",
+      "id": "qwen3.6",
+      "name": "qwen3.6",
+      "description": "Qwen3.6 delivers substantial upgrades in agentic coding and thinking preservation than previous Qwen models.",
+      "capabilities": [
+        "vision",
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [
+        "27b",
+        "35b"
+      ],
+      "params_b_guess": 35.0,
+      "tier": "large (25-70B)",
+      "pulls": "2.5M",
+      "url": "https://ollama.com/library/qwen3.6"
+    },
+    {
+      "source": "ollama_library",
+      "id": "nemotron-3-super",
+      "name": "nemotron-3-super",
+      "description": "NVIDIA Nemotron 3 Super is a 120B open MoE model activating just 12B parameters to deliver maximum compute efficiency and accuracy for complex multi-agent applications.",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [
+        "120b"
+      ],
+      "params_b_guess": 120.0,
+      "tier": "very large (>70B)",
+      "pulls": "2.4M",
+      "url": "https://ollama.com/library/nemotron-3-super"
+    },
+    {
+      "source": "ollama_library",
+      "id": "glm-5",
+      "name": "glm-5",
+      "description": "A strong reasoning and agentic model from Z.ai with 744B total parameters (40B active), built for complex systems engineering and long-horizon tasks.",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "2.3M",
+      "url": "https://ollama.com/library/glm-5"
+    },
+    {
+      "source": "ollama_library",
+      "id": "llava-llama3",
+      "name": "llava-llama3",
+      "description": "A LLaVA model fine-tuned from Llama 3 Instruct with better scores in several benchmarks.",
+      "capabilities": [
+        "vision"
+      ],
+      "size_tags": [
+        "8b"
+      ],
+      "params_b_guess": 8.0,
+      "tier": "small (<=8B)",
+      "pulls": "2.3M",
+      "url": "https://ollama.com/library/llava-llama3"
+    },
+    {
+      "source": "ollama_library",
+      "id": "mistral-small3.2",
+      "name": "mistral-small3.2",
+      "description": "An update to Mistral Small that improves on function calling, instruction following, and less repetition errors.",
+      "capabilities": [
+        "vision",
+        "tools"
+      ],
+      "size_tags": [
+        "24b"
+      ],
+      "params_b_guess": 24.0,
+      "tier": "mid (9-24B)",
+      "pulls": "2.3M",
+      "url": "https://ollama.com/library/mistral-small3.2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "qwq",
+      "name": "qwq",
+      "description": "QwQ is the reasoning model of the Qwen series.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "32b"
+      ],
+      "params_b_guess": 32.0,
+      "tier": "large (25-70B)",
+      "pulls": "2.3M",
+      "url": "https://ollama.com/library/qwq"
+    },
+    {
+      "source": "ollama_library",
+      "id": "minimax-m2.5",
+      "name": "minimax-m2.5",
+      "description": "MiniMax-M2.5 is a state-of-the-art large language model designed for real-world productivity and coding tasks.",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "2.3M",
+      "url": "https://ollama.com/library/minimax-m2.5"
+    },
+    {
+      "source": "ollama_library",
+      "id": "glm-5.1",
+      "name": "glm-5.1",
+      "description": "GLM-5.1 is our next-generation flagship model for agentic engineering, with significantly stronger coding capabilities than its predecessor. It achieves state-of-the-art performance on SWE-Bench Pro and leads GLM-5 by a wide margin.",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "2.2M",
+      "url": "https://ollama.com/library/glm-5.1"
+    },
+    {
+      "source": "ollama_library",
+      "id": "gemini-3-flash-preview",
+      "name": "gemini-3-flash-preview",
+      "description": "Gemini 3 Flash offers frontier intelligence built for speed at a fraction of the cost.",
+      "capabilities": [
+        "vision",
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "2.2M",
+      "url": "https://ollama.com/library/gemini-3-flash-preview"
+    },
+    {
+      "source": "ollama_library",
+      "id": "minimax-m2.7",
+      "name": "minimax-m2.7",
+      "description": "MiniMax&#39;s M2-series model for coding, agentic workflows, and professional productivity.",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "2.2M",
+      "url": "https://ollama.com/library/minimax-m2.7"
+    },
+    {
+      "source": "ollama_library",
+      "id": "glm-4.7",
+      "name": "glm-4.7",
+      "description": "Advancing the Coding Capability",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "2.2M",
+      "url": "https://ollama.com/library/glm-4.7"
+    },
+    {
+      "source": "ollama_library",
+      "id": "deepseek-v3.2",
+      "name": "deepseek-v3.2",
+      "description": "DeepSeek-V3.2, a model that harmonizes high computational efficiency with superior reasoning and agent performance.",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "2.2M",
+      "url": "https://ollama.com/library/deepseek-v3.2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "qwen3-embedding",
+      "name": "qwen3-embedding",
+      "description": "Building upon the foundational models of the Qwen3 series, Qwen3 Embedding provides a comprehensive range of text embeddings models in various sizes",
+      "capabilities": [
+        "embedding"
+      ],
+      "size_tags": [
+        "0.6b",
+        "4b",
+        "8b"
+      ],
+      "params_b_guess": 8.0,
+      "tier": "small (<=8B)",
+      "pulls": "2.1M",
+      "url": "https://ollama.com/library/qwen3-embedding"
+    },
+    {
+      "source": "ollama_library",
+      "id": "minimax-m2.1",
+      "name": "minimax-m2.1",
+      "description": "Exceptional multilingual capabilities to elevate code engineering",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "2.1M",
+      "url": "https://ollama.com/library/minimax-m2.1"
+    },
+    {
+      "source": "ollama_library",
+      "id": "cogito",
+      "name": "cogito",
+      "description": "Cogito v1 Preview is a family of hybrid reasoning models by Deep Cogito that outperform the best available open models of the same size, including counterparts from LLaMA, DeepSeek, and Qwen across most standard benchmarks.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "3b",
+        "8b",
+        "14b",
+        "32b",
+        "70b"
+      ],
+      "params_b_guess": 70.0,
+      "tier": "large (25-70B)",
+      "pulls": "2M",
+      "url": "https://ollama.com/library/cogito"
+    },
+    {
+      "source": "ollama_library",
+      "id": "dolphin-llama3",
+      "name": "dolphin-llama3",
+      "description": "Dolphin 2.9 is a new model with 8B and 70B sizes by Eric Hartford based on Llama 3 that has a variety of instruction, conversational, and coding skills.",
+      "capabilities": [],
+      "size_tags": [
+        "8b",
+        "70b"
+      ],
+      "params_b_guess": 70.0,
+      "tier": "large (25-70B)",
+      "pulls": "2M",
+      "url": "https://ollama.com/library/dolphin-llama3"
+    },
+    {
+      "source": "ollama_library",
+      "id": "smollm",
+      "name": "smollm",
+      "description": "\ud83e\ude90 A family of small models with 135M, 360M, and 1.7B parameters, trained on a new high-quality dataset.",
+      "capabilities": [],
+      "size_tags": [
+        "135m",
+        "360m",
+        "1.7b"
+      ],
+      "params_b_guess": 1.7,
+      "tier": "small (<=8B)",
+      "pulls": "1.9M",
+      "url": "https://ollama.com/library/smollm"
+    },
+    {
+      "source": "ollama_library",
+      "id": "dolphin-mixtral",
+      "name": "dolphin-mixtral",
+      "description": "Uncensored, 8x7b and 8x22b fine-tuned models based on the Mixtral mixture of experts models that excels at coding tasks. Created by Eric Hartford.",
+      "capabilities": [],
+      "size_tags": [
+        "8x7b",
+        "8x22b"
+      ],
+      "params_b_guess": 22.0,
+      "tier": "mid (9-24B)",
+      "pulls": "1.8M",
+      "url": "https://ollama.com/library/dolphin-mixtral"
+    },
+    {
+      "source": "ollama_library",
+      "id": "gemma3n",
+      "name": "gemma3n",
+      "description": "Gemma 3n models are designed for efficient execution on everyday devices such as laptops, tablets or phones.",
+      "capabilities": [],
+      "size_tags": [
+        "e2b",
+        "e4b"
+      ],
+      "params_b_guess": 4.0,
+      "tier": "small (<=8B)",
+      "pulls": "1.7M",
+      "url": "https://ollama.com/library/gemma3n"
+    },
+    {
+      "source": "ollama_library",
+      "id": "llama4",
+      "name": "llama4",
+      "description": "Meta&#39;s latest collection of multimodal models.",
+      "capabilities": [
+        "vision",
+        "tools"
+      ],
+      "size_tags": [
+        "16x17b",
+        "128x17b"
+      ],
+      "params_b_guess": 17.0,
+      "tier": "mid (9-24B)",
+      "pulls": "1.7M",
+      "url": "https://ollama.com/library/llama4"
+    },
+    {
+      "source": "ollama_library",
+      "id": "translategemma",
+      "name": "translategemma",
+      "description": "A new collection of open translation models built on Gemma 3, helping people communicate across 55 languages.",
+      "capabilities": [
+        "vision"
+      ],
+      "size_tags": [
+        "4b",
+        "12b",
+        "27b"
+      ],
+      "params_b_guess": 27.0,
+      "tier": "large (25-70B)",
+      "pulls": "1.7M",
+      "url": "https://ollama.com/library/translategemma"
+    },
+    {
+      "source": "ollama_library",
+      "id": "phi4-reasoning",
+      "name": "phi4-reasoning",
+      "description": "Phi 4 reasoning and reasoning plus are 14-billion parameter open-weight reasoning models that rival much larger models on complex reasoning tasks.",
+      "capabilities": [],
+      "size_tags": [
+        "14b"
+      ],
+      "params_b_guess": 14.0,
+      "tier": "mid (9-24B)",
+      "pulls": "1.6M",
+      "url": "https://ollama.com/library/phi4-reasoning"
+    },
+    {
+      "source": "ollama_library",
+      "id": "qwen3-coder-next",
+      "name": "qwen3-coder-next",
+      "description": "Qwen3-Coder-Next is a coding-focused language model from Alibaba&#39;s Qwen team, optimized for agentic coding workflows and local development.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "1.6M",
+      "url": "https://ollama.com/library/qwen3-coder-next"
+    },
+    {
+      "source": "ollama_library",
+      "id": "dolphin-phi",
+      "name": "dolphin-phi",
+      "description": "2.7B uncensored Dolphin model by Eric Hartford, based on the Phi language model by Microsoft Research.",
+      "capabilities": [],
+      "size_tags": [
+        "2.7b"
+      ],
+      "params_b_guess": 2.7,
+      "tier": "small (<=8B)",
+      "pulls": "1.6M",
+      "url": "https://ollama.com/library/dolphin-phi"
+    },
+    {
+      "source": "ollama_library",
+      "id": "dolphin-mistral",
+      "name": "dolphin-mistral",
+      "description": "The uncensored Dolphin model based on Mistral that excels at coding tasks. Updated to version 2.8.",
+      "capabilities": [],
+      "size_tags": [
+        "7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "1.5M",
+      "url": "https://ollama.com/library/dolphin-mistral"
+    },
+    {
+      "source": "ollama_library",
+      "id": "phi",
+      "name": "phi",
+      "description": "Phi-2: a 2.7B language model by Microsoft Research that demonstrates outstanding reasoning and language understanding capabilities.",
+      "capabilities": [],
+      "size_tags": [
+        "2.7b"
+      ],
+      "params_b_guess": 2.7,
+      "tier": "small (<=8B)",
+      "pulls": "1.5M",
+      "url": "https://ollama.com/library/phi"
+    },
+    {
+      "source": "ollama_library",
+      "id": "magistral",
+      "name": "magistral",
+      "description": "Magistral is a small, efficient reasoning model with 24B parameters.",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [
+        "24b"
+      ],
+      "params_b_guess": 24.0,
+      "tier": "mid (9-24B)",
+      "pulls": "1.4M",
+      "url": "https://ollama.com/library/magistral"
+    },
+    {
+      "source": "ollama_library",
+      "id": "command-r",
+      "name": "command-r",
+      "description": "Command R is a Large Language Model optimized for conversational interaction and long context tasks.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "35b"
+      ],
+      "params_b_guess": 35.0,
+      "tier": "large (25-70B)",
+      "pulls": "1.4M",
+      "url": "https://ollama.com/library/command-r"
+    },
+    {
+      "source": "ollama_library",
+      "id": "hermes3",
+      "name": "hermes3",
+      "description": "Hermes 3 is the latest version of the flagship Hermes series of LLMs by Nous Research",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "3b",
+        "8b",
+        "70b",
+        "405b"
+      ],
+      "params_b_guess": 405.0,
+      "tier": "very large (>70B)",
+      "pulls": "1.4M",
+      "url": "https://ollama.com/library/hermes3"
+    },
+    {
+      "source": "ollama_library",
+      "id": "granite-code",
+      "name": "granite-code",
+      "description": "A family of open foundation models by IBM for Code Intelligence",
+      "capabilities": [],
+      "size_tags": [
+        "3b",
+        "8b",
+        "20b",
+        "34b"
+      ],
+      "params_b_guess": 34.0,
+      "tier": "large (25-70B)",
+      "pulls": "1.4M",
+      "url": "https://ollama.com/library/granite-code"
+    },
+    {
+      "source": "ollama_library",
+      "id": "embeddinggemma",
+      "name": "embeddinggemma",
+      "description": "EmbeddingGemma is a 300M parameter embedding model from Google.",
+      "capabilities": [
+        "embedding"
+      ],
+      "size_tags": [
+        "300m"
+      ],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "1.3M",
+      "url": "https://ollama.com/library/embeddinggemma"
+    },
+    {
+      "source": "ollama_library",
+      "id": "moondream",
+      "name": "moondream",
+      "description": "moondream2 is a small vision language model designed to run efficiently on edge devices.",
+      "capabilities": [
+        "vision"
+      ],
+      "size_tags": [
+        "1.8b"
+      ],
+      "params_b_guess": 1.8,
+      "tier": "small (<=8B)",
+      "pulls": "1.3M",
+      "url": "https://ollama.com/library/moondream"
+    },
+    {
+      "source": "ollama_library",
+      "id": "glm-4.7-flash",
+      "name": "glm-4.7-flash",
+      "description": "As the strongest model in the 30B class, GLM-4.7-Flash offers a new option for lightweight deployment that balances performance and efficiency.",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "1.3M",
+      "url": "https://ollama.com/library/glm-4.7-flash"
+    },
+    {
+      "source": "ollama_library",
+      "id": "codestral",
+      "name": "codestral",
+      "description": "Codestral is Mistral AI\u2019s first-ever code model designed for code generation tasks.",
+      "capabilities": [],
+      "size_tags": [
+        "22b"
+      ],
+      "params_b_guess": 22.0,
+      "tier": "mid (9-24B)",
+      "pulls": "1.3M",
+      "url": "https://ollama.com/library/codestral"
+    },
+    {
+      "source": "ollama_library",
+      "id": "deepscaler",
+      "name": "deepscaler",
+      "description": "A fine-tuned version of Deepseek-R1-Distilled-Qwen-1.5B that surpasses the performance of OpenAI\u2019s o1-preview with just 1.5B parameters on popular math evaluations.",
+      "capabilities": [],
+      "size_tags": [
+        "1.5b"
+      ],
+      "params_b_guess": 1.5,
+      "tier": "small (<=8B)",
+      "pulls": "1.2M",
+      "url": "https://ollama.com/library/deepscaler"
+    },
+    {
+      "source": "ollama_library",
+      "id": "yi",
+      "name": "yi",
+      "description": "Yi 1.5 is a high-performing, bilingual language model.",
+      "capabilities": [],
+      "size_tags": [
+        "6b",
+        "9b",
+        "34b"
+      ],
+      "params_b_guess": 34.0,
+      "tier": "large (25-70B)",
+      "pulls": "1.2M",
+      "url": "https://ollama.com/library/yi"
+    },
+    {
+      "source": "ollama_library",
+      "id": "granite4",
+      "name": "granite4",
+      "description": "Granite 4 features improved instruction following (IF) and tool-calling capabilities, making them more effective in enterprise applications.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "350m",
+        "1b",
+        "3b"
+      ],
+      "params_b_guess": 3.0,
+      "tier": "small (<=8B)",
+      "pulls": "1.2M",
+      "url": "https://ollama.com/library/granite4"
+    },
+    {
+      "source": "ollama_library",
+      "id": "phi4-mini",
+      "name": "phi4-mini",
+      "description": "Phi-4-mini brings significant enhancements in multilingual support, reasoning, and mathematics, and now, the long-awaited function calling feature is finally supported.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "3.8b"
+      ],
+      "params_b_guess": 3.8,
+      "tier": "small (<=8B)",
+      "pulls": "1.2M",
+      "url": "https://ollama.com/library/phi4-mini"
+    },
+    {
+      "source": "ollama_library",
+      "id": "ministral-3",
+      "name": "ministral-3",
+      "description": "The Ministral 3 family is designed for edge deployment, capable of running on a wide range of hardware.",
+      "capabilities": [
+        "vision",
+        "tools"
+      ],
+      "size_tags": [
+        "3b",
+        "8b",
+        "14b"
+      ],
+      "params_b_guess": 14.0,
+      "tier": "mid (9-24B)",
+      "pulls": "1.2M",
+      "url": "https://ollama.com/library/ministral-3"
+    },
+    {
+      "source": "ollama_library",
+      "id": "lfm2.5-thinking",
+      "name": "lfm2.5-thinking",
+      "description": "LFM2.5 is a new family of hybrid models designed for on-device deployment.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "1.2b"
+      ],
+      "params_b_guess": 1.2,
+      "tier": "small (<=8B)",
+      "pulls": "1.2M",
+      "url": "https://ollama.com/library/lfm2.5-thinking"
+    },
+    {
+      "source": "ollama_library",
+      "id": "zephyr",
+      "name": "zephyr",
+      "description": "Zephyr is a series of fine-tuned versions of the Mistral and Mixtral models that are trained to act as helpful assistants.",
+      "capabilities": [],
+      "size_tags": [
+        "7b",
+        "141b"
+      ],
+      "params_b_guess": 141.0,
+      "tier": "very large (>70B)",
+      "pulls": "1.2M",
+      "url": "https://ollama.com/library/zephyr"
+    },
+    {
+      "source": "ollama_library",
+      "id": "mistral-large",
+      "name": "mistral-large",
+      "description": "Mistral Large 2 is Mistral&#39;s new flagship model that is significantly more capable in code generation, mathematics, and reasoning with 128k context window and support for dozens of languages.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "123b"
+      ],
+      "params_b_guess": 123.0,
+      "tier": "very large (>70B)",
+      "pulls": "1.2M",
+      "url": "https://ollama.com/library/mistral-large"
+    },
+    {
+      "source": "ollama_library",
+      "id": "wizard-vicuna-uncensored",
+      "name": "wizard-vicuna-uncensored",
+      "description": "Wizard Vicuna Uncensored is a 7B, 13B, and 30B parameter model based on Llama 2 uncensored by Eric Hartford.",
+      "capabilities": [],
+      "size_tags": [
+        "7b",
+        "13b",
+        "30b"
+      ],
+      "params_b_guess": 30.0,
+      "tier": "large (25-70B)",
+      "pulls": "1.2M",
+      "url": "https://ollama.com/library/wizard-vicuna-uncensored"
+    },
+    {
+      "source": "ollama_library",
+      "id": "glm4",
+      "name": "glm4",
+      "description": "A strong multi-lingual general language model with competitive performance to Llama 3.",
+      "capabilities": [],
+      "size_tags": [
+        "9b"
+      ],
+      "params_b_guess": 9.0,
+      "tier": "mid (9-24B)",
+      "pulls": "1.1M",
+      "url": "https://ollama.com/library/glm4"
+    },
+    {
+      "source": "ollama_library",
+      "id": "openthinker",
+      "name": "openthinker",
+      "description": "A fully open-source family of reasoning models built using a dataset derived by distilling DeepSeek-R1.",
+      "capabilities": [],
+      "size_tags": [
+        "7b",
+        "32b"
+      ],
+      "params_b_guess": 32.0,
+      "tier": "large (25-70B)",
+      "pulls": "1.1M",
+      "url": "https://ollama.com/library/openthinker"
+    },
+    {
+      "source": "ollama_library",
+      "id": "wizardlm2",
+      "name": "wizardlm2",
+      "description": "State of the art large language model from Microsoft AI with improved performance on complex chat, multilingual, reasoning and agent use cases.",
+      "capabilities": [],
+      "size_tags": [
+        "7b",
+        "8x22b"
+      ],
+      "params_b_guess": 22.0,
+      "tier": "mid (9-24B)",
+      "pulls": "1.1M",
+      "url": "https://ollama.com/library/wizardlm2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "starcoder",
+      "name": "starcoder",
+      "description": "StarCoder is a code generation model trained on 80&#43; programming languages.",
+      "capabilities": [],
+      "size_tags": [
+        "1b",
+        "3b",
+        "7b",
+        "15b"
+      ],
+      "params_b_guess": 15.0,
+      "tier": "mid (9-24B)",
+      "pulls": "1.1M",
+      "url": "https://ollama.com/library/starcoder"
+    },
+    {
+      "source": "ollama_library",
+      "id": "deepseek-v2",
+      "name": "deepseek-v2",
+      "description": "A strong, economical, and efficient Mixture-of-Experts language model.",
+      "capabilities": [],
+      "size_tags": [
+        "16b",
+        "236b"
+      ],
+      "params_b_guess": 236.0,
+      "tier": "very large (>70B)",
+      "pulls": "1.1M",
+      "url": "https://ollama.com/library/deepseek-v2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "nous-hermes",
+      "name": "nous-hermes",
+      "description": "General use models based on Llama and Llama 2 from Nous Research.",
+      "capabilities": [],
+      "size_tags": [
+        "7b",
+        "13b"
+      ],
+      "params_b_guess": 13.0,
+      "tier": "mid (9-24B)",
+      "pulls": "1.1M",
+      "url": "https://ollama.com/library/nous-hermes"
+    },
+    {
+      "source": "ollama_library",
+      "id": "openchat",
+      "name": "openchat",
+      "description": "A family of open-source models trained on a wide variety of data, surpassing ChatGPT on various benchmarks. Updated to version 3.5-0106.",
+      "capabilities": [],
+      "size_tags": [
+        "7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "1.1M",
+      "url": "https://ollama.com/library/openchat"
+    },
+    {
+      "source": "ollama_library",
+      "id": "deepseek-llm",
+      "name": "deepseek-llm",
+      "description": "An advanced language model crafted with 2 trillion bilingual tokens.",
+      "capabilities": [],
+      "size_tags": [
+        "7b",
+        "67b"
+      ],
+      "params_b_guess": 67.0,
+      "tier": "large (25-70B)",
+      "pulls": "1.1M",
+      "url": "https://ollama.com/library/deepseek-llm"
+    },
+    {
+      "source": "ollama_library",
+      "id": "lfm2",
+      "name": "lfm2",
+      "description": "LFM2 is a family of hybrid models designed for on-device deployment. LFM2-24B-A2B is the largest model in the family, scaling the architecture to 24 billion parameters while keeping inference efficient.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "24b"
+      ],
+      "params_b_guess": 24.0,
+      "tier": "mid (9-24B)",
+      "pulls": "1.1M",
+      "url": "https://ollama.com/library/lfm2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "falcon",
+      "name": "falcon",
+      "description": "A large language model built by the Technology Innovation Institute (TII) for use in summarization, text generation, and chat bots.",
+      "capabilities": [],
+      "size_tags": [
+        "7b",
+        "40b",
+        "180b"
+      ],
+      "params_b_guess": 180.0,
+      "tier": "very large (>70B)",
+      "pulls": "1.1M",
+      "url": "https://ollama.com/library/falcon"
+    },
+    {
+      "source": "ollama_library",
+      "id": "vicuna",
+      "name": "vicuna",
+      "description": "General use chat model based on Llama and Llama 2 with 2K to 16K context sizes.",
+      "capabilities": [],
+      "size_tags": [
+        "7b",
+        "13b",
+        "33b"
+      ],
+      "params_b_guess": 33.0,
+      "tier": "large (25-70B)",
+      "pulls": "1.1M",
+      "url": "https://ollama.com/library/vicuna"
+    },
+    {
+      "source": "ollama_library",
+      "id": "codeqwen",
+      "name": "codeqwen",
+      "description": "CodeQwen1.5 is a large language model pretrained on a large amount of code data.",
+      "capabilities": [],
+      "size_tags": [
+        "7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "1.1M",
+      "url": "https://ollama.com/library/codeqwen"
+    },
+    {
+      "source": "ollama_library",
+      "id": "openhermes",
+      "name": "openhermes",
+      "description": "OpenHermes 2.5 is a 7B model fine-tuned by Teknium on Mistral with fully open datasets.",
+      "capabilities": [],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "1.1M",
+      "url": "https://ollama.com/library/openhermes"
+    },
+    {
+      "source": "ollama_library",
+      "id": "sqlcoder",
+      "name": "sqlcoder",
+      "description": "SQLCoder is a code completion model fined-tuned on StarCoder for SQL generation tasks",
+      "capabilities": [],
+      "size_tags": [
+        "7b",
+        "15b"
+      ],
+      "params_b_guess": 15.0,
+      "tier": "mid (9-24B)",
+      "pulls": "1.1M",
+      "url": "https://ollama.com/library/sqlcoder"
+    },
+    {
+      "source": "ollama_library",
+      "id": "qwen2-math",
+      "name": "qwen2-math",
+      "description": "Qwen2 Math is a series of specialized math language models built upon the Qwen2 LLMs, which significantly outperforms the mathematical capabilities of open-source models and even closed-source models (e.g., GPT4o).",
+      "capabilities": [],
+      "size_tags": [
+        "1.5b",
+        "7b",
+        "72b"
+      ],
+      "params_b_guess": 72.0,
+      "tier": "very large (>70B)",
+      "pulls": "1M",
+      "url": "https://ollama.com/library/qwen2-math"
+    },
+    {
+      "source": "ollama_library",
+      "id": "granite3.3",
+      "name": "granite3.3",
+      "description": "IBM Granite 2B and 8B models are 128K context length language models that have been fine-tuned for improved reasoning and instruction-following capabilities.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "2b",
+        "8b"
+      ],
+      "params_b_guess": 8.0,
+      "tier": "small (<=8B)",
+      "pulls": "1M",
+      "url": "https://ollama.com/library/granite3.3"
+    },
+    {
+      "source": "ollama_library",
+      "id": "aya",
+      "name": "aya",
+      "description": "Aya 23, released by Cohere, is a new family of state-of-the-art, multilingual models that support 23 languages.",
+      "capabilities": [],
+      "size_tags": [
+        "8b",
+        "35b"
+      ],
+      "params_b_guess": 35.0,
+      "tier": "large (25-70B)",
+      "pulls": "1M",
+      "url": "https://ollama.com/library/aya"
+    },
+    {
+      "source": "ollama_library",
+      "id": "neural-chat",
+      "name": "neural-chat",
+      "description": "A fine-tuned model based on Mistral with good coverage of domain and language.",
+      "capabilities": [],
+      "size_tags": [
+        "7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "1M",
+      "url": "https://ollama.com/library/neural-chat"
+    },
+    {
+      "source": "ollama_library",
+      "id": "llama2-chinese",
+      "name": "llama2-chinese",
+      "description": "Llama 2 based model fine tuned to improve Chinese dialogue ability.",
+      "capabilities": [],
+      "size_tags": [
+        "7b",
+        "13b"
+      ],
+      "params_b_guess": 13.0,
+      "tier": "mid (9-24B)",
+      "pulls": "1M",
+      "url": "https://ollama.com/library/llama2-chinese"
+    },
+    {
+      "source": "ollama_library",
+      "id": "nous-hermes2",
+      "name": "nous-hermes2",
+      "description": "The powerful family of models by Nous Research that excels at scientific discussion and coding tasks.",
+      "capabilities": [],
+      "size_tags": [
+        "10.7b",
+        "34b"
+      ],
+      "params_b_guess": 34.0,
+      "tier": "large (25-70B)",
+      "pulls": "1M",
+      "url": "https://ollama.com/library/nous-hermes2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "stable-code",
+      "name": "stable-code",
+      "description": "Stable Code 3B is a coding model with instruct and code completion variants on par with models such as Code Llama 7B that are 2.5x larger.",
+      "capabilities": [],
+      "size_tags": [
+        "3b"
+      ],
+      "params_b_guess": 3.0,
+      "tier": "small (<=8B)",
+      "pulls": "1M",
+      "url": "https://ollama.com/library/stable-code"
+    },
+    {
+      "source": "ollama_library",
+      "id": "wizardcoder",
+      "name": "wizardcoder",
+      "description": "State-of-the-art code generation model",
+      "capabilities": [],
+      "size_tags": [
+        "33b"
+      ],
+      "params_b_guess": 33.0,
+      "tier": "large (25-70B)",
+      "pulls": "989.4K",
+      "url": "https://ollama.com/library/wizardcoder"
+    },
+    {
+      "source": "ollama_library",
+      "id": "yi-coder",
+      "name": "yi-coder",
+      "description": "Yi-Coder is a series of open-source code language models that delivers state-of-the-art coding performance with fewer than 10 billion parameters.",
+      "capabilities": [],
+      "size_tags": [
+        "1.5b",
+        "9b"
+      ],
+      "params_b_guess": 9.0,
+      "tier": "mid (9-24B)",
+      "pulls": "987.8K",
+      "url": "https://ollama.com/library/yi-coder"
+    },
+    {
+      "source": "ollama_library",
+      "id": "stablelm2",
+      "name": "stablelm2",
+      "description": "Stable LM 2 is a state-of-the-art 1.6B and 12B parameter language model trained on multilingual data in English, Spanish, German, Italian, French, Portuguese, and Dutch.",
+      "capabilities": [],
+      "size_tags": [
+        "1.6b",
+        "12b"
+      ],
+      "params_b_guess": 12.0,
+      "tier": "mid (9-24B)",
+      "pulls": "975.9K",
+      "url": "https://ollama.com/library/stablelm2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "granite3-dense",
+      "name": "granite3-dense",
+      "description": "The IBM Granite 2B and 8B models are designed to support tool-based use cases and support for retrieval augmented generation (RAG), streamlining code generation, translation and bug fixing.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "2b",
+        "8b"
+      ],
+      "params_b_guess": 8.0,
+      "tier": "small (<=8B)",
+      "pulls": "972.6K",
+      "url": "https://ollama.com/library/granite3-dense"
+    },
+    {
+      "source": "ollama_library",
+      "id": "llama3-chatqa",
+      "name": "llama3-chatqa",
+      "description": "A model from NVIDIA based on Llama 3 that excels at conversational question answering (QA) and retrieval-augmented generation (RAG).",
+      "capabilities": [],
+      "size_tags": [
+        "8b",
+        "70b"
+      ],
+      "params_b_guess": 70.0,
+      "tier": "large (25-70B)",
+      "pulls": "972.4K",
+      "url": "https://ollama.com/library/llama3-chatqa"
+    },
+    {
+      "source": "ollama_library",
+      "id": "granite3.1-dense",
+      "name": "granite3.1-dense",
+      "description": "The IBM Granite 2B and 8B models are text-only dense LLMs trained on over 12 trillion tokens of data, demonstrated significant improvements over their predecessors in performance and speed in IBM\u2019s initial testing.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "2b",
+        "8b"
+      ],
+      "params_b_guess": 8.0,
+      "tier": "small (<=8B)",
+      "pulls": "970K",
+      "url": "https://ollama.com/library/granite3.1-dense"
+    },
+    {
+      "source": "ollama_library",
+      "id": "llama-guard3",
+      "name": "llama-guard3",
+      "description": "Llama Guard 3 is a series of models fine-tuned for content safety classification of LLM inputs and responses.",
+      "capabilities": [],
+      "size_tags": [
+        "1b",
+        "8b"
+      ],
+      "params_b_guess": 8.0,
+      "tier": "small (<=8B)",
+      "pulls": "963.1K",
+      "url": "https://ollama.com/library/llama-guard3"
+    },
+    {
+      "source": "ollama_library",
+      "id": "devstral",
+      "name": "devstral",
+      "description": "Devstral: the best open source model for coding agents",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "24b"
+      ],
+      "params_b_guess": 24.0,
+      "tier": "mid (9-24B)",
+      "pulls": "961.9K",
+      "url": "https://ollama.com/library/devstral"
+    },
+    {
+      "source": "ollama_library",
+      "id": "dolphincoder",
+      "name": "dolphincoder",
+      "description": "A 7B and 15B uncensored variant of the Dolphin model family that excels at coding, based on StarCoder2.",
+      "capabilities": [],
+      "size_tags": [
+        "7b",
+        "15b"
+      ],
+      "params_b_guess": 15.0,
+      "tier": "mid (9-24B)",
+      "pulls": "957.5K",
+      "url": "https://ollama.com/library/dolphincoder"
+    },
+    {
+      "source": "ollama_library",
+      "id": "phi3.5",
+      "name": "phi3.5",
+      "description": "A lightweight AI model with 3.8 billion parameters with performance overtaking similarly and larger sized models.",
+      "capabilities": [],
+      "size_tags": [
+        "3.8b"
+      ],
+      "params_b_guess": 3.8,
+      "tier": "small (<=8B)",
+      "pulls": "955.4K",
+      "url": "https://ollama.com/library/phi3.5"
+    },
+    {
+      "source": "ollama_library",
+      "id": "wizard-math",
+      "name": "wizard-math",
+      "description": "Model focused on math and logic problems",
+      "capabilities": [],
+      "size_tags": [
+        "7b",
+        "13b",
+        "70b"
+      ],
+      "params_b_guess": 70.0,
+      "tier": "large (25-70B)",
+      "pulls": "952.9K",
+      "url": "https://ollama.com/library/wizard-math"
+    },
+    {
+      "source": "ollama_library",
+      "id": "llama3-gradient",
+      "name": "llama3-gradient",
+      "description": "This model extends LLama-3 8B&#39;s context length from 8k to over 1m tokens.",
+      "capabilities": [],
+      "size_tags": [
+        "8b",
+        "70b"
+      ],
+      "params_b_guess": 70.0,
+      "tier": "large (25-70B)",
+      "pulls": "951.3K",
+      "url": "https://ollama.com/library/llama3-gradient"
+    },
+    {
+      "source": "ollama_library",
+      "id": "samantha-mistral",
+      "name": "samantha-mistral",
+      "description": "A companion assistant trained in philosophy, psychology, and personal relationships. Based on Mistral.",
+      "capabilities": [],
+      "size_tags": [
+        "7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "945.7K",
+      "url": "https://ollama.com/library/samantha-mistral"
+    },
+    {
+      "source": "ollama_library",
+      "id": "llama3-groq-tool-use",
+      "name": "llama3-groq-tool-use",
+      "description": "A series of models from Groq that represent a significant advancement in open-source AI capabilities for tool use/function calling.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "8b",
+        "70b"
+      ],
+      "params_b_guess": 70.0,
+      "tier": "large (25-70B)",
+      "pulls": "944.6K",
+      "url": "https://ollama.com/library/llama3-groq-tool-use"
+    },
+    {
+      "source": "ollama_library",
+      "id": "aya-expanse",
+      "name": "aya-expanse",
+      "description": "Cohere For AI&#39;s language models trained to perform well across 23 different languages.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "8b",
+        "32b"
+      ],
+      "params_b_guess": 32.0,
+      "tier": "large (25-70B)",
+      "pulls": "942.6K",
+      "url": "https://ollama.com/library/aya-expanse"
+    },
+    {
+      "source": "ollama_library",
+      "id": "internlm2",
+      "name": "internlm2",
+      "description": "InternLM2.5 is a 7B parameter model tailored for practical scenarios with outstanding reasoning capability.",
+      "capabilities": [],
+      "size_tags": [
+        "1m",
+        "1.8b",
+        "7b",
+        "20b"
+      ],
+      "params_b_guess": 20.0,
+      "tier": "mid (9-24B)",
+      "pulls": "941.4K",
+      "url": "https://ollama.com/library/internlm2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "granite3.2-vision",
+      "name": "granite3.2-vision",
+      "description": "A compact and efficient vision-language model, specifically designed for visual document understanding, enabling automated content extraction from tables, charts, infographics, plots, diagrams, and more.",
+      "capabilities": [
+        "vision",
+        "tools"
+      ],
+      "size_tags": [
+        "2b"
+      ],
+      "params_b_guess": 2.0,
+      "tier": "small (<=8B)",
+      "pulls": "926.4K",
+      "url": "https://ollama.com/library/granite3.2-vision"
+    },
+    {
+      "source": "ollama_library",
+      "id": "starling-lm",
+      "name": "starling-lm",
+      "description": "Starling is a large language model trained by reinforcement learning from AI feedback focused on improving chatbot helpfulness.",
+      "capabilities": [],
+      "size_tags": [
+        "7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "926.2K",
+      "url": "https://ollama.com/library/starling-lm"
+    },
+    {
+      "source": "ollama_library",
+      "id": "solar",
+      "name": "solar",
+      "description": "A compact, yet powerful 10.7B large language model designed for single-turn conversation.",
+      "capabilities": [],
+      "size_tags": [
+        "10.7b"
+      ],
+      "params_b_guess": 10.7,
+      "tier": "mid (9-24B)",
+      "pulls": "923.2K",
+      "url": "https://ollama.com/library/solar"
+    },
+    {
+      "source": "ollama_library",
+      "id": "phind-codellama",
+      "name": "phind-codellama",
+      "description": "Code generation model based on Code Llama.",
+      "capabilities": [],
+      "size_tags": [
+        "34b"
+      ],
+      "params_b_guess": 34.0,
+      "tier": "large (25-70B)",
+      "pulls": "920.6K",
+      "url": "https://ollama.com/library/phind-codellama"
+    },
+    {
+      "source": "ollama_library",
+      "id": "xwinlm",
+      "name": "xwinlm",
+      "description": "Conversational model based on Llama 2 that performs competitively on various benchmarks.",
+      "capabilities": [],
+      "size_tags": [
+        "7b",
+        "13b"
+      ],
+      "params_b_guess": 13.0,
+      "tier": "mid (9-24B)",
+      "pulls": "915.7K",
+      "url": "https://ollama.com/library/xwinlm"
+    },
+    {
+      "source": "ollama_library",
+      "id": "granite3-moe",
+      "name": "granite3-moe",
+      "description": "The IBM Granite 1B and 3B models are the first mixture of experts (MoE) Granite models from IBM designed for low latency usage.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "1b",
+        "3b"
+      ],
+      "params_b_guess": 3.0,
+      "tier": "small (<=8B)",
+      "pulls": "909.4K",
+      "url": "https://ollama.com/library/granite3-moe"
+    },
+    {
+      "source": "ollama_library",
+      "id": "yarn-llama2",
+      "name": "yarn-llama2",
+      "description": "An extension of Llama 2 that supports a context of up to 128k tokens.",
+      "capabilities": [],
+      "size_tags": [
+        "7b",
+        "13b"
+      ],
+      "params_b_guess": 13.0,
+      "tier": "mid (9-24B)",
+      "pulls": "906.7K",
+      "url": "https://ollama.com/library/yarn-llama2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "orca2",
+      "name": "orca2",
+      "description": "Orca 2 is built by Microsoft research, and are a fine-tuned version of Meta&#39;s Llama 2 models.  The model is designed to excel particularly in reasoning.",
+      "capabilities": [],
+      "size_tags": [
+        "7b",
+        "13b"
+      ],
+      "params_b_guess": 13.0,
+      "tier": "mid (9-24B)",
+      "pulls": "893.3K",
+      "url": "https://ollama.com/library/orca2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "stable-beluga",
+      "name": "stable-beluga",
+      "description": "Llama 2 based model fine tuned on an Orca-style dataset. Originally called Free Willy.",
+      "capabilities": [],
+      "size_tags": [
+        "7b",
+        "13b",
+        "70b"
+      ],
+      "params_b_guess": 70.0,
+      "tier": "large (25-70B)",
+      "pulls": "884.9K",
+      "url": "https://ollama.com/library/stable-beluga"
+    },
+    {
+      "source": "ollama_library",
+      "id": "reader-lm",
+      "name": "reader-lm",
+      "description": "A series of models that convert HTML content to Markdown content, which is useful for content conversion tasks.",
+      "capabilities": [],
+      "size_tags": [
+        "0.5b",
+        "1.5b"
+      ],
+      "params_b_guess": 1.5,
+      "tier": "small (<=8B)",
+      "pulls": "883.2K",
+      "url": "https://ollama.com/library/reader-lm"
+    },
+    {
+      "source": "ollama_library",
+      "id": "paraphrase-multilingual",
+      "name": "paraphrase-multilingual",
+      "description": "Sentence-transformers model that can be used for tasks like clustering or semantic search.",
+      "capabilities": [
+        "embedding"
+      ],
+      "size_tags": [
+        "278m"
+      ],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "878.3K",
+      "url": "https://ollama.com/library/paraphrase-multilingual"
+    },
+    {
+      "source": "ollama_library",
+      "id": "shieldgemma",
+      "name": "shieldgemma",
+      "description": "ShieldGemma is set of instruction tuned models for evaluating the safety of text prompt input and text output responses against a set of defined safety policies.",
+      "capabilities": [],
+      "size_tags": [
+        "2b",
+        "9b",
+        "27b"
+      ],
+      "params_b_guess": 27.0,
+      "tier": "large (25-70B)",
+      "pulls": "878.1K",
+      "url": "https://ollama.com/library/shieldgemma"
+    },
+    {
+      "source": "ollama_library",
+      "id": "deepcoder",
+      "name": "deepcoder",
+      "description": "DeepCoder is a fully open-Source 14B coder model at O3-mini level, with a 1.5B version also available.",
+      "capabilities": [],
+      "size_tags": [
+        "1.5b",
+        "14b"
+      ],
+      "params_b_guess": 14.0,
+      "tier": "mid (9-24B)",
+      "pulls": "877K",
+      "url": "https://ollama.com/library/deepcoder"
+    },
+    {
+      "source": "ollama_library",
+      "id": "devstral-small-2",
+      "name": "devstral-small-2",
+      "description": "24B model that excels at using tools to explore codebases, editing multiple files and power software engineering agents.",
+      "capabilities": [
+        "vision",
+        "tools"
+      ],
+      "size_tags": [
+        "24b"
+      ],
+      "params_b_guess": 24.0,
+      "tier": "mid (9-24B)",
+      "pulls": "871K",
+      "url": "https://ollama.com/library/devstral-small-2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "llama-pro",
+      "name": "llama-pro",
+      "description": "An expansion of Llama 2 that specializes in integrating both general language understanding and domain-specific knowledge, particularly in programming and mathematics.",
+      "capabilities": [],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "868.2K",
+      "url": "https://ollama.com/library/llama-pro"
+    },
+    {
+      "source": "ollama_library",
+      "id": "yarn-mistral",
+      "name": "yarn-mistral",
+      "description": "An extension of Mistral to support context windows of 64K or 128K.",
+      "capabilities": [],
+      "size_tags": [
+        "7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "862.8K",
+      "url": "https://ollama.com/library/yarn-mistral"
+    },
+    {
+      "source": "ollama_library",
+      "id": "nexusraven",
+      "name": "nexusraven",
+      "description": "Nexus Raven is a 13B instruction tuned model for function calling tasks.",
+      "capabilities": [],
+      "size_tags": [
+        "13b"
+      ],
+      "params_b_guess": 13.0,
+      "tier": "mid (9-24B)",
+      "pulls": "859K",
+      "url": "https://ollama.com/library/nexusraven"
+    },
+    {
+      "source": "ollama_library",
+      "id": "bakllava",
+      "name": "bakllava",
+      "description": "BakLLaVA is a multimodal model consisting of the Mistral 7B base model augmented with the LLaVA  architecture.",
+      "capabilities": [
+        "vision"
+      ],
+      "size_tags": [
+        "7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "854K",
+      "url": "https://ollama.com/library/bakllava"
+    },
+    {
+      "source": "ollama_library",
+      "id": "wizardlm",
+      "name": "wizardlm",
+      "description": "General use model based on Llama 2.",
+      "capabilities": [],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "836.1K",
+      "url": "https://ollama.com/library/wizardlm"
+    },
+    {
+      "source": "ollama_library",
+      "id": "command-r-plus",
+      "name": "command-r-plus",
+      "description": "Command R&#43; is a powerful, scalable large language model purpose-built to excel at real-world enterprise use cases.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "104b"
+      ],
+      "params_b_guess": 104.0,
+      "tier": "very large (>70B)",
+      "pulls": "769.8K",
+      "url": "https://ollama.com/library/command-r-plus"
+    },
+    {
+      "source": "ollama_library",
+      "id": "mistral-small3.1",
+      "name": "mistral-small3.1",
+      "description": "Building upon Mistral Small 3, Mistral Small 3.1 (2503) adds state-of-the-art vision understanding and enhances long context capabilities up to 128k tokens without compromising text performance.",
+      "capabilities": [
+        "vision",
+        "tools"
+      ],
+      "size_tags": [
+        "24b"
+      ],
+      "params_b_guess": 24.0,
+      "tier": "mid (9-24B)",
+      "pulls": "751.1K",
+      "url": "https://ollama.com/library/mistral-small3.1"
+    },
+    {
+      "source": "ollama_library",
+      "id": "exaone-deep",
+      "name": "exaone-deep",
+      "description": "EXAONE Deep exhibits superior capabilities in various reasoning tasks including math and coding benchmarks, ranging from 2.4B to 32B parameters developed and released by LG AI Research.",
+      "capabilities": [],
+      "size_tags": [
+        "2.4b",
+        "7.8b",
+        "32b"
+      ],
+      "params_b_guess": 32.0,
+      "tier": "large (25-70B)",
+      "pulls": "742.7K",
+      "url": "https://ollama.com/library/exaone-deep"
+    },
+    {
+      "source": "ollama_library",
+      "id": "meditron",
+      "name": "meditron",
+      "description": "Open-source medical large language model adapted from Llama 2 to the medical domain.",
+      "capabilities": [],
+      "size_tags": [
+        "7b",
+        "70b"
+      ],
+      "params_b_guess": 70.0,
+      "tier": "large (25-70B)",
+      "pulls": "712.3K",
+      "url": "https://ollama.com/library/meditron"
+    },
+    {
+      "source": "ollama_library",
+      "id": "deepseek-v3.1",
+      "name": "deepseek-v3.1",
+      "description": "DeepSeek-V3.1-Terminus is a hybrid model that supports both thinking mode and non-thinking mode.",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [
+        "671b"
+      ],
+      "params_b_guess": 671.0,
+      "tier": "very large (>70B)",
+      "pulls": "700.3K",
+      "url": "https://ollama.com/library/deepseek-v3.1"
+    },
+    {
+      "source": "ollama_library",
+      "id": "tinydolphin",
+      "name": "tinydolphin",
+      "description": "An experimental 1.1B parameter model trained on the new Dolphin 2.8 dataset by Eric Hartford and based on TinyLlama.",
+      "capabilities": [],
+      "size_tags": [
+        "1.1b"
+      ],
+      "params_b_guess": 1.1,
+      "tier": "small (<=8B)",
+      "pulls": "695.3K",
+      "url": "https://ollama.com/library/tinydolphin"
+    },
+    {
+      "source": "ollama_library",
+      "id": "nemotron-mini",
+      "name": "nemotron-mini",
+      "description": "A commercial-friendly small language model by NVIDIA optimized for roleplay, RAG QA, and function calling.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "4b"
+      ],
+      "params_b_guess": 4.0,
+      "tier": "small (<=8B)",
+      "pulls": "677.4K",
+      "url": "https://ollama.com/library/nemotron-mini"
+    },
+    {
+      "source": "ollama_library",
+      "id": "codegeex4",
+      "name": "codegeex4",
+      "description": "A versatile model for AI software development scenarios, including code completion.",
+      "capabilities": [],
+      "size_tags": [
+        "9b"
+      ],
+      "params_b_guess": 9.0,
+      "tier": "mid (9-24B)",
+      "pulls": "661.8K",
+      "url": "https://ollama.com/library/codegeex4"
+    },
+    {
+      "source": "ollama_library",
+      "id": "mistral-openorca",
+      "name": "mistral-openorca",
+      "description": "Mistral OpenOrca is a 7 billion parameter model, fine-tuned on top of the Mistral 7B model using the OpenOrca dataset.",
+      "capabilities": [],
+      "size_tags": [
+        "7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "656.9K",
+      "url": "https://ollama.com/library/mistral-openorca"
+    },
+    {
+      "source": "ollama_library",
+      "id": "wizardlm-uncensored",
+      "name": "wizardlm-uncensored",
+      "description": "Uncensored version of Wizard LM model",
+      "capabilities": [],
+      "size_tags": [
+        "13b"
+      ],
+      "params_b_guess": 13.0,
+      "tier": "mid (9-24B)",
+      "pulls": "618.4K",
+      "url": "https://ollama.com/library/wizardlm-uncensored"
+    },
+    {
+      "source": "ollama_library",
+      "id": "nemotron3",
+      "name": "nemotron3",
+      "description": "NVIDIA Nemotron 3 Nano Omni is a multimodal large language model that unifies video, audio, image, and text understanding to support enterprise-grade Q&amp;A, summarization, transcription, and document intelligence workflows.",
+      "capabilities": [
+        "vision",
+        "tools",
+        "thinking",
+        "audio"
+      ],
+      "size_tags": [
+        "33b"
+      ],
+      "params_b_guess": 33.0,
+      "tier": "large (25-70B)",
+      "pulls": "606.5K",
+      "url": "https://ollama.com/library/nemotron3"
+    },
+    {
+      "source": "ollama_library",
+      "id": "opencoder",
+      "name": "opencoder",
+      "description": "OpenCoder is an open and reproducible code LLM family which includes 1.5B and 8B models, supporting chat in English and Chinese languages.",
+      "capabilities": [],
+      "size_tags": [
+        "1.5b",
+        "8b"
+      ],
+      "params_b_guess": 8.0,
+      "tier": "small (<=8B)",
+      "pulls": "601.6K",
+      "url": "https://ollama.com/library/opencoder"
+    },
+    {
+      "source": "ollama_library",
+      "id": "reflection",
+      "name": "reflection",
+      "description": "A high-performing model trained with a new technique called Reflection-tuning that teaches a LLM to detect mistakes in its reasoning and correct course.",
+      "capabilities": [],
+      "size_tags": [
+        "70b"
+      ],
+      "params_b_guess": 70.0,
+      "tier": "large (25-70B)",
+      "pulls": "592.3K",
+      "url": "https://ollama.com/library/reflection"
+    },
+    {
+      "source": "ollama_library",
+      "id": "nemotron",
+      "name": "nemotron",
+      "description": "Llama-3.1-Nemotron-70B-Instruct is a large language model customized by NVIDIA to improve the helpfulness of LLM generated responses to user queries.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "70b"
+      ],
+      "params_b_guess": 70.0,
+      "tier": "large (25-70B)",
+      "pulls": "585.9K",
+      "url": "https://ollama.com/library/nemotron"
+    },
+    {
+      "source": "ollama_library",
+      "id": "qwen3-next",
+      "name": "qwen3-next",
+      "description": "The first installment in the Qwen3-Next series with strong performance in terms of both parameter efficiency and inference speed.",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [
+        "80b"
+      ],
+      "params_b_guess": 80.0,
+      "tier": "very large (>70B)",
+      "pulls": "568.2K",
+      "url": "https://ollama.com/library/qwen3-next"
+    },
+    {
+      "source": "ollama_library",
+      "id": "codeup",
+      "name": "codeup",
+      "description": "Great code generation model based on Llama2.",
+      "capabilities": [],
+      "size_tags": [
+        "13b"
+      ],
+      "params_b_guess": 13.0,
+      "tier": "mid (9-24B)",
+      "pulls": "567.4K",
+      "url": "https://ollama.com/library/codeup"
+    },
+    {
+      "source": "ollama_library",
+      "id": "nous-hermes2-mixtral",
+      "name": "nous-hermes2-mixtral",
+      "description": "The Nous Hermes 2 model from Nous Research, now trained over Mixtral.",
+      "capabilities": [],
+      "size_tags": [
+        "8x7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "567.4K",
+      "url": "https://ollama.com/library/nous-hermes2-mixtral"
+    },
+    {
+      "source": "ollama_library",
+      "id": "athene-v2",
+      "name": "athene-v2",
+      "description": "Athene-V2 is a 72B parameter model which excels at code completion, mathematics, and log extraction tasks.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "72b"
+      ],
+      "params_b_guess": 72.0,
+      "tier": "very large (>70B)",
+      "pulls": "567.3K",
+      "url": "https://ollama.com/library/athene-v2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "medllama2",
+      "name": "medllama2",
+      "description": "Fine-tuned Llama 2 model to answer medical questions based on an open source medical dataset.",
+      "capabilities": [],
+      "size_tags": [
+        "7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "555.9K",
+      "url": "https://ollama.com/library/medllama2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "megadolphin",
+      "name": "megadolphin",
+      "description": "MegaDolphin-2.2-120b is a transformation of Dolphin-2.2-70b created by interleaving the model with itself.",
+      "capabilities": [],
+      "size_tags": [
+        "120b"
+      ],
+      "params_b_guess": 120.0,
+      "tier": "very large (>70B)",
+      "pulls": "546.2K",
+      "url": "https://ollama.com/library/megadolphin"
+    },
+    {
+      "source": "ollama_library",
+      "id": "nemotron-3-nano",
+      "name": "nemotron-3-nano",
+      "description": "Nemotron-3-Nano is a new Standard for Efficient, Open, and Intelligent Agentic Models, now updated with a 4B parameter count model.",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [
+        "4b",
+        "30b"
+      ],
+      "params_b_guess": 30.0,
+      "tier": "large (25-70B)",
+      "pulls": "544.3K",
+      "url": "https://ollama.com/library/nemotron-3-nano"
+    },
+    {
+      "source": "ollama_library",
+      "id": "everythinglm",
+      "name": "everythinglm",
+      "description": "Uncensored Llama2 based model with support for a 16K context window.",
+      "capabilities": [],
+      "size_tags": [
+        "13b"
+      ],
+      "params_b_guess": 13.0,
+      "tier": "mid (9-24B)",
+      "pulls": "542.7K",
+      "url": "https://ollama.com/library/everythinglm"
+    },
+    {
+      "source": "ollama_library",
+      "id": "solar-pro",
+      "name": "solar-pro",
+      "description": "Solar Pro Preview: an advanced large language model (LLM) with 22 billion parameters designed to fit into a single GPU",
+      "capabilities": [],
+      "size_tags": [
+        "22b"
+      ],
+      "params_b_guess": 22.0,
+      "tier": "mid (9-24B)",
+      "pulls": "535.5K",
+      "url": "https://ollama.com/library/solar-pro"
+    },
+    {
+      "source": "ollama_library",
+      "id": "magicoder",
+      "name": "magicoder",
+      "description": "\ud83c\udfa9 Magicoder is a family of 7B parameter models trained on 75K synthetic instruction data using OSS-Instruct, a novel approach to enlightening LLMs with open-source code snippets.",
+      "capabilities": [],
+      "size_tags": [
+        "7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "533.1K",
+      "url": "https://ollama.com/library/magicoder"
+    },
+    {
+      "source": "ollama_library",
+      "id": "mathstral",
+      "name": "mathstral",
+      "description": "Math\u03a3tral: a 7B model designed for math reasoning and scientific discovery by Mistral AI.",
+      "capabilities": [],
+      "size_tags": [
+        "7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "525K",
+      "url": "https://ollama.com/library/mathstral"
+    },
+    {
+      "source": "ollama_library",
+      "id": "notus",
+      "name": "notus",
+      "description": "A 7B chat model fine-tuned with high-quality data and based on Zephyr.",
+      "capabilities": [],
+      "size_tags": [
+        "7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "517.3K",
+      "url": "https://ollama.com/library/notus"
+    },
+    {
+      "source": "ollama_library",
+      "id": "notux",
+      "name": "notux",
+      "description": "A top-performing mixture of experts model, fine-tuned with high-quality data.",
+      "capabilities": [],
+      "size_tags": [
+        "8x7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "516.5K",
+      "url": "https://ollama.com/library/notux"
+    },
+    {
+      "source": "ollama_library",
+      "id": "falcon2",
+      "name": "falcon2",
+      "description": "Falcon2 is an 11B parameters causal decoder-only model built by TII and trained over 5T tokens.",
+      "capabilities": [],
+      "size_tags": [
+        "11b"
+      ],
+      "params_b_guess": 11.0,
+      "tier": "mid (9-24B)",
+      "pulls": "515.9K",
+      "url": "https://ollama.com/library/falcon2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "stablelm-zephyr",
+      "name": "stablelm-zephyr",
+      "description": "A lightweight chat model allowing accurate, and responsive output without requiring high-end hardware.",
+      "capabilities": [],
+      "size_tags": [
+        "3b"
+      ],
+      "params_b_guess": 3.0,
+      "tier": "small (<=8B)",
+      "pulls": "511.3K",
+      "url": "https://ollama.com/library/stablelm-zephyr"
+    },
+    {
+      "source": "ollama_library",
+      "id": "exaone3.5",
+      "name": "exaone3.5",
+      "description": "EXAONE 3.5 is a collection of instruction-tuned bilingual (English and Korean) generative models ranging from 2.4B to 32B parameters, developed and released by LG AI Research.",
+      "capabilities": [],
+      "size_tags": [
+        "2.4b",
+        "7.8b",
+        "32b"
+      ],
+      "params_b_guess": 32.0,
+      "tier": "large (25-70B)",
+      "pulls": "511K",
+      "url": "https://ollama.com/library/exaone3.5"
+    },
+    {
+      "source": "ollama_library",
+      "id": "nuextract",
+      "name": "nuextract",
+      "description": "A 3.8B model fine-tuned on a private high-quality synthetic dataset for information extraction, based on Phi-3.",
+      "capabilities": [],
+      "size_tags": [
+        "3.8b"
+      ],
+      "params_b_guess": 3.8,
+      "tier": "small (<=8B)",
+      "pulls": "509.4K",
+      "url": "https://ollama.com/library/nuextract"
+    },
+    {
+      "source": "ollama_library",
+      "id": "duckdb-nsql",
+      "name": "duckdb-nsql",
+      "description": "7B parameter text-to-SQL model made by MotherDuck and Numbers Station.",
+      "capabilities": [],
+      "size_tags": [
+        "7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "505.9K",
+      "url": "https://ollama.com/library/duckdb-nsql"
+    },
+    {
+      "source": "ollama_library",
+      "id": "bespoke-minicheck",
+      "name": "bespoke-minicheck",
+      "description": "A state-of-the-art fact-checking model developed by Bespoke Labs.",
+      "capabilities": [],
+      "size_tags": [
+        "7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "505.6K",
+      "url": "https://ollama.com/library/bespoke-minicheck"
+    },
+    {
+      "source": "ollama_library",
+      "id": "mistrallite",
+      "name": "mistrallite",
+      "description": "MistralLite is a fine-tuned model based on Mistral with enhanced capabilities of processing long contexts.",
+      "capabilities": [],
+      "size_tags": [
+        "7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "502.6K",
+      "url": "https://ollama.com/library/mistrallite"
+    },
+    {
+      "source": "ollama_library",
+      "id": "firefunction-v2",
+      "name": "firefunction-v2",
+      "description": "An open weights function calling model based on Llama 3, competitive with GPT-4o function calling capabilities.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "70b"
+      ],
+      "params_b_guess": 70.0,
+      "tier": "large (25-70B)",
+      "pulls": "499.4K",
+      "url": "https://ollama.com/library/firefunction-v2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "wizard-vicuna",
+      "name": "wizard-vicuna",
+      "description": "Wizard Vicuna is a 13B parameter model based on Llama 2 trained by MelodysDreamj.",
+      "capabilities": [],
+      "size_tags": [
+        "13b"
+      ],
+      "params_b_guess": 13.0,
+      "tier": "mid (9-24B)",
+      "pulls": "496.8K",
+      "url": "https://ollama.com/library/wizard-vicuna"
+    },
+    {
+      "source": "ollama_library",
+      "id": "open-orca-platypus2",
+      "name": "open-orca-platypus2",
+      "description": "Merge of the Open Orca OpenChat model and the Garage-bAInd Platypus 2 model. Designed for chat and code generation.",
+      "capabilities": [],
+      "size_tags": [
+        "13b"
+      ],
+      "params_b_guess": 13.0,
+      "tier": "mid (9-24B)",
+      "pulls": "489.1K",
+      "url": "https://ollama.com/library/open-orca-platypus2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "rnj-1",
+      "name": "rnj-1",
+      "description": "Rnj-1 is a family of 8B parameter open-weight, dense models trained from scratch by Essential AI, optimized for code and STEM with capabilities on par with SOTA open-weight models.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "8b"
+      ],
+      "params_b_guess": 8.0,
+      "tier": "small (<=8B)",
+      "pulls": "479K",
+      "url": "https://ollama.com/library/rnj-1"
+    },
+    {
+      "source": "ollama_library",
+      "id": "codebooga",
+      "name": "codebooga",
+      "description": "A high-performing code instruct model created by merging two existing code models.",
+      "capabilities": [],
+      "size_tags": [
+        "34b"
+      ],
+      "params_b_guess": 34.0,
+      "tier": "large (25-70B)",
+      "pulls": "476.7K",
+      "url": "https://ollama.com/library/codebooga"
+    },
+    {
+      "source": "ollama_library",
+      "id": "deepseek-ocr",
+      "name": "deepseek-ocr",
+      "description": "DeepSeek-OCR is a vision-language model that can perform token-efficient OCR.",
+      "capabilities": [
+        "vision"
+      ],
+      "size_tags": [
+        "3b"
+      ],
+      "params_b_guess": 3.0,
+      "tier": "small (<=8B)",
+      "pulls": "471.9K",
+      "url": "https://ollama.com/library/deepseek-ocr"
+    },
+    {
+      "source": "ollama_library",
+      "id": "goliath",
+      "name": "goliath",
+      "description": "A language model created by combining two fine-tuned Llama 2 70B models into one.",
+      "capabilities": [],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "460.1K",
+      "url": "https://ollama.com/library/goliath"
+    },
+    {
+      "source": "ollama_library",
+      "id": "granite3.2",
+      "name": "granite3.2",
+      "description": "Granite-3.2 is a family of long-context AI models from IBM Granite fine-tuned for thinking capabilities.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "2b",
+        "8b"
+      ],
+      "params_b_guess": 8.0,
+      "tier": "small (<=8B)",
+      "pulls": "437.7K",
+      "url": "https://ollama.com/library/granite3.2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "olmo-3",
+      "name": "olmo-3",
+      "description": "Olmo is a series of Open language models designed to enable the science of language models. These models are pre-trained on the Dolma 3 dataset and post-trained on the Dolci datasets.",
+      "capabilities": [],
+      "size_tags": [
+        "7b",
+        "32b"
+      ],
+      "params_b_guess": 32.0,
+      "tier": "large (25-70B)",
+      "pulls": "436.1K",
+      "url": "https://ollama.com/library/olmo-3"
+    },
+    {
+      "source": "ollama_library",
+      "id": "snowflake-arctic-embed2",
+      "name": "snowflake-arctic-embed2",
+      "description": "Snowflake&#39;s frontier embedding model. Arctic Embed 2.0 adds multilingual support without sacrificing English performance or scalability.",
+      "capabilities": [
+        "embedding"
+      ],
+      "size_tags": [
+        "568m"
+      ],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "409.8K",
+      "url": "https://ollama.com/library/snowflake-arctic-embed2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "r1-1776",
+      "name": "r1-1776",
+      "description": "A version of the DeepSeek-R1 model that has been post trained to provide unbiased, accurate, and factual information by Perplexity.",
+      "capabilities": [],
+      "size_tags": [
+        "70b",
+        "671b"
+      ],
+      "params_b_guess": 671.0,
+      "tier": "very large (>70B)",
+      "pulls": "406.2K",
+      "url": "https://ollama.com/library/r1-1776"
+    },
+    {
+      "source": "ollama_library",
+      "id": "sailor2",
+      "name": "sailor2",
+      "description": "Sailor2 are multilingual language models made for South-East Asia. Available in 1B, 8B, and 20B parameter sizes.",
+      "capabilities": [],
+      "size_tags": [
+        "1b",
+        "8b",
+        "20b"
+      ],
+      "params_b_guess": 20.0,
+      "tier": "mid (9-24B)",
+      "pulls": "392.9K",
+      "url": "https://ollama.com/library/sailor2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "tulu3",
+      "name": "tulu3",
+      "description": "T\u00fclu 3 is a leading instruction following model family, offering fully open-source data, code, and recipes by the The Allen Institute for AI.",
+      "capabilities": [],
+      "size_tags": [
+        "8b",
+        "70b"
+      ],
+      "params_b_guess": 70.0,
+      "tier": "large (25-70B)",
+      "pulls": "366.1K",
+      "url": "https://ollama.com/library/tulu3"
+    },
+    {
+      "source": "ollama_library",
+      "id": "nomic-embed-text-v2-moe",
+      "name": "nomic-embed-text-v2-moe",
+      "description": "nomic-embed-text-v2-moe is a multilingual MoE text embedding model that excels at multilingual retrieval.",
+      "capabilities": [
+        "embedding"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "337.9K",
+      "url": "https://ollama.com/library/nomic-embed-text-v2-moe"
+    },
+    {
+      "source": "ollama_library",
+      "id": "granite-embedding",
+      "name": "granite-embedding",
+      "description": "The IBM Granite Embedding 30M and 278M models models are text-only dense biencoder embedding models, with 30M available in English only and 278M serving multilingual use cases.",
+      "capabilities": [
+        "embedding"
+      ],
+      "size_tags": [
+        "30m",
+        "278m"
+      ],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "332.7K",
+      "url": "https://ollama.com/library/granite-embedding"
+    },
+    {
+      "source": "ollama_library",
+      "id": "kimi-k2.5",
+      "name": "kimi-k2.5",
+      "description": "Kimi K2.5 is an open-source, native multimodal agentic model that seamlessly integrates vision and language understanding with advanced agentic capabilities, instant and thinking modes, as well as conversational and agentic paradigms.",
+      "capabilities": [
+        "vision",
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "324.1K",
+      "url": "https://ollama.com/library/kimi-k2.5"
+    },
+    {
+      "source": "ollama_library",
+      "id": "granite3-guardian",
+      "name": "granite3-guardian",
+      "description": "The IBM Granite Guardian 3.0 2B and 8B models are designed to detect risks in prompts and/or responses.",
+      "capabilities": [],
+      "size_tags": [
+        "2b",
+        "8b"
+      ],
+      "params_b_guess": 8.0,
+      "tier": "small (<=8B)",
+      "pulls": "319.4K",
+      "url": "https://ollama.com/library/granite3-guardian"
+    },
+    {
+      "source": "ollama_library",
+      "id": "dbrx",
+      "name": "dbrx",
+      "description": "DBRX is an open, general-purpose LLM created by Databricks.",
+      "capabilities": [],
+      "size_tags": [
+        "132b"
+      ],
+      "params_b_guess": 132.0,
+      "tier": "very large (>70B)",
+      "pulls": "311.5K",
+      "url": "https://ollama.com/library/dbrx"
+    },
+    {
+      "source": "ollama_library",
+      "id": "kimi-k2.6",
+      "name": "kimi-k2.6",
+      "description": "Kimi K2.6 is an open-source, native multimodal agentic model that advances practical capabilities in long-horizon coding, coding-driven design, proactive autonomous execution, and swarm-based task orchestration.",
+      "capabilities": [
+        "vision",
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "304.9K",
+      "url": "https://ollama.com/library/kimi-k2.6"
+    },
+    {
+      "source": "ollama_library",
+      "id": "llava-phi3",
+      "name": "llava-phi3",
+      "description": "A new small LLaVA model fine-tuned from Phi 3 Mini.",
+      "capabilities": [
+        "vision"
+      ],
+      "size_tags": [
+        "3.8b"
+      ],
+      "params_b_guess": 3.8,
+      "tier": "small (<=8B)",
+      "pulls": "288.9K",
+      "url": "https://ollama.com/library/llava-phi3"
+    },
+    {
+      "source": "ollama_library",
+      "id": "olmo-3.1",
+      "name": "olmo-3.1",
+      "description": "Olmo is a series of Open language models designed to enable the science of language models. These models are pre-trained on the Dolma 3 dataset and post-trained on the Dolci datasets.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "32b"
+      ],
+      "params_b_guess": 32.0,
+      "tier": "large (25-70B)",
+      "pulls": "277.5K",
+      "url": "https://ollama.com/library/olmo-3.1"
+    },
+    {
+      "source": "ollama_library",
+      "id": "deepseek-v2.5",
+      "name": "deepseek-v2.5",
+      "description": "An upgraded version of DeekSeek-V2  that integrates the general and coding abilities of both DeepSeek-V2-Chat and DeepSeek-Coder-V2-Instruct.",
+      "capabilities": [],
+      "size_tags": [
+        "236b"
+      ],
+      "params_b_guess": 236.0,
+      "tier": "very large (>70B)",
+      "pulls": "277.4K",
+      "url": "https://ollama.com/library/deepseek-v2.5"
+    },
+    {
+      "source": "ollama_library",
+      "id": "phi4-mini-reasoning",
+      "name": "phi4-mini-reasoning",
+      "description": "Phi 4 mini reasoning is a lightweight open model that balances efficiency with advanced reasoning ability.",
+      "capabilities": [],
+      "size_tags": [
+        "3.8b"
+      ],
+      "params_b_guess": 3.8,
+      "tier": "small (<=8B)",
+      "pulls": "274K",
+      "url": "https://ollama.com/library/phi4-mini-reasoning"
+    },
+    {
+      "source": "ollama_library",
+      "id": "bge-large",
+      "name": "bge-large",
+      "description": "Embedding model from BAAI mapping texts to vectors.",
+      "capabilities": [
+        "embedding"
+      ],
+      "size_tags": [
+        "335m"
+      ],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "269.8K",
+      "url": "https://ollama.com/library/bge-large"
+    },
+    {
+      "source": "ollama_library",
+      "id": "command-r7b",
+      "name": "command-r7b",
+      "description": "The smallest model in Cohere&#39;s R series delivers top-tier speed, efficiency, and quality to build powerful AI applications on commodity GPUs and edge devices.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "268K",
+      "url": "https://ollama.com/library/command-r7b"
+    },
+    {
+      "source": "ollama_library",
+      "id": "smallthinker",
+      "name": "smallthinker",
+      "description": "A new small reasoning model fine-tuned from the Qwen 2.5 3B Instruct model.",
+      "capabilities": [],
+      "size_tags": [
+        "3b"
+      ],
+      "params_b_guess": 3.0,
+      "tier": "small (<=8B)",
+      "pulls": "248.1K",
+      "url": "https://ollama.com/library/smallthinker"
+    },
+    {
+      "source": "ollama_library",
+      "id": "devstral-2",
+      "name": "devstral-2",
+      "description": "123B model that excels at using tools to explore codebases, editing multiple files and power software engineering agents.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "123b"
+      ],
+      "params_b_guess": 123.0,
+      "tier": "very large (>70B)",
+      "pulls": "238.6K",
+      "url": "https://ollama.com/library/devstral-2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "alfred",
+      "name": "alfred",
+      "description": "A robust conversational model designed to be used for both chat and instruct use cases.",
+      "capabilities": [],
+      "size_tags": [
+        "40b"
+      ],
+      "params_b_guess": 40.0,
+      "tier": "large (25-70B)",
+      "pulls": "230.4K",
+      "url": "https://ollama.com/library/alfred"
+    },
+    {
+      "source": "ollama_library",
+      "id": "command-a",
+      "name": "command-a",
+      "description": "111 billion parameter model optimized for demanding enterprises that require fast, secure, and high-quality AI",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "111b"
+      ],
+      "params_b_guess": 111.0,
+      "tier": "very large (>70B)",
+      "pulls": "217.3K",
+      "url": "https://ollama.com/library/command-a"
+    },
+    {
+      "source": "ollama_library",
+      "id": "marco-o1",
+      "name": "marco-o1",
+      "description": "An open large reasoning model for real-world solutions by the Alibaba International Digital Commerce Group (AIDC-AI).",
+      "capabilities": [],
+      "size_tags": [
+        "7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "205.3K",
+      "url": "https://ollama.com/library/marco-o1"
+    },
+    {
+      "source": "ollama_library",
+      "id": "cogito-2.1",
+      "name": "cogito-2.1",
+      "description": "The Cogito v2.1 LLMs are instruction tuned generative models. All models are released under MIT license for commercial use.",
+      "capabilities": [],
+      "size_tags": [
+        "671b"
+      ],
+      "params_b_guess": 671.0,
+      "tier": "very large (>70B)",
+      "pulls": "200.3K",
+      "url": "https://ollama.com/library/cogito-2.1"
+    },
+    {
+      "source": "ollama_library",
+      "id": "command-r7b-arabic",
+      "name": "command-r7b-arabic",
+      "description": "A new state-of-the-art version of the lightweight Command R7B model that excels in advanced Arabic language capabilities for enterprises in the Middle East and Northern Africa.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "7b"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "pulls": "194.7K",
+      "url": "https://ollama.com/library/command-r7b-arabic"
+    },
+    {
+      "source": "ollama_library",
+      "id": "functiongemma",
+      "name": "functiongemma",
+      "description": "FunctionGemma is a specialized version of Google&#39;s Gemma 3 270M model fine-tuned explicitly for function calling.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "270m"
+      ],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "166.1K",
+      "url": "https://ollama.com/library/functiongemma"
+    },
+    {
+      "source": "ollama_library",
+      "id": "granite4.1",
+      "name": "granite4.1",
+      "description": "IBM Granite Models are a family of enterprise-ready, open foundation models that support multilingual capabilities, coding, retrieval-augmented generation (RAG), tool use, and structured JSON output. Released under Apache 2.0 license.",
+      "capabilities": [
+        "tools"
+      ],
+      "size_tags": [
+        "3b",
+        "8b",
+        "30b"
+      ],
+      "params_b_guess": 30.0,
+      "tier": "large (25-70B)",
+      "pulls": "157.3K",
+      "url": "https://ollama.com/library/granite4.1"
+    },
+    {
+      "source": "ollama_library",
+      "id": "gpt-oss-safeguard",
+      "name": "gpt-oss-safeguard",
+      "description": "gpt-oss-safeguard-20b and gpt-oss-safeguard-120b are safety reasoning models built-upon gpt-oss",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [
+        "20b",
+        "120b"
+      ],
+      "params_b_guess": 120.0,
+      "tier": "very large (>70B)",
+      "pulls": "144.6K",
+      "url": "https://ollama.com/library/gpt-oss-safeguard"
+    },
+    {
+      "source": "ollama_library",
+      "id": "deepseek-v4-pro",
+      "name": "deepseek-v4-pro",
+      "description": "DeepSeek-V4-Pro is a frontier Mixture-of-Experts model with a 1M-token context window and three reasoning modes.",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "126.7K",
+      "url": "https://ollama.com/library/deepseek-v4-pro"
+    },
+    {
+      "source": "ollama_library",
+      "id": "nemotron-cascade-2",
+      "name": "nemotron-cascade-2",
+      "description": "An open 30B MoE model from NVIDIA with 3B activated parameters that delivers strong reasoning and agentic capabilities.",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [
+        "30b"
+      ],
+      "params_b_guess": 30.0,
+      "tier": "large (25-70B)",
+      "pulls": "125K",
+      "url": "https://ollama.com/library/nemotron-cascade-2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "deepseek-v4-flash",
+      "name": "deepseek-v4-flash",
+      "description": "DeepSeek-V4-Flash is a preview of the DeepSeek-V4 series, a Mixture-of-Experts model with 284B total parameters and 13B activated, built for efficient reasoning across a 1M-token context window.",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "121.2K",
+      "url": "https://ollama.com/library/deepseek-v4-flash"
+    },
+    {
+      "source": "ollama_library",
+      "id": "medgemma",
+      "name": "medgemma",
+      "description": "MedGemma is a collection of Gemma 3 variants that are trained for performance on medical text and image comprehension.",
+      "capabilities": [
+        "vision"
+      ],
+      "size_tags": [
+        "4b",
+        "27b"
+      ],
+      "params_b_guess": 27.0,
+      "tier": "large (25-70B)",
+      "pulls": "66.6K",
+      "url": "https://ollama.com/library/medgemma"
+    },
+    {
+      "source": "ollama_library",
+      "id": "mistral-large-3",
+      "name": "mistral-large-3",
+      "description": "A general-purpose multimodal mixture-of-experts model for production-grade tasks and enterprise workloads.",
+      "capabilities": [
+        "vision",
+        "tools"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "65.1K",
+      "url": "https://ollama.com/library/mistral-large-3"
+    },
+    {
+      "source": "ollama_library",
+      "id": "mistral-medium-3.5",
+      "name": "mistral-medium-3.5",
+      "description": "Mistral Medium 3.5 is the first flagship model of Mistral AI that merged instruction-following, reasoning, and coding in a single set of 128B weights.",
+      "capabilities": [
+        "vision",
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [
+        "128b"
+      ],
+      "params_b_guess": 128.0,
+      "tier": "very large (>70B)",
+      "pulls": "64.2K",
+      "url": "https://ollama.com/library/mistral-medium-3.5"
+    },
+    {
+      "source": "ollama_library",
+      "id": "minimax-m3",
+      "name": "minimax-m3",
+      "description": "MiniMax M3: Coding &amp; Agentic Frontier. 1M context window. Native Multimodality.",
+      "capabilities": [
+        "vision",
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "55.2K",
+      "url": "https://ollama.com/library/minimax-m3"
+    },
+    {
+      "source": "ollama_library",
+      "id": "medgemma1.5",
+      "name": "medgemma1.5",
+      "description": "MedGemma 1.5 4B is an updated version of the MedGemma 4B model.",
+      "capabilities": [
+        "vision"
+      ],
+      "size_tags": [
+        "4b"
+      ],
+      "params_b_guess": 4.0,
+      "tier": "small (<=8B)",
+      "pulls": "33.4K",
+      "url": "https://ollama.com/library/medgemma1.5"
+    },
+    {
+      "source": "ollama_library",
+      "id": "lfm2.5",
+      "name": "lfm2.5",
+      "description": "LFM2.5-8B-A1B, an edge model built for fast, reliable tool calling on consumer hardware.",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [
+        "8b"
+      ],
+      "params_b_guess": 8.0,
+      "tier": "small (<=8B)",
+      "pulls": "27.1K",
+      "url": "https://ollama.com/library/lfm2.5"
+    },
+    {
+      "source": "ollama_library",
+      "id": "laguna-xs.2",
+      "name": "laguna-xs.2",
+      "description": "Laguna XS.2 is a 33B total parameter Mixture-of-Experts model with 3B activated parameters per token designed for agentic coding and long-horizon work on a local machine.",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "16.6K",
+      "url": "https://ollama.com/library/laguna-xs.2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "kimi-k2.7-code",
+      "name": "kimi-k2.7-code",
+      "description": "Kimi K2.7 Code is Moonshot AI&#39;s coding-focused agentic model built upon Kimi K2.6, with substantial improvements on real-world long-horizon coding tasks and roughly 30% lower thinking-token usage.",
+      "capabilities": [
+        "vision",
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "15.2K",
+      "url": "https://ollama.com/library/kimi-k2.7-code"
+    },
+    {
+      "source": "ollama_library",
+      "id": "nemotron-3-ultra",
+      "name": "nemotron-3-ultra",
+      "description": "NVIDIA Nemotron 3 Ultra is built for high-throughput reasoning and long-running agent workflows.",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "13K",
+      "url": "https://ollama.com/library/nemotron-3-ultra"
+    },
+    {
+      "source": "ollama_library",
+      "id": "glm-5.2",
+      "name": "glm-5.2",
+      "description": "GLM-5.2 is Z.ai\u2019s flagship model for the era of long-horizon tasks.",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "pulls": "8,021",
+      "url": "https://ollama.com/library/glm-5.2"
+    },
+    {
+      "source": "ollama_library",
+      "id": "minicpm-v4.6",
+      "name": "minicpm-v4.6",
+      "description": "A Pocket-Sized MLLM for Ultra-Efficient Image and Video Understanding on Your Phone",
+      "capabilities": [
+        "vision"
+      ],
+      "size_tags": [
+        "1b"
+      ],
+      "params_b_guess": 1.0,
+      "tier": "small (<=8B)",
+      "pulls": "4,279",
+      "url": "https://ollama.com/library/minicpm-v4.6"
+    },
+    {
+      "source": "ollama_library",
+      "id": "minicpm-v4.5",
+      "name": "minicpm-v4.5",
+      "description": "A GPT-4o Level MLLM for Single Image, Multi Image and High-FPS Video Understanding on Your Phone",
+      "capabilities": [
+        "vision"
+      ],
+      "size_tags": [
+        "8b"
+      ],
+      "params_b_guess": 8.0,
+      "tier": "small (<=8B)",
+      "pulls": "2,853",
+      "url": "https://ollama.com/library/minicpm-v4.5"
+    },
+    {
+      "source": "ollama_library",
+      "id": "granite4.1-guardian",
+      "name": "granite4.1-guardian",
+      "description": "Granite Guardian 4.1 is a specialized safety and judging model from IBM Research that evaluates whether LLM prompts and responses meet specified harm criteria.",
+      "capabilities": [
+        "tools",
+        "thinking"
+      ],
+      "size_tags": [
+        "8b"
+      ],
+      "params_b_guess": 8.0,
+      "tier": "small (<=8B)",
+      "pulls": "393",
+      "url": "https://ollama.com/library/granite4.1-guardian"
+    }
+  ],
+  "huggingface_gguf": [
+    {
+      "source": "huggingface_gguf",
+      "id": "mixedbread-ai/mxbai-embed-large-v1",
+      "name": "mxbai-embed-large-v1",
+      "size_tags": [
+        "sentence-transformers",
+        "onnx",
+        "safetensors",
+        "openvino",
+        "gguf",
+        "bert",
+        "feature-extraction",
+        "mteb",
+        "transformers.js",
+        "transformers",
+        "en",
+        "arxiv:2309.12871",
+        "license:apache-2.0",
+        "model-index",
+        "text-embeddings-inference",
+        "endpoints_compatible",
+        "region:us"
+      ],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "downloads": 4432477,
+      "likes": 810,
+      "last_updated": null,
+      "url": "https://huggingface.co/mixedbread-ai/mxbai-embed-large-v1"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "HauhauCS/Qwen3.6-35B-A3B-Uncensored-HauhauCS-Aggressive",
+      "name": "Qwen3.6-35B-A3B-Uncensored-HauhauCS-Aggressive",
+      "size_tags": [
+        "gguf",
+        "uncensored",
+        "qwen3.6",
+        "moe",
+        "vision",
+        "multimodal",
+        "image-text-to-text",
+        "en",
+        "zh",
+        "multilingual",
+        "base_model:Qwen/Qwen3.6-35B-A3B",
+        "base_model:quantized:Qwen/Qwen3.6-35B-A3B",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "imatrix",
+        "conversational"
+      ],
+      "params_b_guess": 35.0,
+      "tier": "large (25-70B)",
+      "downloads": 2876624,
+      "likes": 1914,
+      "last_updated": null,
+      "url": "https://huggingface.co/HauhauCS/Qwen3.6-35B-A3B-Uncensored-HauhauCS-Aggressive"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "Andycurrent/Gemma-3-1B-it-GLM-4.7-Flash-Heretic-Uncensored-Thinking_GGUF",
+      "name": "Gemma-3-1B-it-GLM-4.7-Flash-Heretic-Uncensored-Thinking_GGUF",
+      "size_tags": [
+        "gguf",
+        "uncensored",
+        "text-generation",
+        "reasoning",
+        "instruction-tuned",
+        "lightweight",
+        "en",
+        "base_model:google/gemma-3-1b-it",
+        "base_model:quantized:google/gemma-3-1b-it",
+        "license:gemma",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 1.0,
+      "tier": "small (<=8B)",
+      "downloads": 2640250,
+      "likes": 64,
+      "last_updated": null,
+      "url": "https://huggingface.co/Andycurrent/Gemma-3-1B-it-GLM-4.7-Flash-Heretic-Uncensored-Thinking_GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "antirez/deepseek-v4-gguf",
+      "name": "deepseek-v4-gguf",
+      "size_tags": [
+        "gguf",
+        "quantized",
+        "deepseek",
+        "deepseek-v4",
+        "deepseek-v4-flash",
+        "moe",
+        "mixture-of-experts",
+        "2-bit",
+        "4-bit",
+        "iq2_xxs",
+        "q2_k",
+        "q4_k",
+        "ds4",
+        "apple-silicon",
+        "metal",
+        "text-generation",
+        "en",
+        "base_model:deepseek-ai/DeepSeek-V4-Flash",
+        "base_model:quantized:deepseek-ai/DeepSeek-V4-Flash",
+        "license:mit",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "downloads": 2491863,
+      "likes": 253,
+      "last_updated": null,
+      "url": "https://huggingface.co/antirez/deepseek-v4-gguf"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "unsloth/gemma-4-26B-A4B-it-GGUF",
+      "name": "gemma-4-26B-A4B-it-GGUF",
+      "size_tags": [
+        "gguf",
+        "gemma4",
+        "unsloth",
+        "gemma",
+        "google",
+        "image-text-to-text",
+        "base_model:google/gemma-4-26B-A4B-it",
+        "base_model:quantized:google/gemma-4-26B-A4B-it",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "imatrix",
+        "conversational"
+      ],
+      "params_b_guess": 26.0,
+      "tier": "large (25-70B)",
+      "downloads": 1161727,
+      "likes": 880,
+      "last_updated": null,
+      "url": "https://huggingface.co/unsloth/gemma-4-26B-A4B-it-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "unsloth/Qwen3.6-35B-A3B-GGUF",
+      "name": "Qwen3.6-35B-A3B-GGUF",
+      "size_tags": [
+        "transformers",
+        "gguf",
+        "unsloth",
+        "qwen",
+        "qwen3_5_moe",
+        "image-text-to-text",
+        "base_model:Qwen/Qwen3.6-35B-A3B",
+        "base_model:quantized:Qwen/Qwen3.6-35B-A3B",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "deploy:azure",
+        "region:us",
+        "imatrix",
+        "conversational"
+      ],
+      "params_b_guess": 35.0,
+      "tier": "large (25-70B)",
+      "downloads": 1024311,
+      "likes": 1241,
+      "last_updated": null,
+      "url": "https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "SulphurAI/Sulphur-2-base",
+      "name": "Sulphur-2-base",
+      "size_tags": [
+        "diffusers",
+        "safetensors",
+        "gguf",
+        "text-to-video",
+        "base_model:Lightricks/LTX-2.3",
+        "base_model:quantized:Lightricks/LTX-2.3",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "downloads": 804033,
+      "likes": 1697,
+      "last_updated": null,
+      "url": "https://huggingface.co/SulphurAI/Sulphur-2-base"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "unsloth/Qwen3.6-27B-GGUF",
+      "name": "Qwen3.6-27B-GGUF",
+      "size_tags": [
+        "transformers",
+        "gguf",
+        "unsloth",
+        "qwen",
+        "qwen3_5",
+        "image-text-to-text",
+        "base_model:Qwen/Qwen3.6-27B",
+        "base_model:quantized:Qwen/Qwen3.6-27B",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "imatrix",
+        "conversational"
+      ],
+      "params_b_guess": 27.0,
+      "tier": "large (25-70B)",
+      "downloads": 791604,
+      "likes": 797,
+      "last_updated": null,
+      "url": "https://huggingface.co/unsloth/Qwen3.6-27B-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "unsloth/Qwen3.6-27B-MTP-GGUF",
+      "name": "Qwen3.6-27B-MTP-GGUF",
+      "size_tags": [
+        "transformers",
+        "gguf",
+        "unsloth",
+        "qwen",
+        "qwen3_5",
+        "image-text-to-text",
+        "base_model:Qwen/Qwen3.6-27B",
+        "base_model:quantized:Qwen/Qwen3.6-27B",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "imatrix",
+        "conversational"
+      ],
+      "params_b_guess": 27.0,
+      "tier": "large (25-70B)",
+      "downloads": 784910,
+      "likes": 761,
+      "last_updated": null,
+      "url": "https://huggingface.co/unsloth/Qwen3.6-27B-MTP-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "unsloth/Qwen3.5-9B-GGUF",
+      "name": "Qwen3.5-9B-GGUF",
+      "size_tags": [
+        "transformers",
+        "gguf",
+        "unsloth",
+        "image-text-to-text",
+        "base_model:Qwen/Qwen3.5-9B",
+        "base_model:quantized:Qwen/Qwen3.5-9B",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 9.0,
+      "tier": "mid (9-24B)",
+      "downloads": 772221,
+      "likes": 689,
+      "last_updated": null,
+      "url": "https://huggingface.co/unsloth/Qwen3.5-9B-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "unsloth/gemma-4-E4B-it-GGUF",
+      "name": "gemma-4-E4B-it-GGUF",
+      "size_tags": [
+        "gguf",
+        "gemma4",
+        "unsloth",
+        "gemma",
+        "google",
+        "image-text-to-text",
+        "base_model:google/gemma-4-E4B-it",
+        "base_model:quantized:google/gemma-4-E4B-it",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 4.0,
+      "tier": "small (<=8B)",
+      "downloads": 739367,
+      "likes": 504,
+      "last_updated": null,
+      "url": "https://huggingface.co/unsloth/gemma-4-E4B-it-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "unsloth/Qwen3.6-35B-A3B-MTP-GGUF",
+      "name": "Qwen3.6-35B-A3B-MTP-GGUF",
+      "size_tags": [
+        "transformers",
+        "gguf",
+        "unsloth",
+        "qwen",
+        "qwen3_5_moe",
+        "image-text-to-text",
+        "base_model:Qwen/Qwen3.6-35B-A3B",
+        "base_model:quantized:Qwen/Qwen3.6-35B-A3B",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "imatrix",
+        "conversational"
+      ],
+      "params_b_guess": 35.0,
+      "tier": "large (25-70B)",
+      "downloads": 731441,
+      "likes": 539,
+      "last_updated": null,
+      "url": "https://huggingface.co/unsloth/Qwen3.6-35B-A3B-MTP-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "rippertnt/HyperCLOVAX-SEED-Text-Instruct-1.5B-Q4_K_M-GGUF",
+      "name": "HyperCLOVAX-SEED-Text-Instruct-1.5B-Q4_K_M-GGUF",
+      "size_tags": [
+        "gguf",
+        "llama",
+        "llama-cpp",
+        "gguf-my-repo",
+        "base_model:naver-hyperclovax/HyperCLOVAX-SEED-Text-Instruct-1.5B",
+        "base_model:quantized:naver-hyperclovax/HyperCLOVAX-SEED-Text-Instruct-1.5B",
+        "license:other",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 1.5,
+      "tier": "small (<=8B)",
+      "downloads": 699044,
+      "likes": 4,
+      "last_updated": null,
+      "url": "https://huggingface.co/rippertnt/HyperCLOVAX-SEED-Text-Instruct-1.5B-Q4_K_M-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "lmstudio-community/gemma-4-E4B-it-GGUF",
+      "name": "gemma-4-E4B-it-GGUF",
+      "size_tags": [
+        "gguf",
+        "base_model:google/gemma-4-E4B-it",
+        "base_model:quantized:google/gemma-4-E4B-it",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 4.0,
+      "tier": "small (<=8B)",
+      "downloads": 662312,
+      "likes": 47,
+      "last_updated": null,
+      "url": "https://huggingface.co/lmstudio-community/gemma-4-E4B-it-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "unsloth/gemma-4-E2B-it-GGUF",
+      "name": "gemma-4-E2B-it-GGUF",
+      "size_tags": [
+        "gguf",
+        "gemma4",
+        "unsloth",
+        "gemma",
+        "google",
+        "image-text-to-text",
+        "base_model:google/gemma-4-E2B-it",
+        "base_model:quantized:google/gemma-4-E2B-it",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 2.0,
+      "tier": "small (<=8B)",
+      "downloads": 659055,
+      "likes": 242,
+      "last_updated": null,
+      "url": "https://huggingface.co/unsloth/gemma-4-E2B-it-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "unsloth/Qwen3.5-4B-GGUF",
+      "name": "Qwen3.5-4B-GGUF",
+      "size_tags": [
+        "transformers",
+        "gguf",
+        "unsloth",
+        "image-text-to-text",
+        "base_model:Qwen/Qwen3.5-4B",
+        "base_model:quantized:Qwen/Qwen3.5-4B",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 4.0,
+      "tier": "small (<=8B)",
+      "downloads": 628204,
+      "likes": 279,
+      "last_updated": null,
+      "url": "https://huggingface.co/unsloth/Qwen3.5-4B-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "unsloth/Qwen3-VL-2B-Instruct-GGUF",
+      "name": "Qwen3-VL-2B-Instruct-GGUF",
+      "size_tags": [
+        "transformers",
+        "gguf",
+        "unsloth",
+        "image-text-to-text",
+        "arxiv:2505.09388",
+        "arxiv:2502.13923",
+        "arxiv:2409.12191",
+        "arxiv:2308.12966",
+        "base_model:Qwen/Qwen3-VL-2B-Instruct",
+        "base_model:quantized:Qwen/Qwen3-VL-2B-Instruct",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 2.0,
+      "tier": "small (<=8B)",
+      "downloads": 611509,
+      "likes": 33,
+      "last_updated": null,
+      "url": "https://huggingface.co/unsloth/Qwen3-VL-2B-Instruct-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "unsloth/gemma-4-12b-it-GGUF",
+      "name": "gemma-4-12b-it-GGUF",
+      "size_tags": [
+        "gguf",
+        "gemma4",
+        "unsloth",
+        "gemma",
+        "google",
+        "gemma4_unified",
+        "image-text-to-text",
+        "base_model:google/gemma-4-12B-it",
+        "base_model:quantized:google/gemma-4-12B-it",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 12.0,
+      "tier": "mid (9-24B)",
+      "downloads": 579224,
+      "likes": 641,
+      "last_updated": null,
+      "url": "https://huggingface.co/unsloth/gemma-4-12b-it-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF",
+      "name": "Qwen3-30B-A3B-Instruct-2507-GGUF",
+      "size_tags": [
+        "transformers",
+        "gguf",
+        "qwen",
+        "qwen3",
+        "unsloth",
+        "arxiv:2505.09388",
+        "base_model:Qwen/Qwen3-30B-A3B-Instruct-2507",
+        "base_model:quantized:Qwen/Qwen3-30B-A3B-Instruct-2507",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "imatrix",
+        "conversational"
+      ],
+      "params_b_guess": 30.0,
+      "tier": "large (25-70B)",
+      "downloads": 557258,
+      "likes": 310,
+      "last_updated": null,
+      "url": "https://huggingface.co/unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "lmg-anon/vntl-llama3-8b-v2-gguf",
+      "name": "vntl-llama3-8b-v2-gguf",
+      "size_tags": [
+        "gguf",
+        "translation",
+        "ja",
+        "en",
+        "dataset:lmg-anon/VNTL-v5-1k",
+        "base_model:rinna/llama-3-youko-8b",
+        "base_model:quantized:rinna/llama-3-youko-8b",
+        "license:llama3",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 8.0,
+      "tier": "small (<=8B)",
+      "downloads": 554670,
+      "likes": 14,
+      "last_updated": null,
+      "url": "https://huggingface.co/lmg-anon/vntl-llama3-8b-v2-gguf"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "unsloth/gemma-4-31B-it-GGUF",
+      "name": "gemma-4-31B-it-GGUF",
+      "size_tags": [
+        "gguf",
+        "gemma4",
+        "unsloth",
+        "gemma",
+        "google",
+        "image-text-to-text",
+        "base_model:google/gemma-4-31B-it",
+        "base_model:quantized:google/gemma-4-31B-it",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "imatrix",
+        "conversational"
+      ],
+      "params_b_guess": 31.0,
+      "tier": "large (25-70B)",
+      "downloads": 539940,
+      "likes": 492,
+      "last_updated": null,
+      "url": "https://huggingface.co/unsloth/gemma-4-31B-it-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "hugging-quants/Llama-3.2-1B-Instruct-Q8_0-GGUF",
+      "name": "Llama-3.2-1B-Instruct-Q8_0-GGUF",
+      "size_tags": [
+        "gguf",
+        "facebook",
+        "meta",
+        "pytorch",
+        "llama",
+        "llama-3",
+        "llama-cpp",
+        "gguf-my-repo",
+        "text-generation",
+        "en",
+        "de",
+        "fr",
+        "it",
+        "pt",
+        "hi",
+        "es",
+        "th",
+        "base_model:meta-llama/Llama-3.2-1B-Instruct",
+        "base_model:quantized:meta-llama/Llama-3.2-1B-Instruct",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 1.0,
+      "tier": "small (<=8B)",
+      "downloads": 516070,
+      "likes": 47,
+      "last_updated": null,
+      "url": "https://huggingface.co/hugging-quants/Llama-3.2-1B-Instruct-Q8_0-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "ggml-org/models-moved",
+      "name": "models-moved",
+      "size_tags": [
+        "gguf",
+        "endpoints_compatible",
+        "region:us"
+      ],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "downloads": 496045,
+      "likes": 13,
+      "last_updated": null,
+      "url": "https://huggingface.co/ggml-org/models-moved"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "HauhauCS/Gemma-4-E4B-Uncensored-HauhauCS-Aggressive",
+      "name": "Gemma-4-E4B-Uncensored-HauhauCS-Aggressive",
+      "size_tags": [
+        "gguf",
+        "uncensored",
+        "gemma4",
+        "abliterated",
+        "vision",
+        "multimodal",
+        "audio",
+        "image-text-to-text",
+        "en",
+        "multilingual",
+        "license:gemma",
+        "endpoints_compatible",
+        "region:us",
+        "imatrix",
+        "conversational"
+      ],
+      "params_b_guess": 4.0,
+      "tier": "small (<=8B)",
+      "downloads": 477945,
+      "likes": 795,
+      "last_updated": null,
+      "url": "https://huggingface.co/HauhauCS/Gemma-4-E4B-Uncensored-HauhauCS-Aggressive"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "unsloth/gemma-4-26B-A4B-it-qat-GGUF",
+      "name": "gemma-4-26B-A4B-it-qat-GGUF",
+      "size_tags": [
+        "transformers",
+        "gguf",
+        "gemma4",
+        "image-text-to-text",
+        "unsloth",
+        "gemma",
+        "google",
+        "base_model:google/gemma-4-26B-A4B-it-qat-q4_0-unquantized",
+        "base_model:quantized:google/gemma-4-26B-A4B-it-qat-q4_0-unquantized",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 26.0,
+      "tier": "large (25-70B)",
+      "downloads": 431029,
+      "likes": 172,
+      "last_updated": null,
+      "url": "https://huggingface.co/unsloth/gemma-4-26B-A4B-it-qat-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive",
+      "name": "Qwen3.5-9B-Uncensored-HauhauCS-Aggressive",
+      "size_tags": [
+        "gguf",
+        "uncensored",
+        "qwen3.5",
+        "qwen",
+        "en",
+        "zh",
+        "multilingual",
+        "base_model:Qwen/Qwen3.5-9B",
+        "base_model:quantized:Qwen/Qwen3.5-9B",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 9.0,
+      "tier": "mid (9-24B)",
+      "downloads": 428293,
+      "likes": 1574,
+      "last_updated": null,
+      "url": "https://huggingface.co/HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "DavidAU/Qwen3.6-40B-Claude-4.6-Opus-Deckard-Heretic-Uncensored-Thinking-NEO-CODE-Di-IMatrix-MAX-GGUF",
+      "name": "Qwen3.6-40B-Claude-4.6-Opus-Deckard-Heretic-Uncensored-Thinking-NEO-CODE-Di-IMatrix-MAX-GGUF",
+      "size_tags": [
+        "gguf",
+        "unsloth",
+        "fine tune",
+        "heretic",
+        "uncensored",
+        "abliterated",
+        "multi-stage tuned.",
+        "all use cases",
+        "coder",
+        "creative",
+        "creative writing",
+        "fiction writing",
+        "plot generation",
+        "sub-plot generation",
+        "story generation",
+        "scene continue",
+        "storytelling",
+        "fiction story",
+        "science fiction",
+        "romance",
+        "all genres",
+        "story",
+        "writing",
+        "vivid prosing",
+        "vivid writing",
+        "fiction",
+        "roleplaying",
+        "bfloat16",
+        "imatrix",
+        "neo imatrix",
+        "di-matrix",
+        "image-text-to-text",
+        "en",
+        "zh",
+        "dataset:TeichAI/claude-4.5-opus-high-reasoning-250x",
+        "dataset:DavidAU/PkDick-Deckard-5-Datasets",
+        "base_model:DavidAU/Qwen3.6-40B-Claude-4.6-Opus-Deckard-Heretic-Uncensored-Thinking",
+        "base_model:quantized:DavidAU/Qwen3.6-40B-Claude-4.6-Opus-Deckard-Heretic-Uncensored-Thinking",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 40.0,
+      "tier": "large (25-70B)",
+      "downloads": 427359,
+      "likes": 377,
+      "last_updated": null,
+      "url": "https://huggingface.co/DavidAU/Qwen3.6-40B-Claude-4.6-Opus-Deckard-Heretic-Uncensored-Thinking-NEO-CODE-Di-IMatrix-MAX-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "HauhauCS/Qwen3.6-27B-Uncensored-HauhauCS-Aggressive",
+      "name": "Qwen3.6-27B-Uncensored-HauhauCS-Aggressive",
+      "size_tags": [
+        "gguf",
+        "uncensored",
+        "qwen3.6",
+        "vision",
+        "multimodal",
+        "image-text-to-text",
+        "en",
+        "zh",
+        "multilingual",
+        "base_model:Qwen/Qwen3.6-27B",
+        "base_model:quantized:Qwen/Qwen3.6-27B",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "imatrix",
+        "conversational"
+      ],
+      "params_b_guess": 27.0,
+      "tier": "large (25-70B)",
+      "downloads": 407796,
+      "likes": 450,
+      "last_updated": null,
+      "url": "https://huggingface.co/HauhauCS/Qwen3.6-27B-Uncensored-HauhauCS-Aggressive"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "DavidAU/Qwen3.6-27B-Heretic-Uncensored-FINETUNE-NEO-CODE-Di-IMatrix-MAX-GGUF",
+      "name": "Qwen3.6-27B-Heretic-Uncensored-FINETUNE-NEO-CODE-Di-IMatrix-MAX-GGUF",
+      "size_tags": [
+        "gguf",
+        "unsloth",
+        "heretic",
+        "uncensored",
+        "abliterated",
+        "fine tune",
+        "creative",
+        "creative writing",
+        "fiction writing",
+        "plot generation",
+        "sub-plot generation",
+        "story generation",
+        "scene continue",
+        "storytelling",
+        "fiction story",
+        "science fiction",
+        "romance",
+        "all genres",
+        "story",
+        "writing",
+        "vivid prosing",
+        "vivid writing",
+        "fiction",
+        "roleplaying",
+        "bfloat16",
+        "all use cases",
+        "image-text-to-text",
+        "en",
+        "zh",
+        "base_model:DavidAU/Qwen3.6-27B-Heretic2-Uncensored-Finetune-Thinking",
+        "base_model:quantized:DavidAU/Qwen3.6-27B-Heretic2-Uncensored-Finetune-Thinking",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "imatrix",
+        "conversational"
+      ],
+      "params_b_guess": 27.0,
+      "tier": "large (25-70B)",
+      "downloads": 398724,
+      "likes": 322,
+      "last_updated": null,
+      "url": "https://huggingface.co/DavidAU/Qwen3.6-27B-Heretic-Uncensored-FINETUNE-NEO-CODE-Di-IMatrix-MAX-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "VLTX/VertaLily-1.2-1B-GGUF",
+      "name": "VertaLily-1.2-1B-GGUF",
+      "size_tags": [
+        "transformers",
+        "gguf",
+        "vltx",
+        "sovereign",
+        "techina-x",
+        "void",
+        "verta-lily",
+        "text-generation",
+        "en",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 1.0,
+      "tier": "small (<=8B)",
+      "downloads": 359786,
+      "likes": 1,
+      "last_updated": null,
+      "url": "https://huggingface.co/VLTX/VertaLily-1.2-1B-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "PaddlePaddle/PaddleOCR-VL-1.5-GGUF",
+      "name": "PaddleOCR-VL-1.5-GGUF",
+      "size_tags": [
+        "gguf",
+        "arxiv:2601.21957",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "downloads": 348351,
+      "likes": 37,
+      "last_updated": null,
+      "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL-1.5-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "Jackrong/Qwen3.5-9B-DeepSeek-V4-Flash-GGUF",
+      "name": "Qwen3.5-9B-DeepSeek-V4-Flash-GGUF",
+      "size_tags": [
+        "transformers",
+        "gguf",
+        "text-generation-inference",
+        "unsloth",
+        "qwen3_5",
+        "reasoning",
+        "distillation",
+        "deepseek",
+        "deepseek-v4",
+        "sft",
+        "long-cot",
+        "chain-of-thought",
+        "efficient-inference",
+        "agent",
+        "multilingual",
+        "image-text-to-text",
+        "en",
+        "zh",
+        "ko",
+        "ja",
+        "es",
+        "ru",
+        "dataset:Jackrong/DeepSeek-V4-Distill-8000x",
+        "arxiv:2604.06628",
+        "base_model:unsloth/Qwen3.5-9B",
+        "base_model:quantized:unsloth/Qwen3.5-9B",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 9.0,
+      "tier": "mid (9-24B)",
+      "downloads": 328352,
+      "likes": 228,
+      "last_updated": null,
+      "url": "https://huggingface.co/Jackrong/Qwen3.5-9B-DeepSeek-V4-Flash-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "ggml-org/gemma-4-26B-A4B-it-GGUF",
+      "name": "gemma-4-26B-A4B-it-GGUF",
+      "size_tags": [
+        "gguf",
+        "base_model:google/gemma-4-26B-A4B-it",
+        "base_model:quantized:google/gemma-4-26B-A4B-it",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 26.0,
+      "tier": "large (25-70B)",
+      "downloads": 324207,
+      "likes": 75,
+      "last_updated": null,
+      "url": "https://huggingface.co/ggml-org/gemma-4-26B-A4B-it-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "Snowflake/snowflake-arctic-embed-m-v1.5",
+      "name": "snowflake-arctic-embed-m-v1.5",
+      "size_tags": [
+        "sentence-transformers",
+        "onnx",
+        "safetensors",
+        "gguf",
+        "bert",
+        "feature-extraction",
+        "sentence-similarity",
+        "mteb",
+        "arctic",
+        "snowflake-arctic-embed",
+        "transformers.js",
+        "arxiv:2412.04506",
+        "arxiv:2407.18887",
+        "arxiv:2405.05374",
+        "arxiv:2205.13147",
+        "license:apache-2.0",
+        "model-index",
+        "text-embeddings-inference",
+        "endpoints_compatible",
+        "region:us"
+      ],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "downloads": 315723,
+      "likes": 72,
+      "last_updated": null,
+      "url": "https://huggingface.co/Snowflake/snowflake-arctic-embed-m-v1.5"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "google/gemma-4-12B-it-qat-q4_0-gguf",
+      "name": "gemma-4-12B-it-qat-q4_0-gguf",
+      "size_tags": [
+        "transformers",
+        "gguf",
+        "any-to-any",
+        "base_model:google/gemma-4-12B-it-qat-q4_0-unquantized",
+        "base_model:quantized:google/gemma-4-12B-it-qat-q4_0-unquantized",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 12.0,
+      "tier": "mid (9-24B)",
+      "downloads": 310225,
+      "likes": 162,
+      "last_updated": null,
+      "url": "https://huggingface.co/google/gemma-4-12B-it-qat-q4_0-gguf"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "DeepBeepMeep/Wan2.1",
+      "name": "Wan2.1",
+      "size_tags": [
+        "diffusion-single-file",
+        "onnx",
+        "safetensors",
+        "gguf",
+        "i2v",
+        "base_model:Wan-AI/Wan2.1-T2V-1.3B",
+        "base_model:quantized:Wan-AI/Wan2.1-T2V-1.3B",
+        "region:us"
+      ],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "downloads": 301969,
+      "likes": 39,
+      "last_updated": null,
+      "url": "https://huggingface.co/DeepBeepMeep/Wan2.1"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "lmstudio-community/Qwen3.5-9B-GGUF",
+      "name": "Qwen3.5-9B-GGUF",
+      "size_tags": [
+        "gguf",
+        "base_model:Qwen/Qwen3.5-9B",
+        "base_model:quantized:Qwen/Qwen3.5-9B",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 9.0,
+      "tier": "mid (9-24B)",
+      "downloads": 298017,
+      "likes": 43,
+      "last_updated": null,
+      "url": "https://huggingface.co/lmstudio-community/Qwen3.5-9B-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "unsloth/Qwen3-Coder-Next-GGUF",
+      "name": "Qwen3-Coder-Next-GGUF",
+      "size_tags": [
+        "gguf",
+        "qwen3_next",
+        "unsloth",
+        "qwen",
+        "qwen3",
+        "text-generation",
+        "base_model:Qwen/Qwen3-Coder-Next",
+        "base_model:quantized:Qwen/Qwen3-Coder-Next",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "imatrix",
+        "conversational"
+      ],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "downloads": 271310,
+      "likes": 708,
+      "last_updated": null,
+      "url": "https://huggingface.co/unsloth/Qwen3-Coder-Next-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "Jackrong/Qwopus3.6-35B-A3B-v1-GGUF",
+      "name": "Qwopus3.6-35B-A3B-v1-GGUF",
+      "size_tags": [
+        "transformers",
+        "gguf",
+        "llama.cpp",
+        "image-text-to-text",
+        "vision",
+        "multimodal",
+        "text-generation-inference",
+        "unsloth",
+        "conversational",
+        "qwen3_6",
+        "moe",
+        "reasoning",
+        "chain-of-thought",
+        "lora",
+        "sft",
+        "tool-use",
+        "function-calling",
+        "long-context",
+        "en",
+        "zh",
+        "es",
+        "ru",
+        "ja",
+        "dataset:Jackrong/Claude-opus-4.7-TraceInversion-5000x",
+        "dataset:Jackrong/Claude-opus-4.6-TraceInversion-9000x",
+        "base_model:unsloth/Qwen3.6-35B-A3B",
+        "base_model:adapter:unsloth/Qwen3.6-35B-A3B",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us"
+      ],
+      "params_b_guess": 35.0,
+      "tier": "large (25-70B)",
+      "downloads": 266918,
+      "likes": 200,
+      "last_updated": null,
+      "url": "https://huggingface.co/Jackrong/Qwopus3.6-35B-A3B-v1-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "lmstudio-community/gemma-4-12B-it-QAT-GGUF",
+      "name": "gemma-4-12B-it-QAT-GGUF",
+      "size_tags": [
+        "gguf",
+        "base_model:google/gemma-4-12B-it-qat-q4_0-unquantized",
+        "base_model:quantized:google/gemma-4-12B-it-qat-q4_0-unquantized",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 12.0,
+      "tier": "mid (9-24B)",
+      "downloads": 263540,
+      "likes": 5,
+      "last_updated": null,
+      "url": "https://huggingface.co/lmstudio-community/gemma-4-12B-it-QAT-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "unsloth/gemma-4-12B-it-qat-GGUF",
+      "name": "gemma-4-12B-it-qat-GGUF",
+      "size_tags": [
+        "transformers",
+        "gguf",
+        "gemma4",
+        "unsloth",
+        "gemma",
+        "google",
+        "any-to-any",
+        "base_model:google/gemma-4-12B-it-qat-q4_0-unquantized",
+        "base_model:quantized:google/gemma-4-12B-it-qat-q4_0-unquantized",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 12.0,
+      "tier": "mid (9-24B)",
+      "downloads": 262144,
+      "likes": 250,
+      "last_updated": null,
+      "url": "https://huggingface.co/unsloth/gemma-4-12B-it-qat-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "unsloth/LTX-2.3-GGUF",
+      "name": "LTX-2.3-GGUF",
+      "size_tags": [
+        "ggml",
+        "gguf",
+        "image-to-video",
+        "unsloth",
+        "text-to-video",
+        "video-to-video",
+        "image-text-to-video",
+        "audio-to-video",
+        "text-to-audio",
+        "video-to-audio",
+        "audio-to-audio",
+        "text-to-audio-video",
+        "image-to-audio-video",
+        "image-text-to-audio-video",
+        "ltx-2",
+        "ltx-2-3",
+        "ltx-video",
+        "ltxv",
+        "lightricks",
+        "en",
+        "de",
+        "es",
+        "fr",
+        "ja",
+        "ko",
+        "zh",
+        "it",
+        "pt",
+        "arxiv:2601.03233",
+        "base_model:Lightricks/LTX-2.3",
+        "base_model:quantized:Lightricks/LTX-2.3",
+        "license:other",
+        "region:us"
+      ],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "downloads": 259943,
+      "likes": 465,
+      "last_updated": null,
+      "url": "https://huggingface.co/unsloth/LTX-2.3-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "PaddlePaddle/PaddleOCR-VL-1.6-GGUF",
+      "name": "PaddleOCR-VL-1.6-GGUF",
+      "size_tags": [
+        "gguf",
+        "arxiv:2606.03264",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "downloads": 258989,
+      "likes": 26,
+      "last_updated": null,
+      "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL-1.6-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "lmstudio-community/Qwen3.6-27B-GGUF",
+      "name": "Qwen3.6-27B-GGUF",
+      "size_tags": [
+        "gguf",
+        "base_model:Qwen/Qwen3.6-27B",
+        "base_model:quantized:Qwen/Qwen3.6-27B",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 27.0,
+      "tier": "large (25-70B)",
+      "downloads": 257357,
+      "likes": 25,
+      "last_updated": null,
+      "url": "https://huggingface.co/lmstudio-community/Qwen3.6-27B-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "unsloth/Qwen3.5-0.8B-GGUF",
+      "name": "Qwen3.5-0.8B-GGUF",
+      "size_tags": [
+        "transformers",
+        "gguf",
+        "unsloth",
+        "image-text-to-text",
+        "base_model:Qwen/Qwen3.5-0.8B",
+        "base_model:quantized:Qwen/Qwen3.5-0.8B",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 0.8,
+      "tier": "small (<=8B)",
+      "downloads": 257008,
+      "likes": 177,
+      "last_updated": null,
+      "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "janhq/Jan-v3.5-4B-gguf",
+      "name": "Jan-v3.5-4B-gguf",
+      "size_tags": [
+        "transformers",
+        "gguf",
+        "math",
+        "identity",
+        "text-generation",
+        "en",
+        "base_model:janhq/Jan-v3-4B-base-instruct",
+        "base_model:quantized:janhq/Jan-v3-4B-base-instruct",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 4.0,
+      "tier": "small (<=8B)",
+      "downloads": 254882,
+      "likes": 21,
+      "last_updated": null,
+      "url": "https://huggingface.co/janhq/Jan-v3.5-4B-gguf"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "OBLITERATUS/gemma-4-E4B-it-OBLITERATED",
+      "name": "gemma-4-E4B-it-OBLITERATED",
+      "size_tags": [
+        "safetensors",
+        "gguf",
+        "gemma4",
+        "abliterated",
+        "uncensored",
+        "obliteratus",
+        "refusal-removal",
+        "text-generation",
+        "base_model:google/gemma-4-E4B-it",
+        "base_model:quantized:google/gemma-4-E4B-it",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 4.0,
+      "tier": "small (<=8B)",
+      "downloads": 251373,
+      "likes": 712,
+      "last_updated": null,
+      "url": "https://huggingface.co/OBLITERATUS/gemma-4-E4B-it-OBLITERATED"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "ggml-org/embeddinggemma-300M-GGUF",
+      "name": "embeddinggemma-300M-GGUF",
+      "size_tags": [
+        "gguf",
+        "base_model:google/embeddinggemma-300m",
+        "base_model:quantized:google/embeddinggemma-300m",
+        "endpoints_compatible",
+        "region:us"
+      ],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "downloads": 245097,
+      "likes": 31,
+      "last_updated": null,
+      "url": "https://huggingface.co/ggml-org/embeddinggemma-300M-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "bartowski/gemma-2-2b-it-GGUF",
+      "name": "gemma-2-2b-it-GGUF",
+      "size_tags": [
+        "transformers",
+        "gguf",
+        "conversational",
+        "text-generation",
+        "base_model:google/gemma-2-2b-it",
+        "base_model:quantized:google/gemma-2-2b-it",
+        "license:gemma",
+        "endpoints_compatible",
+        "region:us"
+      ],
+      "params_b_guess": 2.0,
+      "tier": "small (<=8B)",
+      "downloads": 237924,
+      "likes": 97,
+      "last_updated": null,
+      "url": "https://huggingface.co/bartowski/gemma-2-2b-it-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "lmstudio-community/Qwen3.6-35B-A3B-GGUF",
+      "name": "Qwen3.6-35B-A3B-GGUF",
+      "size_tags": [
+        "gguf",
+        "base_model:Qwen/Qwen3.6-35B-A3B",
+        "base_model:quantized:Qwen/Qwen3.6-35B-A3B",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 35.0,
+      "tier": "large (25-70B)",
+      "downloads": 233576,
+      "likes": 23,
+      "last_updated": null,
+      "url": "https://huggingface.co/lmstudio-community/Qwen3.6-35B-A3B-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "Jackrong/Qwopus3.6-27B-v2-MTP-GGUF",
+      "name": "Qwopus3.6-27B-v2-MTP-GGUF",
+      "size_tags": [
+        "transformers",
+        "gguf",
+        "llama.cpp",
+        "image-text-to-text",
+        "vision",
+        "multimodal",
+        "text-generation-inference",
+        "unsloth",
+        "conversational",
+        "mtp",
+        "multi-token-prediction",
+        "speculative-decoding",
+        "qwen3_6",
+        "reasoning",
+        "chain-of-thought",
+        "lora",
+        "sft",
+        "agent",
+        "coder",
+        "devops",
+        "math",
+        "science",
+        "image",
+        "tool-use",
+        "function-calling",
+        "long-context",
+        "en",
+        "zh",
+        "ko",
+        "ru",
+        "ja",
+        "es",
+        "dataset:Jackrong/Claude-opus-4.7-TraceInversion-5000x",
+        "dataset:Jackrong/Claude-opus-4.6-TraceInversion-9000x",
+        "base_model:Qwen/Qwen3.6-27B",
+        "base_model:adapter:Qwen/Qwen3.6-27B",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us"
+      ],
+      "params_b_guess": 27.0,
+      "tier": "large (25-70B)",
+      "downloads": 227214,
+      "likes": 317,
+      "last_updated": null,
+      "url": "https://huggingface.co/Jackrong/Qwopus3.6-27B-v2-MTP-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "google/gemma-4-26B-A4B-it-qat-q4_0-gguf",
+      "name": "gemma-4-26B-A4B-it-qat-q4_0-gguf",
+      "size_tags": [
+        "transformers",
+        "gguf",
+        "image-text-to-text",
+        "base_model:google/gemma-4-26B-A4B-it-qat-q4_0-unquantized",
+        "base_model:quantized:google/gemma-4-26B-A4B-it-qat-q4_0-unquantized",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 26.0,
+      "tier": "large (25-70B)",
+      "downloads": 225492,
+      "likes": 71,
+      "last_updated": null,
+      "url": "https://huggingface.co/google/gemma-4-26B-A4B-it-qat-q4_0-gguf"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "Qwen/Qwen2.5-7B-Instruct-GGUF",
+      "name": "Qwen2.5-7B-Instruct-GGUF",
+      "size_tags": [
+        "gguf",
+        "chat",
+        "text-generation",
+        "en",
+        "arxiv:2407.10671",
+        "base_model:Qwen/Qwen2.5-7B-Instruct",
+        "base_model:quantized:Qwen/Qwen2.5-7B-Instruct",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "downloads": 223001,
+      "likes": 152,
+      "last_updated": null,
+      "url": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "Qwen/Qwen2.5-1.5B-Instruct-GGUF",
+      "name": "Qwen2.5-1.5B-Instruct-GGUF",
+      "size_tags": [
+        "gguf",
+        "chat",
+        "text-generation",
+        "en",
+        "arxiv:2407.10671",
+        "base_model:Qwen/Qwen2.5-1.5B-Instruct",
+        "base_model:quantized:Qwen/Qwen2.5-1.5B-Instruct",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 1.5,
+      "tier": "small (<=8B)",
+      "downloads": 222923,
+      "likes": 118,
+      "last_updated": null,
+      "url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "unsloth/Qwen2.5-VL-7B-Instruct-GGUF",
+      "name": "Qwen2.5-VL-7B-Instruct-GGUF",
+      "size_tags": [
+        "transformers",
+        "gguf",
+        "qwen2_5_vl",
+        "image-text-to-text",
+        "multimodal",
+        "unsloth",
+        "en",
+        "arxiv:2309.00071",
+        "arxiv:2409.12191",
+        "arxiv:2308.12966",
+        "base_model:Qwen/Qwen2.5-VL-7B-Instruct",
+        "base_model:quantized:Qwen/Qwen2.5-VL-7B-Instruct",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 7.0,
+      "tier": "small (<=8B)",
+      "downloads": 216821,
+      "likes": 187,
+      "last_updated": null,
+      "url": "https://huggingface.co/unsloth/Qwen2.5-VL-7B-Instruct-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "MaziyarPanahi/Qwen3-0.6B-GGUF",
+      "name": "Qwen3-0.6B-GGUF",
+      "size_tags": [
+        "gguf",
+        "mistral",
+        "quantized",
+        "2-bit",
+        "3-bit",
+        "4-bit",
+        "5-bit",
+        "6-bit",
+        "8-bit",
+        "GGUF",
+        "text-generation",
+        "base_model:Qwen/Qwen3-0.6B",
+        "base_model:quantized:Qwen/Qwen3-0.6B",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 0.6,
+      "tier": "small (<=8B)",
+      "downloads": 213393,
+      "likes": 12,
+      "last_updated": null,
+      "url": "https://huggingface.co/MaziyarPanahi/Qwen3-0.6B-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "DeepBeepMeep/LTX-2",
+      "name": "LTX-2",
+      "size_tags": [
+        "diffusion-single-file",
+        "onnx",
+        "safetensors",
+        "gguf",
+        "base_model:Lightricks/LTX-2",
+        "base_model:quantized:Lightricks/LTX-2",
+        "region:us"
+      ],
+      "params_b_guess": null,
+      "tier": "unknown",
+      "downloads": 212494,
+      "likes": 21,
+      "last_updated": null,
+      "url": "https://huggingface.co/DeepBeepMeep/LTX-2"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "LuffyTheFox/Qwen3.6-35B-A3B-Uncensored-Wasserstein-GGUF",
+      "name": "Qwen3.6-35B-A3B-Uncensored-Wasserstein-GGUF",
+      "size_tags": [
+        "gguf",
+        "uncensored",
+        "qwen3.6",
+        "moe",
+        "vision",
+        "multimodal",
+        "image-text-to-text",
+        "conversational",
+        "en",
+        "zh",
+        "multilingual",
+        "base_model:HauhauCS/Qwen3.6-35B-A3B-Uncensored-HauhauCS-Aggressive",
+        "base_model:quantized:HauhauCS/Qwen3.6-35B-A3B-Uncensored-HauhauCS-Aggressive",
+        "license:apache-2.0",
+        "endpoints_compatible",
+        "region:us",
+        "imatrix"
+      ],
+      "params_b_guess": 35.0,
+      "tier": "large (25-70B)",
+      "downloads": 211820,
+      "likes": 105,
+      "last_updated": null,
+      "url": "https://huggingface.co/LuffyTheFox/Qwen3.6-35B-A3B-Uncensored-Wasserstein-GGUF"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "speakleash/Bielik-11B-v3.0-Instruct-awq",
+      "name": "Bielik-11B-v3.0-Instruct-awq",
+      "size_tags": [
+        "transformers",
+        "safetensors",
+        "llama",
+        "text-generation",
+        "finetuned",
+        "gguf",
+        "conversational",
+        "multilingual",
+        "pl",
+        "en",
+        "sq",
+        "bel",
+        "bs",
+        "bg",
+        "hr",
+        "cs",
+        "da",
+        "et",
+        "fi",
+        "fr",
+        "el",
+        "es",
+        "is",
+        "lt",
+        "nl",
+        "de",
+        "no",
+        "pt",
+        "ru",
+        "ro",
+        "sr",
+        "hbs",
+        "sv",
+        "sk",
+        "sl",
+        "tr",
+        "uk",
+        "hu",
+        "it",
+        "lv",
+        "base_model:speakleash/Bielik-11B-v3.0-Instruct",
+        "base_model:quantized:speakleash/Bielik-11B-v3.0-Instruct",
+        "license:apache-2.0",
+        "text-generation-inference",
+        "compressed-tensors",
+        "region:us"
+      ],
+      "params_b_guess": 11.0,
+      "tier": "mid (9-24B)",
+      "downloads": 210305,
+      "likes": 1,
+      "last_updated": null,
+      "url": "https://huggingface.co/speakleash/Bielik-11B-v3.0-Instruct-awq"
+    },
+    {
+      "source": "huggingface_gguf",
+      "id": "Qwen/Qwen2.5-3B-Instruct-GGUF",
+      "name": "Qwen2.5-3B-Instruct-GGUF",
+      "size_tags": [
+        "gguf",
+        "chat",
+        "text-generation",
+        "en",
+        "arxiv:2407.10671",
+        "base_model:Qwen/Qwen2.5-3B-Instruct",
+        "base_model:quantized:Qwen/Qwen2.5-3B-Instruct",
+        "license:other",
+        "endpoints_compatible",
+        "region:us",
+        "conversational"
+      ],
+      "params_b_guess": 3.0,
+      "tier": "small (<=8B)",
+      "downloads": 210165,
+      "likes": 135,
+      "last_updated": null,
+      "url": "https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF"
+    }
+  ]
+}
